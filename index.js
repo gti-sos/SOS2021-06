@@ -1,3 +1,5 @@
+import 'indexStream.js'
+
 var cool = require("cool-ascii-faces");
 
 var express = require("express");
