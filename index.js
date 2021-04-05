@@ -63,9 +63,8 @@ app.get(BASE_API_PATH +"/television/loadInitialData", (req,res)=>{
 		for (var i=0;i <television.length;i++){
 			televisionInitial.push(television[i]);
 		}
-		console.log('Datos cargados correctamente')
-		return res.sendStatus(200).json(televisionInitial);
-});
+		console.log('Load Data')
+		return  res.send(JSON.stringify(televisionInitial,null,2));
 
 //GET a la lista de recursos
 app.get(BASE_API_PATH +"/television", (req,res)=>{ 
