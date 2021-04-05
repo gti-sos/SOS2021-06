@@ -36,9 +36,9 @@ app.get("/info/digitalstreaming-stats",(request,response)=>{
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var television = [];
+var televisionInitial = [];
 
-var televisionInitial = [
+var television = [
 	{
 		"groupTV" : "Telecinco",
 		"country" : "Spain",
