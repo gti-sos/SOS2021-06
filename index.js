@@ -58,7 +58,7 @@ var television = [
 	
 ];
 
-app.get(BASE_API_PATH +"/streaming-stats/loadInitialData", (req,res)=>{ 
+app.get(BASE_API_PATH +"/television/loadInitialData", (req,res)=>{ 
 	
 		for (var i=0;i <television.length;i++){
 			televisionInitial.push(television[i]);
