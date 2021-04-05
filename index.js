@@ -2,6 +2,8 @@ var cool = require("cool-ascii-faces");
 
 var express = require("express");
 
+var bodyParser = require("body-parser");
+
 var app= express();
 
 var port = (process.env.PORT || 10000);
@@ -11,6 +13,7 @@ var path = require("path");
 var BASE_API_PATH = "/api/v1";
 
 app.use("/",express.static(path.join(__dirname , "public")));
+app.use(bodyParser.json());
 
 app.get("/cool",(request,response)=>{
 	response.send(cool());
@@ -23,7 +26,7 @@ app.get("/info/television-stats",(request,response)=>{
 
 app.get("/info/onlinemedia-stats",(request,response)=>{
 	response.send("<!DOCTYPE html> <html> <body> <h2>Payment Platform Stats</h2> <table style=\"width:100%\"> <tr>  <th>name</th> <th>country</th> <th>year</th> <th>account price</th> <th>GPS mark</th> <th>subs</th> </tr> <tr> <td>Netflix</td> <td>Spain</td> <td>2020</td> <td>7,99€/month</td> <td>4,5</td> <td>4,2M</td> </tr> <tr> <td>HBO</td> <td>Spain</td> <td>2020</td> <td>8,99€/month</td> <td>2,5</td> <td>731k</td> </tr> <tr>  <td>Amazon Prime</td> <td>Spain</td> <td>2020</td> <td>3,99€/month</td> <td>4,4</td> <td>1,2M</td> </tr> <tr> <td>Disney Plus</td> <td>Spain</td>  <td>2020</td> <td>6,99€/month</td> <td>4,4</td> <td>1,2M</td> </tr> <tr>  <td>Rakuten</td> <td>Spain</td> <td>2020</td> <td>6,99€/month</td> <td>4,0</td> <td>2,2M</td> </tr> </table> </body> </html>");
-	console.log("New request to /cool has arrived");
+	
 });
 
 
@@ -32,6 +35,112 @@ app.get("/info/digitalstreaming-stats",(request,response)=>{
 	response.send("<!DOCTYPE html> <html> <body> <h2>Digital media stats</h2> <table style=\"width:100%\"> <tr> <th>country</th> <th>year</th>  <th>hours-viewed</th> <th>avg-age</th> <th>avg-audience</th> </tr> <tr> <td>Twitch</td> <td>spain</td> <td>2020</td> <td>18 410 000 000</td> <td>21</td> <td>2 500 000</td> </tr> <tr> <td>Twitch</td> <td>spain</td> <td>2019</td> <td>11 000 000 000</td> <td>21</td> <td>1 200 000</td> </tr> <tr> <td>YouTube</td> <td>spain</td> <td>2020</td> <td>6 190 000 000</td> <td>30</td> <td>871 000</td> </tr> <tr> <td>YouTube</td> <td>spain</td> <td>2019</td> <td>3 190 000 000</td> <td>30</td> <td>443 256</td> </tr> <tr> <td>Facebook</td> <td>spain</td> <td>2020</td> <td>3 100 000 000</td> <td>26</td> <td>408 000</td> </tr> <tr> <td>Facebook</td> <td>spain</td> <td>2019</td> <td>1 090 000 000</td> <td>26</td> <td>136 000</td> </tr> </table> </body></html>");
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var television = [
+	{
+		"groupTV" : "Telecinco",
+		"country" : "Spain",
+		"year" : 2019,
+		"cable/tv broadcast avg-audience-year" : 18200000,
+		"avg-age" : 58,
+		"avg-audience-month" : 2164000
+	},
+	{
+		"groupTV" : "Antena3",
+		"country" : "Spain",
+		"year" : 2020,
+		"cable/tv broadcast avg-audience-year" :  19800000,
+		"avg-age" : 57,
+		"avg-audience-month" : 2330000
+	}
+	
+];
+
+app.get(BASE_API_PATH+"/television/loadInitialData",(req,res)=>{
+    res.send(JSON.stringify(television,null,2)); 
+
+});
+
+//GET a la lista de recursos
+app.get(BASE_API_PATH +"/television", (req,res)=>{ 
+	res.send(JSON.stringify(television,null,2));
+});
+
+//POST a la lista de recursos
+app.post(BASE_API_PATH +"/television", (req,res)=>{ 
+	var newGroupTV = req.body;
+	console.log(`new GroupTV to be added: <${JSON.stringify(newGroupTV,null,2)}>`);
+	television.push(newGroupTV);
+	res.sendStatus(201);
+});
+
+//GET a un recurso 
+app.get(BASE_API_PATH +"/television/:groupTV/:year", (req,res)=>{ 
+	groupTV = req.params.groupTV;
+    year = req.params.year;
+    var newGroupTV = [];
+    for(var i=0; i < television.length; i++){
+        if(television[i].groupTV == groupTV && television[i].year== year){
+            newGroupTV.push(television[i]);
+        }
+	}
+	res.send(JSON.stringify(newGroupTV,null,2));
+	res.sendStatus(201);
+});
+
+//DELETE a un recurso
+app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+    groupTV = req.params.groupTV;
+    year = req.params.year;
+    var newGroupTV = [];
+    for(var i=0; i < television.length; i++){
+        if(television[i].groupTV == groupTV && television[i].year==year){
+            newGroupTV = television.splice(i, 1);
+            console.log(newGroupTV);
+        }
+    }
+    res.sendStatus(204);
+    res.send("Deleted " +groupTV+" "+year);
+    
+});
+
+//PUT a un recurso 
+app.put(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+    groupTV = req.params.groupTV;
+    year = req.params.year;
+    var newGroupTV = [];
+    for(var i=0; i<television.length; i++){
+		if(television[i].groupTV==groupTV && television[i].year==year){
+			television[i]=req.body;
+		}
+	}
+	res.send("Updated "+groupTV+" "+year);
+	res.sendStatus(200);
+});
+
+//POST a un recurso 
+app.post(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+    res.sendStatus(405);
+});
+
+// PUT a la lista de recursos 
+app.put(BASE_API_PATH+"/television",(req, res)=>{
+    res.sendStatus(405);
+});
+
+//DELETE a la lista de recursos 
+app.delete(BASE_API_PATH+"/television", (req,res)=>{
+    for(var i=0; i < television.length+1; i++){
+       television.pop();
+    }
+    res.send("Delete GroupTV data")
+    res.sendStatus(204); 
+});
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var streaming = [
 	{
 		"Platform" : "Twitch",
@@ -185,7 +294,9 @@ app.delete(BASE_API_PATH+"/streaming-stats", (req,res)=>{
 		res.sendStatus(200);
 	}
 });
-/////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(port,() => {
 	console.log("Server ready listening on port" + port)
