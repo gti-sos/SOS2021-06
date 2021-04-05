@@ -99,6 +99,6 @@ app.get(BASE_API_PATH +"/streaming", (req,res)=>{
 	res.send(JSON.stringify(streaming,null,2));
 });
 
-app.listen(PORT,()=>{
+app.listen(port,()=>{
 	console.log("Server ready at "+PORT);
 });
