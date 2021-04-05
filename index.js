@@ -58,12 +58,14 @@ var television = [
 	
 ];
 
-app.get(BASE_API_PATH+"/television/loadInitialData", (req, res)=>{   
-    for(var i=0;i<television.length;i++){
-        televisionInitial.push(television[i]);
-    }
-    res.send("Loaded Initial Data");
-    res.sendStatus(200);
+app.get(BASE_API_PATH +"/streaming-stats/loadInitialData", (req,res)=>{ 
+	if (televisionInitial.length == 0){
+		for (var i=0;i <television.length;i++){
+			televisionInitial.push(television[i]);
+		}
+		console.log('Datos cargados correctamente')
+		return res.sendStatus(200).json(televisionInitial);
+	}
 });
 
 //GET a la lista de recursos
