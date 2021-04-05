@@ -58,27 +58,24 @@ var television = [
 	
 ];
 
-app.get(BASE_API_PATH +"/television/loadInitialData", (req,res)=>{ 
-	//res.send(JSON.stringify(streaming,null,2));
-	if (television.length == 0){
-		for (var i=0;i <television.length;i++){
-			television.push(televisionInitial[i]);
-		}
-		console.log('Datos cargados correctamente')
-		return res.sendStatus(200).json(television);
-	}
+app.get(BASE_API_PATH+"/television/loadInitialData", (req, res)=>{   
+    for(var i=0;i<television.length;i++){
+        televisionInitial.push(television[i]);
+    }
+    res.send("Loaded Initial Data");
+    res.sendStatus(200);
 });
 
 //GET a la lista de recursos
 app.get(BASE_API_PATH +"/television", (req,res)=>{ 
-	res.send(JSON.stringify(television,null,2));
+	res.send(JSON.stringify(televisionInitial,null,2));
 });
 
 //POST a la lista de recursos
 app.post(BASE_API_PATH +"/television", (req,res)=>{ 
 	var newGroupTV = req.body;
 	console.log(`new GroupTV to be added: <${JSON.stringify(newGroupTV,null,2)}>`);
-	television.push(newGroupTV);
+	televisionInitial.push(newGroupTV);
 	res.sendStatus(201);
 });
 
@@ -88,8 +85,8 @@ app.get(BASE_API_PATH +"/television/:groupTV/:year", (req,res)=>{
     year = req.params.year;
     var newGroupTV = [];
     for(var i=0; i < television.length; i++){
-        if(television[i].groupTV == groupTV && television[i].year== year){
-            newGroupTV.push(television[i]);
+        if(televisionInitial[i].groupTV == groupTV && television[i].year== year){
+            newGroupTV.push(televisionInitial[i]);
         }
 	}
 	res.send(JSON.stringify(newGroupTV,null,2));
@@ -101,9 +98,9 @@ app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
     groupTV = req.params.groupTV;
     year = req.params.year;
     var newGroupTV = [];
-    for(var i=0; i < television.length; i++){
-        if(television[i].groupTV == groupTV && television[i].year==year){
-            newGroupTV = television.splice(i, 1);
+    for(var i=0; i < televisionInitial.length; i++){
+        if(televisionInitial[i].groupTV == groupTV && televisionInitial[i].year==year){
+            newGroupTV = televisionInitial.splice(i, 1);
             console.log(newGroupTV);
         }
     }
@@ -117,9 +114,9 @@ app.put(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
     groupTV = req.params.groupTV;
     year = req.params.year;
     var newGroupTV = [];
-    for(var i=0; i<television.length; i++){
-		if(television[i].groupTV==groupTV && television[i].year==year){
-			television[i]=req.body;
+    for(var i=0; i<televisionInitial.length; i++){
+		if(televisionInitial[i].groupTV==groupTV && televisionInitial[i].year==year){
+			televisionInitial[i]=req.body;
 		}
 	}
 	res.send("Updated "+groupTV+" "+year);
@@ -138,8 +135,8 @@ app.put(BASE_API_PATH+"/television",(req, res)=>{
 
 //DELETE a la lista de recursos 
 app.delete(BASE_API_PATH+"/television", (req,res)=>{
-    for(var i=0; i < television.length+1; i++){
-       television.pop();
+    for(var i=0; i < televisionInitial.length+1; i++){
+       televisionInitial.pop();
     }
     res.send("Delete GroupTV data")
     res.sendStatus(204); 
