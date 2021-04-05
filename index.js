@@ -8,6 +8,8 @@ var port = (process.env.PORT || 10000);
 
 var path = require("path");
 
+var BASE_API_PATH = "/api/v1";
+
 app.use("/",express.static(path.join(__dirname , "public")));
 
 app.get("/cool",(request,response)=>{
