@@ -9,7 +9,7 @@ app.use("/",express.static("./public"));
 
 var streaming = [
 	{
-		"GroupTV" : "Twitch",
+		"Platform" : "Twitch",
 		"country" : "Spain",
 		"year" : 2020,
 		"hours-viewed" : 18410000000,
@@ -17,7 +17,7 @@ var streaming = [
 		"avg-audience" : 2500000
 	},
 	{
-		"GroupTV" : "Twitch",
+		"Platform" : "Twitch",
 		"country" : "Spain",
 		"year" : 2019,
 		"hours-viewed" : 11000000000,
@@ -25,7 +25,7 @@ var streaming = [
 		"avg-audience" : 1200000
 	},
 	{
-		"GroupTV" : "YouTube",
+		"Platform" : "YouTube",
 		"country" : "Spain",
 		"year" : 2020,
 		"hours-viewed" : 61900000000,
@@ -33,7 +33,7 @@ var streaming = [
 		"avg-audience" : 871000
 	},
 	{
-		"GroupTV" : "YouTube",
+		"Platform" : "YouTube",
 		"country" : "Spain",
 		"year" : 2019,
 		"hours-viewed" : 31900000000,
@@ -41,7 +41,7 @@ var streaming = [
 		"avg-audience" : 443256
 	},
 	{
-		"GroupTV" : "Facebook",
+		"Platform" : "Facebook",
 		"country" : "Spain",
 		"year" : 2020,
 		"hours-viewed" : 31000000000,
@@ -49,7 +49,7 @@ var streaming = [
 		"avg-audience" : 408000
 	},
 	{
-		"GroupTV" : "Facebook",
+		"Platform" : "Facebook",
 		"country" : "Spain",
 		"year" : 2019,
 		"hours-viewed" : 1090000000,
@@ -59,8 +59,8 @@ var streaming = [
 	
 ];
 	
-app.get(BASE_API_PATH +"/television", (req,res)=>{ 
-	res.send(JSON.stringify(television,null,2));
+app.get(BASE_API_PATH +"/streaming", (req,res)=>{ 
+	res.send(JSON.stringify(streaming,null,2));
 });
 
 app.listen(PORT,()=>{
