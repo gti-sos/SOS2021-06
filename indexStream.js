@@ -59,8 +59,8 @@ var streaming = [
 	
 ];
 	
-app.get(BASE_API_PATH +"/television", (req,res)=>{ 
-	res.send(JSON.stringify(television,null,2));
+app.get(BASE_API_PATH +"/streaming", (req,res)=>{ 
+	res.send(JSON.stringify(streaming,null,2));
 });
 
 app.listen(PORT,()=>{
