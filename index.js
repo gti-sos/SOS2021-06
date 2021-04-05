@@ -1,4 +1,4 @@
-import "indexStream.js";
+import all from "indexStream.js";
 
 var cool = require("cool-ascii-faces");
 
