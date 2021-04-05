@@ -36,9 +36,12 @@ app.get("/info/digitalstreaming-stats",(request,response)=>{
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var televisionInitial = [];
+var television = [];
 
-var television = [
+
+app.get(BASE_API_PATH +"/streaming-stats/loadInitialData", (req,res)=>{ 
+
+var televisionInitial = [
 	{
 		"groupTV" : "Telecinco",
 		"country" : "Spain",
@@ -57,13 +60,11 @@ var television = [
 	}
 	
 ];
-
-app.get(BASE_API_PATH +"/streaming-stats/loadInitialData", (req,res)=>{ 
-		for (var i=0;i <television.length;i++){
-			televisionInitial.push(television[i]);
-		}
-		console.log('Datos cargados correctamente')
-		 res.send(JSON.stringify(televisionInitial,null,2));;
+	for (var i = 0; i < initialData.length; i++) {
+    television.push(televisionInitial[i]);
+  	}
+	console.log(`Loaded initial data: <${JSON.stringify(television, null, 2)}>`);
+  	return res.sendStatus(201);
 });
 
 //GET a la lista de recursos
