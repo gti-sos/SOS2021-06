@@ -135,13 +135,15 @@ app.put(BASE_API_PATH+"/television",(req, res)=>{
 
 //DELETE a la lista de recursos 
 app.delete(BASE_API_PATH+"/television", (req,res)=>{
-    for(var i=0; i < television.length+1; i++){
-       television.pop();
+    if (television.length == 0){
+        console.log("Nothing to delete");
+        res.sendStatus(405);
+    } else {
+        television.length = 0;
+        console.log("Deleted data");
+        res.sendStatus(200);
     }
-    res.send("Delete GroupTV data")
-    res.sendStatus(204); 
 });
-
 
 
 
