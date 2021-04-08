@@ -135,18 +135,23 @@ app.put(BASE_API_PATH+"/television",(req, res)=>{
 
 //DELETE a la lista de recursos 
 app.delete(BASE_API_PATH+"/television", (req,res)=>{
-    for(var i=0; i < television.length+1; i++){
-       television.pop();
+    if (television.length == 0){
+        console.log("Nothing to delete");
+        res.sendStatus(405);
+    } else {
+        television.length = 0;
+        console.log("Deleted data");
+        res.sendStatus(200);
     }
-    res.send("Delete GroupTV data")
-    res.sendStatus(204); 
 });
 
 
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var streaming = [
+var streaming = [];
+
+
+var streamingInitial = [
 	{
 		"Platform" : "Twitch",
 		"country" : "Spain",
@@ -162,60 +167,23 @@ var streaming = [
 		"hours-viewed" : 11000000000,
 		"avg-age" : 21,
 		"avg-audience" : 1200000
-	},
-	{
-		"Platform" : "YouTube",
-		"country" : "Spain",
-		"year" : 2020,
-		"hours-viewed" : 61900000000,
-		"avg-age" : 30,
-		"avg-audience" : 871000
-	},
-	{
-		"Platform" : "YouTube",
-		"country" : "Spain",
-		"year" : 2019,
-		"hours-viewed" : 31900000000,
-		"avg-age" : 30,
-		"avg-audience" : 443256
-	},
-	{
-		"Platform" : "Facebook",
-		"country" : "Spain",
-		"year" : 2020,
-		"hours-viewed" : 31000000000,
-		"avg-age" : 26,
-		"avg-audience" : 408000
-	},
-	{
-		"Platform" : "Facebook",
-		"country" : "Spain",
-		"year" : 2019,
-		"hours-viewed" : 1090000000,
-		"avg-age" : 26,
-		"avg-audience" : 136000
 	}
-	
 ];
-
-
-var strstats = [];
 
 
 
 //5,2
-app.get(BASE_API_PATH +"/streaming-stats/loadInitialData", (req,res)=>{ 
+
+app.get(BASE_API_PATH +"/streaming-stats/loadInitialData",(req,res)=>{ 
 	//res.send(JSON.stringify(streaming,null,2));
-	if (strstats.length == 0){
-		for (var i=0;i <strstats.length;i++){
-			strstats.push(streaming[i]);
-		}
-		console.log('Datos cargados correctamente')
-		return res.sendStatus(200).json(strstats);
+	for (var i=0;i <streamingInitial.length;i++){
+		streaming.push(streamingInitial[i]);
 	}
+	console.log('Datos cargados correctamente')
+	return res.sendStatus(200).json(streaming);
 });
 //6.1
-app.get(BASE_API_PATH +"/streaming", (req,res)=>{ 
+app.get(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
 	res.send(JSON.stringify(streaming,null,2));
 });
 
@@ -228,56 +196,66 @@ app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{
 });
 
 //6.3
-app.get(BASE_API_PATH +"/streaming-stats/:country/:year", (req,res)=>{
-	var pais = req.params.country;
+app.get(BASE_API_PATH +"/streaming-stats/:platform/:year", (req,res)=>{ 
+	var plataforma = req.params.platform;
 	var ano = req.params.year;
+	var newStat = [];
 	
-	for (var stat of streaming){
-		if (stat.country == pais && stat.ano == year){
-			return res.sendStatus(200).json(stat);
-		}
-		else {
-			res.sendStatus(404);
-		}
+    for(var i=0; i < streaming.length; i++){
+        if(streaming[i].platform == plataforma && streaming[i].year== ano){
+            newStat.push(streaming[i]);
+        }
 	}
+	res.send(JSON.stringify(newStat,null,2));
+	res.sendStatus(201);
 });
 
 //6.4
-app.delete(BASE_API_PATH+"/streaming-stats/:country/:year", (req,res)=>{
-	var pais = req.params.country;
+app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+    groupTV = req.params.groupTV;
+    year = req.params.year;
+    var newGroupTV = [];
+    for(var i=0; i < television.length; i++){
+        if(television[i].groupTV == groupTV && television[i].year==year){
+            newGroupTV = television.splice(i, 1);
+            console.log(newGroupTV);
+        }
+    }
+    res.sendStatus(204);
+    res.send("Deleted " +groupTV+" "+year);
+    
+});
+
+app.delete(BASE_API_PATH+"/streaming-stats/:platform/:year", (req,res)=>{
+	var platform = req.params.platform;
 	var ano = req.params.year;
-	
-	if (streaming.length != 0){
-		for (var i=0; i<streaming.length;i++){
-			if(streaming[i].country == pais && streaming[i].year == ano){
-				streaming.splice(i,1);
-				return res.sendStatus(200);
-			}
+	for (var i=0; i < streaming.length; i++){
+		if(streaming[i].platform == platform && streaming[i].year == ano){
+			streaming.splice(i,1);
+			res.send("Deleted " +platform+" "+ano);
+			return res.sendStatus(204);
 		}
 	}
 	return res.sendStatus(404);
 });
 
 //6.5
-app.put(BASE_API_PATH+"/streaming-stats/:country/:year", (req,res)=>{
-	var pais = req.params.country;
-	var ano = req.params.year;
-	var newStat = req.body;
-	
-	for(var i = 0; i<streaming.length;i++){
-		streaming[i]["country"] = pais;
-		streaming[i]["year"] = ano;
-		streaming[i]["hours-viewed"] = newStat['hours-viewed'];
-		streaming[i]["avg-age"] = newStat['avg-age'];
-		streaming[i]["avg-audience"] = newStat['avg-audience'];
-		res.sendStatus(200);
+app.put(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
+    platform = req.params.platform;
+    year = req.params.year;
+
+    for(var i=0; i<streaming.length; i++){
+		if(streaming[i].platform==platform && streaming[i].year==year){
+			streaming[i]=req.body;
+		}
 	}
-	
+	res.send("Updated "+platform+" "+year);
+	res.sendStatus(200);
 });
 
 //6.6
 
-app.post(BASE_API_PATH+"streaming-stats/:country/:year", (req, res) => {
+app.post(BASE_API_PATH+"/streaming-stats/:platform/:year", (req, res) => {
 	console.log("Metodo no permitido");
 	res.sendStatus(405);
 });
