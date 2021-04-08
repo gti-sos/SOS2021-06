@@ -151,7 +151,7 @@ var streaming = [];
 
 var streamingInitial = [
 	{
-		"platform" : "Twitch",
+		"Platform" : "Twitch",
 		"country" : "Spain",
 		"year" : 2020,
 		"hours-viewed" : 18410000000,
@@ -159,7 +159,7 @@ var streamingInitial = [
 		"avg-audience" : 2500000
 	},
 	{
-		"platform" : "Twitch",
+		"Platform" : "Twitch",
 		"country" : "Spain",
 		"year" : 2019,
 		"hours-viewed" : 11000000000,
