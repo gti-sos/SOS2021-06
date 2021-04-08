@@ -301,8 +301,9 @@ app.delete(BASE_API_PATH+"/streaming-stats", (req,res)=>{
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+var onlinemedia = [];
 
-var onlinemedia = [
+var onlinemediaInitial = [
 	{
 		"onlineMedia": "Netflix",
 		"country": "Spain",
@@ -350,19 +351,22 @@ var onlinemedia = [
 },
 
 ];
-	
-app.get(BASE_API_PATH+"/onlinemedia/loadInitialData",(req,res)=>{
-    res.send(JSON.stringify(onlinemedia,null,2)); 
 
+app.get(BASE_API_PATH+"/onlinemedia-stats/loadInitialData",(req,res)=>{
+ for(var i=0;i<onlinemediaInitial.length;i++){
+        onlinemedia.push(onlinemediaInitial[i]);
+    }
+    console.log("Loaded Initial Data");
+    res.sendStatus(200);
 });
 
 //GET a la lista de recursos
-app.get(BASE_API_PATH +"/onlinemedia", (req,res)=>{ 
+app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
 	res.send(JSON.stringify(onlinemedia,null,2));
 });
 
 //POST a la lista de recursos
-app.post(BASE_API_PATH +"/onlinemedia", (req,res)=>{ 
+app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
 	var newOnlineMedia = req.body;
 	console.log(`new OnlineMedia to be added: <${JSON.stringify(newOnlineMedia,null,2)}>`);
 	onlinemedia.push(newOnlineMedia);
@@ -370,7 +374,7 @@ app.post(BASE_API_PATH +"/onlinemedia", (req,res)=>{
 });
 
 //GET a un recurso 
-app.get(BASE_API_PATH +"/onlinemedia/:onlineMedia/:year", (req,res)=>{ 
+app.get(BASE_API_PATH +"/onlinemedia-stats/:onlineMedia/:year", (req,res)=>{ 
 	onlineMedia = req.params.onlineMedia;
     year = req.params.year;
     var newOnlineMedia = [];
@@ -384,7 +388,7 @@ app.get(BASE_API_PATH +"/onlinemedia/:onlineMedia/:year", (req,res)=>{
 });
 
 //DELETE a un recurso
-app.delete(BASE_API_PATH+"/onlinemedia/:onlineMedia/:year",(req, res)=>{
+app.delete(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
     onlineMedia = req.params.onlineMedia;
     year = req.params.year;
     var newOnlineMedia = [];
@@ -400,7 +404,7 @@ app.delete(BASE_API_PATH+"/onlinemedia/:onlineMedia/:year",(req, res)=>{
 });
 
 //PUT a un recurso 
-app.put(BASE_API_PATH+"/onlinemedia/:onlineMedia/:year",(req, res)=>{
+app.put(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
     onlineMedia = req.params.onlineMedia;
     year = req.params.year;
     var newOnlineMedia = [];
@@ -414,23 +418,28 @@ app.put(BASE_API_PATH+"/onlinemedia/:onlineMedia/:year",(req, res)=>{
 });
 
 //POST a un recurso 
-app.post(BASE_API_PATH+"/onlinemedia/:onlineMedia/:year",(req, res)=>{
+app.post(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
     res.sendStatus(405);
 });
 
 // PUT a la lista de recursos 
-app.put(BASE_API_PATH+"/onlinemedia",(req, res)=>{
+app.put(BASE_API_PATH+"/onlinemedia-stats",(req, res)=>{
     res.sendStatus(405);
 });
 
 //DELETE a la lista de recursos 
-app.delete(BASE_API_PATH+"/onlinemedia", (req,res)=>{
-    for(var i=0; i < onlinemedia.length+1; i++){
-       onlinemedia.pop();
-    }
-    res.send("Delete OnlineMedia data")
-    res.sendStatus(204); 
+app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
+	if (onlinemedia.length == 0){
+		console.log("No hay datos para borrar");
+		res.sendStatus(405);
+	} else {
+		onlinemedia.length = 0;
+		console.log("Datos borrados correctamente");
+		res.sendStatus(200);
+	}
 });
+
+
 
 
 
