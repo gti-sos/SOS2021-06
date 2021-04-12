@@ -1,3 +1,4 @@
+  
 name: CI
 
 on:
@@ -5,12 +6,12 @@ on:
     branches: [ main ]
 
 jobs:
-	integrationTests:
-    	runs-on: ubuntu-latest
-		steps:
-			- uses: actions/checkout@v2
-			- run: npm install
-			- run: npm start &
-			- run: npx newman run tests/IntegrationStream.json
-			- run: npx newman run tests/IntegrationTV.json
-			- run: npx newman run tests/OnlineTest.json
+  integrationTests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm start &
+	  - run: npx newman run tests/IntegrationStream.json
+	  - run: npx newman run tests/IntegrationTV.json
+	  - run: npx newman run tests/OnlineTest.json
