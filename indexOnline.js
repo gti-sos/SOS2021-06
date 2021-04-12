@@ -1,18 +1,12 @@
-var express = require("express");
 
-var bodyParser = require("body-parser");
-
-var PORT = (process.env.PORT || 1807);
 var BASE_API_PATH = "/api/v1";
 
-var app= express();
+module.exports.register = (app) => {
+var onlinemedia = [];
 
-app.use(bodyParser.json());
-app.use("/",express.static("./public"));
-
-var onlinemedia = [
+var onlinemediaInitial = [
 	{
-		"name": "Netflix",
+		"onlineMedia": "Netflix",
 		"country": "Spain",
 		"year": 2020,
 		"account price": "7,99 €/month",
@@ -21,7 +15,7 @@ var onlinemedia = [
 
 },
 {
-		"name": "HBO",
+		"onlineMedia": "HBO",
 		"country": "Spain",
 		"year": 2020,
 		"account price": "8,99 €/month",
@@ -30,7 +24,7 @@ var onlinemedia = [
 
 },
 {
-		"name": "Amazon Prime",
+		"onlineMedia": "Amazon Prime",
 		"country": "Spain",
 		"year": 2020,
 		"account price": "3,99 €/month",
@@ -39,7 +33,7 @@ var onlinemedia = [
 
 },
 {
-		"name": "Disney Plus",
+		"onlineMedia": "Disney Plus",
 		"country": "Spain",
 		"year": 2020,
 		"account price": "6,99 €/month",
@@ -48,7 +42,7 @@ var onlinemedia = [
 
 },
 {
-		"name": "Rakuten",
+		"onlineMedia": "Rakuten",
 		"country": "Spain",
 		"year": 2020,
 		"account price": "6,99 €/month",
@@ -58,88 +52,91 @@ var onlinemedia = [
 },
 
 ];
-	
-app.get(BASE_API_PATH+"/onlinemedia/loadInitialData",(req,res)=>{
-    res.send(JSON.stringify(onlinemedia,null,2)); 
 
+app.get(BASE_API_PATH+"/onlinemedia-stats/loadInitialData",(req,res)=>{
+ for(var i=0;i<onlinemediaInitial.length;i++){
+        onlinemedia.push(onlinemediaInitial[i]);
+    }
+    console.log("Loaded Initial Data");
+    res.sendStatus(200);
 });
 
 //GET a la lista de recursos
-app.get(BASE_API_PATH +"/onlinemedia", (req,res)=>{ 
+app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
 	res.send(JSON.stringify(onlinemedia,null,2));
 });
 
 //POST a la lista de recursos
-app.post(BASE_API_PATH +"/onlinemedia", (req,res)=>{ 
-	var newOnline = req.body;
-	console.log(`new OnlineMedia to be added: <${JSON.stringify(newOnline,null,2)}>`);
-	onlinemedia.push(newOnline);
+app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
+	var newOnlineMedia = req.body;
+	console.log(`new OnlineMedia to be added: <${JSON.stringify(newOnlineMedia,null,2)}>`);
+	onlinemedia.push(newOnlineMedia);
 	res.sendStatus(201);
 });
 
 //GET a un recurso 
-app.get(BASE_API_PATH +"/onlinemedia/:country/:year", (req,res)=>{ 
-	country = req.params.country;
+app.get(BASE_API_PATH +"/onlinemedia-stats/:onlineMedia/:year", (req,res)=>{ 
+	onlineMedia = req.params.onlineMedia;
     year = req.params.year;
-    var newOnline = [];
+    var newOnlineMedia = [];
     for(var i=0; i < onlinemedia.length; i++){
-        if(onlinemedia[i].country == country && onlinemedia[i].year== year){
-            newOnline.push(onlinemedia[i]);
+        if(onlinemedia[i].onlineMedia == onlineMedia && onlinemedia[i].year== year){
+            newOnlineMedia.push(onlinemedia[i]);
         }
 	}
-	res.send(JSON.stringify(newOnline,null,2));
+	res.send(JSON.stringify(newOnlineMedia,null,2));
 	res.sendStatus(201);
 });
 
 //DELETE a un recurso
-app.delete(BASE_API_PATH+"/onlinemedia/:country/:year",(req, res)=>{
-    country = req.params.country;
+app.delete(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
+    onlineMedia = req.params.onlineMedia;
     year = req.params.year;
-    var newOnline = [];
+    var newOnlineMedia = [];
     for(var i=0; i < onlinemedia.length; i++){
-        if(onlinemedia[i].country == country && onlinemedia[i].year==year){
-            newOnline = onlinemedia.splice(i, 1);
-            console.log(newOnline);
+        if(onlinemedia[i].onlineMedia == onlineMedia && onlinemedia[i].year==year){
+            newOnlineMedia = onlinemedia.splice(i, 1);
+            console.log(newOnlineMedia);
         }
     }
     res.sendStatus(204);
-    res.send("Deleted " +country+" "+year);
+    res.send("Deleted " +onlineMedia+" "+year);
     
 });
 
 //PUT a un recurso 
-app.put(BASE_API_PATH+"/onlinemedia/:country/:year",(req, res)=>{
-    country = req.params.country;
+app.put(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
+    onlineMedia = req.params.onlineMedia;
     year = req.params.year;
-    var newOnline = [];
+    var newOnlineMedia = [];
     for(var i=0; i<onlinemedia.length; i++){
-		if(onlinemedia[i].country==country && onlinemedia[i].year==year){
+		if(onlinemedia[i].onlineMedia==onlineMedia && onlinemedia[i].year==year){
 			onlinemedia[i]=req.body;
 		}
 	}
-	res.send("Updated "+country+" "+year);
+	res.send("Updated "+onlineMedia+" "+year);
 	res.sendStatus(200);
 });
 
 //POST a un recurso 
-app.post(BASE_API_PATH+"/onlinemedia/:country/:year",(req, res)=>{
+app.post(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
     res.sendStatus(405);
 });
 
 // PUT a la lista de recursos 
-app.put(BASE_API_PATH+"/onlinemedia",(req, res)=>{
+app.put(BASE_API_PATH+"/onlinemedia-stats",(req, res)=>{
     res.sendStatus(405);
 });
 
 //DELETE a la lista de recursos 
-app.delete(BASE_API_PATH+"/onlinemedia", (req,res)=>{
-    for(var i=0; i < onlinemedia.length+1; i++){
-       onlinemedia.pop();
-    }
-    res.send("Delete OnlineMedia data")
-    res.sendStatus(204); 
+app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
+	if (onlinemedia.length == 0){
+		console.log("No hay datos para borrar");
+		res.sendStatus(405);
+	} else {
+		onlinemedia.length = 0;
+		console.log("Datos borrados correctamente");
+		res.sendStatus(200);
+	}
 });
-
-app.listen(PORT,()=>{
-	console.log("Server ready at "+PORT);
-});
+};
