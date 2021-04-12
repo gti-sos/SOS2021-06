@@ -1,3 +1,5 @@
+var BASE_API_PATH = "/api/v1";
+
 module.exports.register = (app) => {
 	var streaming = [];
 
