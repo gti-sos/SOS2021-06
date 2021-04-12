@@ -58,7 +58,7 @@ var televisionInitial = [
 	
 ];
 
-app.get(BASE_API_PATH+"/television/loadInitialData",(req,res)=>{
+app.get(BASE_API_PATH+"/television-stats/loadInitialData",(req,res)=>{
  for(var i=0;i<televisionInitial.length;i++){
         television.push(televisionInitial[i]);
     }
@@ -67,12 +67,12 @@ app.get(BASE_API_PATH+"/television/loadInitialData",(req,res)=>{
 });
 
 //GET a la lista de recursos
-app.get(BASE_API_PATH +"/television", (req,res)=>{ 
+app.get(BASE_API_PATH +"/television-stats", (req,res)=>{ 
 	res.send(JSON.stringify(television,null,2));
 });
 
 //POST a la lista de recursos
-app.post(BASE_API_PATH +"/television", (req,res)=>{ 
+app.post(BASE_API_PATH +"/television-stats", (req,res)=>{ 
 	var newGroupTV = req.body;
 	console.log(`new GroupTV to be added: <${JSON.stringify(newGroupTV,null,2)}>`);
 	television.push(newGroupTV);
@@ -80,7 +80,7 @@ app.post(BASE_API_PATH +"/television", (req,res)=>{
 });
 
 //GET a un recurso 
-app.get(BASE_API_PATH +"/television/:groupTV/:year", (req,res)=>{ 
+app.get(BASE_API_PATH +"/television-stats/:groupTV/:year", (req,res)=>{ 
 	groupTV = req.params.groupTV;
     year = req.params.year;
     var newGroupTV = [];
@@ -94,7 +94,7 @@ app.get(BASE_API_PATH +"/television/:groupTV/:year", (req,res)=>{
 });
 
 //DELETE a un recurso
-app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+app.delete(BASE_API_PATH+"/television-stats/:groupTV/:year",(req, res)=>{
     groupTV = req.params.groupTV;
     year = req.params.year;
     var newGroupTV = [];
@@ -110,7 +110,7 @@ app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
 });
 
 //PUT a un recurso 
-app.put(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+app.put(BASE_API_PATH+"/television-stats/:groupTV/:year",(req, res)=>{
     groupTV = req.params.groupTV;
     year = req.params.year;
     var newGroupTV = [];
@@ -124,17 +124,17 @@ app.put(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
 });
 
 //POST a un recurso 
-app.post(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
+app.post(BASE_API_PATH+"/television-stats/:groupTV/:year",(req, res)=>{
     res.sendStatus(405);
 });
 
 // PUT a la lista de recursos 
-app.put(BASE_API_PATH+"/television",(req, res)=>{
+app.put(BASE_API_PATH+"/television-stats",(req, res)=>{
     res.sendStatus(405);
 });
 
 //DELETE a la lista de recursos 
-app.delete(BASE_API_PATH+"/television", (req,res)=>{
+app.delete(BASE_API_PATH+"/television-stats", (req,res)=>{
     if (television.length == 0){
         console.log("Nothing to delete");
         res.sendStatus(405);
