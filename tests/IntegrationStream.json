@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "a012c356-ef25-48e2-bf94-67760562ba46",
+		"name": "SOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET digitalstreaming-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET loadInitialdata",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/loadInitialdata",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"loadInitialdata"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
