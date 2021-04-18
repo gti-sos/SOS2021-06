@@ -17,8 +17,8 @@ db.find();
 var onlinemediaInitial = [
 	{
 		"online_media": "Netflix",
-		"country": "Spain",
-		"year": 2020,
+		"country": "France",
+		"year": 2021,
 		"account_price_per_month": 7.99,
 		"mark": 4.5,
 		"audience": 4200000,
@@ -64,14 +64,19 @@ var onlinemediaInitial = [
 ];
 
 db.insert(onlinemediaInitial);	
-	
-app.get(BASE_API_PATH+"/onlinemedia-stats/loadInitialData",(req,res)=>{
+
+app.get(BASE_API_PATH+"/loadInitialData", (req, res)=>{
+	db.insert(onlinemediaInitial);
+
+    res.send("Datos iniciados");
+});
+/*app.get(BASE_API_PATH+"/onlinemedia-stats/loadInitialData",(req,res)=>{
  for(var i=0;i<onlinemediaInitial.length;i++){
         onlinemedia.push(onlinemediaInitial[i]);
     }
     console.log("Loaded Initial Data");
     res.sendStatus(200);
-});
+});*/
 
 //GET a la lista de recursos
 app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
@@ -112,7 +117,29 @@ app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 });
 
 //GET a un recurso 
-app.get(BASE_API_PATH +"/onlinemedia-stats/:online_media/:year", (req,res)=>{ 
+	
+app.get(BASE_API_PATH+"/:country/:year", (req, res)=>{
+		var country = req.params.country;
+		var year = parseInt(req.params.year);
+        db.find({$and:[{country:country}, {year:year}]}, (err,onlineGet)=>{
+			if(err){
+				console.error("Error al acceder a la BBDD con GET");
+				res.sendStatus(500);
+			}else{
+				if(onlineGet.length==0){
+					res.sendStatus(404);
+				}
+				else{
+					var online_send = onlineGet.map((newOnlineMedia)=>{
+				return {online_media:newOnlineMedia.online_media,country:newOnlineMedia.country, year:newOnlineMedia.year, 			          								account_price_per_month:newOnlineMedia.account_price_per_month, mark:newOnlineMedia.mark, audience:newOnlineMedia.audience};
+				});
+				res.send(JSON.stringify(online_send,null,2));
+				}
+			}
+		
+		});
+    });
+/*app.get(BASE_API_PATH +"/onlinemedia-stats/:online_media/:year", (req,res)=>{ 
 	online_media = req.params.online_media;
     year = req.params.year;
     var newOnlineMedia = [];
@@ -123,7 +150,7 @@ app.get(BASE_API_PATH +"/onlinemedia-stats/:online_media/:year", (req,res)=>{
 	}
 	res.send(JSON.stringify(newOnlineMedia,null,2));
 	res.sendStatus(201);
-});
+});*/
 	
 app.get(BASE_API_PATH +"/onlinemedia-stats/:x", (req,res)=>{ 
 		var x = req.params.x;
@@ -167,7 +194,30 @@ app.delete(BASE_API_PATH+"/onlinemedia-stats/:online_media/:year",(req, res)=>{
 });
 
 //PUT a un recurso 
-app.put(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
+	
+app.put(BASE_API_PATH+"/platforms/:country/:year", function(req, res) { 
+	var country = req.params.country;
+    var year = parseInt(req.params.year);
+	var onlineUp = req.body;
+	
+	db.update({ $and: [{ country: country }, { year: year }] }, { $set: onlineUp }, {}, function (err, onlinePut) {
+		if (err) {
+			console.error("Error en la BBDD con PUT");
+			res.sendStatus(500);
+        } else {
+			if (onlinePut == 0) {
+				console.error("No encontrado");
+                res.sendStatus(404);
+            } else {
+				console.log("Actualizacion correcta");
+                res.sendStatus(200);
+            }
+        }
+    });
+        
+});
+
+/*app.put(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
     onlineMedia = req.params.onlineMedia;
     year = req.params.year;
     var newOnlineMedia = [];
@@ -178,12 +228,13 @@ app.put(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
 	}
 	res.send("Updated "+onlineMedia+" "+year);
 	res.sendStatus(200);
-});
+});*/
 
 //POST a un recurso 
-app.post(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
-    res.sendStatus(405);
-});
+app.post(BASE_API_PATH+"/:country/:year", (req,res)=>{
+
+        res.sendStatus(405);
+    });
 
 // PUT a la lista de recursos 
 app.put(BASE_API_PATH+"/onlinemedia-stats",(req, res)=>{
@@ -191,7 +242,21 @@ app.put(BASE_API_PATH+"/onlinemedia-stats",(req, res)=>{
 });
 
 //DELETE a la lista de recursos 
-app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
+	
+app.delete(BASE_API_PATH, (req,res)=>{
+    db.remove({}, {multi:true}, (err, onlineRemove)=>{
+    if (err){
+        console.error("Error en la BBDD con DELETE: "+err);
+    }else{
+        if(onlineRemove==0){
+            res.sendStatus(404);
+        }else{
+            res.sendStatus(200);
+        }
+    }
+});
+});
+/*app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
 	
 	if (onlinemedia.length == 0){
 		console.log("No hay datos para borrar");
@@ -201,5 +266,5 @@ app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
 		console.log("Datos borrados correctamente");
 		res.sendStatus(200);
 	}
-});
+});*/
 };
