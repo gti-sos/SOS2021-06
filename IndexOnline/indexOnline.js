@@ -6,48 +6,48 @@ var onlinemedia = [];
 
 var onlinemediaInitial = [
 	{
-		"onlineMedia": "Netflix",
+		"online_media": "Netflix",
 		"country": "Spain",
 		"year": 2020,
-		"account price": "7,99 €/month",
+		"account_price_per_month": 7.99,
 		"mark": 4.5,
-		"audience": "4,2M",
+		"audience": 4200000,
 
 },
 {
-		"onlineMedia": "HBO",
+		"online_media": "HBO",
 		"country": "Spain",
 		"year": 2020,
-		"account price": "8,99 €/month",
+		"account_price_per_month": 8.99,
 		"mark": 2.5,
-		"audience": "731k",
+		"audience": 731000,
 
 },
 {
-		"onlineMedia": "Amazon Prime",
+		"online_media": "Amazon Prime",
 		"country": "Spain",
 		"year": 2020,
-		"account price": "3,99 €/month",
+		"account_price_per_month": 3.99,
 		"mark": 4.4,
-		"audience": "1,2M",
+		"audience": 1200000,
 
 },
 {
-		"onlineMedia": "Disney Plus",
+		"online_media": "Disney Plus",
 		"country": "Spain",
 		"year": 2020,
-		"account price": "6,99 €/month",
+		"account_price_per_month": 6.99 ,
 		"mark": 4.4,
-		"audience": "1,2M",
+		"audience": 1200000,
 
 },
 {
-		"onlineMedia": "Rakuten",
+		"online_media": "Rakuten",
 		"country": "Spain",
 		"year": 2020,
-		"account price": "6,99 €/month",
+		"account_price_per_month": 6.99 ,
 		"mark": 4.0,
-		"audience": "2,2M",
+		"audience": 2200000,
 
 },
 
@@ -75,18 +75,30 @@ app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 });
 
 //GET a un recurso 
-app.get(BASE_API_PATH +"/onlinemedia-stats/:onlineMedia/:year", (req,res)=>{ 
-	onlineMedia = req.params.onlineMedia;
+app.get(BASE_API_PATH +"/onlinemedia-stats/:online_media/:year", (req,res)=>{ 
+	online_media = req.params.online_media;
     year = req.params.year;
     var newOnlineMedia = [];
     for(var i=0; i < onlinemedia.length; i++){
-        if(onlinemedia[i].onlineMedia == onlineMedia && onlinemedia[i].year== year){
+        if(onlinemedia[i].online_media == online_media && onlinemedia[i].year== year){
             newOnlineMedia.push(onlinemedia[i]);
         }
 	}
 	res.send(JSON.stringify(newOnlineMedia,null,2));
 	res.sendStatus(201);
 });
+	
+app.get(BASE_API_PATH +"/onlinemedia-stats/:x", (req,res)=>{ 
+		var x = req.params.x;
+		var newOnlineMedia = [];
+
+		for(var i=0; i < onlinemedia.length; i++){
+			if(onlinemedia[i].online_media == x || onlinemedia[i].country == x || onlinemedia[i].year == x || onlinemedia[i].account-price-per-month == x || 					onlinemedia[i].mark == x || onlinemedia[i].audience == x){
+				newOnlineMedia.push(onlinemedia[i]);
+			}
+		}
+		res.status(200).send(JSON.stringify(newOnlineMedia,null,2));
+	});
 
 //DELETE a un recurso
 app.delete(BASE_API_PATH+"/onlinemedia-stats/:onlineMedia/:year",(req, res)=>{
