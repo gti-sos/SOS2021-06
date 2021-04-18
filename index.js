@@ -41,7 +41,7 @@ var tv = require("./indexTV.js");
 tv.register(app);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var stream = require("./indexStream.js");
+var stream = require("./StreamingAPI/indexStream.js");
 
 stream.register(app);
 

@@ -6,20 +6,20 @@ module.exports.register = (app) => {
 
 	var streamingInitial = [
 		{
-			"Platform" : "Twitch",
+			"platform" : "Twitch",
 			"country" : "Spain",
 			"year" : 2020,
-			"hours-viewed" : 18410000000,
-			"avg-age" : 21,
-			"avg-audience" : 2500000
+			"hour_viewed" : 18410000000,
+			"avg_age" : 21,
+			"avg_audience" : 2500000
 		},
 		{
-			"Platform" : "Twitch",
+			"platform" : "Twitch",
 			"country" : "Spain",
 			"year" : 2019,
-			"hours-viewed" : 11000000000,
-			"avg-age" : 21,
-			"avg-audience" : 1200000
+			"hour_viewed" : 11000000000,
+			"avg_age" : 21,
+			"avg_audience" : 1200000
 		}
 	];
 	
@@ -57,10 +57,21 @@ module.exports.register = (app) => {
 				newStat.push(streaming[i]);
 			}
 		}
-		res.send(JSON.stringify(newStat,null,2));
-		res.sendStatus(201);
+		res.status(200).send(JSON.stringify(newStat,null,2));
 	});
+	
+	app.get(BASE_API_PATH +"/streaming-stats/:x", (req,res)=>{ 
+		var x = req.params.x;
+		var newStat = [];
 
+		for(var i=0; i < streaming.length; i++){
+			if(streaming[i].platform == x || streaming[i].country == x || streaming[i].year == x || streaming[i].hour_viewed == x || streaming[i].avg_age == x || streaming[i].avg_audience == x){
+				newStat.push(streaming[i]);
+			}
+		}
+		res.status(200).send(JSON.stringify(newStat,null,2));
+	});
+	
 	//6.4
 	app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
 		groupTV = req.params.groupTV;
