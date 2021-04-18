@@ -47,7 +47,7 @@ stream.register(app);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var onlinemed = require("./indexOnline.js");
+var onlinemed = require("./IndexOnline/indexOnline.js");
 
 onlinemed.register(app);
 
