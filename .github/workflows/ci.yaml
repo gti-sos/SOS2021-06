@@ -13,7 +13,7 @@ jobs:
       - run: npm install
       - run: npm start &
       - run: npx newman run tests/IntegrationStream.json
-	  
+
 integration_TV_Test:
     runs-on: ubuntu-latest
     steps:
@@ -29,4 +29,5 @@ integration_OnlineMedia_Test:
       - run: npm install
       - run: npm start &
       - run: npx newman run tests/OnlineTest.json
+
 	
