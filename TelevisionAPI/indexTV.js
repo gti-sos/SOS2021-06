@@ -7,15 +7,13 @@ var db = new Datastore();
 
 module.exports.register = (app) => {
 	
-//db.find();
-	
 var television = [];
 
 var televisionInitial = [
 	{
 		"groupTV" : "Telecinco",
 		"country" : "Spain",
-		"year" : 2019,
+		"year" : 2020,
 		"cable_tv_broadcast_avg_audience_year" : 18200000,
 		"avg_age" : 58,
 		"avg_audience_month" : 2164000
@@ -27,6 +25,38 @@ var televisionInitial = [
 		"cable_tv_broadcast_avg_audience_year" :  19800000,
 		"avg_age" : 57,
 		"avg_audience_month" : 2330000
+	},
+	{
+		"groupTV" : "La1",
+		"country" : "Spain",
+		"year" : 2020,
+		"cable_tv_broadcast_avg_audience_year" : 10500000,
+		"avg_age" : 60,
+		"avg_audience_month" : 1725000
+	},
+	{
+		"groupTV" : "Telecinco",
+		"country" : "Spain",
+		"year" : 2019,
+		"cable_tv_broadcast_avg_audience_year" : 13400000,
+		"avg_age" : 55,
+		"avg_audience_month" : 1923000
+	},
+	{
+		"groupTV" : "Antena3",
+		"country" : "Spain",
+		"year" : 2019,
+		"cable_tv_broadcast_avg_audience_year" :  1926000,
+		"avg_age" : 52,
+		"avg_audience_month" : 2330000
+	},
+	{
+		"groupTV" : "La1",
+		"country" : "Spain",
+		"year" : 2019,
+		"cable_tv_broadcast_avg_audience_year" : 1573000,
+		"avg_age" : 59,
+		"avg_audience_month" : 1725000
 	}
 	
 ];
@@ -47,7 +77,7 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 
 //GET a la lista de recursos
 	app.get(BASE_API_PATH +"/television-stats", (req,res)=>{
-		var dbquery = {};
+		var query = {};
         let offset = 0;
         let limit = Number.MAX_SAFE_INTEGER;
 		var i = 0;
@@ -63,61 +93,58 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
         }
 
         //BUSQUEDA
-		if(req.query.foodtype){
-			dbquery["groupTV"] = req.query.groupTV;
-			i++
+		if(req.query.groupTV){
+			query["groupTV"] = req.query.groupTV;
+			i++;
 		} 
         if(req.query.country){
-			 dbquery["country"]= req.query.country;
+			 query["country"]= req.query.country;
 			i++;
 		}
         if(req.query.year){
-			dbquery["year"] = parseInt(req.query.year);
-			i++
+			query["year"] = parseInt(req.query.year);
+			i++;
 		} 
         
         if(req.query.cable_tv_broadcast_avg_audience_year){
-			dbquery["cable_tv_broadcast_avg_audience_year"] = {$gte: parseInt(req.query.cable_tv_broadcast_avg_audience_year)};
-			i++
+			query["cable_tv_broadcast_avg_audience_year"] = parseInt(req.query.cable_tv_broadcast_avg_audience_year);
+			i++;
 		} 
 		
         if(req.query.avg_age){
-			dbquery["avg_age"] = {$gte:parseInt(req.query.avg_age)};
-			i++
+			query["avg_age"] = parseInt(req.query.avg_age);
+			i++;
 		} 
         if(req.query.avg_audience_month){
-			 dbquery["avg_audience_month"] ={$gte: parseInt(req.query.avg_audience_month)};
-			i++
+			 query["avg_audience_month"] =parseInt(req.query.avg_audience_month);
+			i++;
 		}
 	
 
-        dbFood.find(dbquery).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, foodconsumption) =>{
+        db.find(dbquery).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, television) =>{
 
             
 			if(err){
 				res.sendStatus(500);
 			}else{
-				if(foodconsumption.length==0){
+				if(television.length==0){
 					if(i==0){
-						res.send(JSON.stringify(foodconsumption,null,2));
+						res.send(JSON.stringify(television,null,2));
 					}else{
 						console.log();
 						res.sendStatus(404);
 					}
 				}
 				else{
-					foodconsumption.forEach((f)=>{
+					television.forEach((f)=>{
                 delete f._id
             		});
-					if(foodconsumption.length==1){
-						res.send(JSON.stringify(foodconsumption[0],null,2));
+					if(television.length==1){
+						res.send(JSON.stringify(television[0],null,2));
 					}
 					else{
-						res.send(JSON.stringify(foodconsumption,null,2));
-					}
-					
-				
-					
+						res.send(JSON.stringify(television,null,2));
+					}		
 				}
 			}
            
