@@ -67,7 +67,7 @@ var televisionInitial = [
 app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 	db.insert(televisionInitial);
 
-    res.status(200).send("Datos iniciados");
+    res.status(200).send("Loaded Initial Data");
 });
 
 
@@ -171,12 +171,17 @@ app.post(BASE_API_PATH +"/television-stats", (req,res)=>{
 	console.log(`new GroupTV to be added: <${JSON.stringify(newGroupTV,null,2)}>`);
 	db.find({groupTV:newGroupTV.groupTV,country:newGroupTV.country, year:newGroupTV.year, cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, avg_audience_month:newGroupTV. avg_audience_month}, (err,televisionPOST)=>{
 		if(err){
-			console.error("Error accediendo a la base de datos: " + err);
+			console.error("Error accessing the database: " + err);
 			res.sendStatus(500);
 		}else{
 			if(televisionPOST.length==0){
-				db.insert(newGroupTV);
-				res.sendStatus(201);
+				if (Object.keys(newGroupTV).length != 6){
+                        console.log("Error entering data");
+                        return res.sendStatus(400);
+                }else{
+					db.insert(newGroupTV);
+					res.sendStatus(201);
+				}
 			}else{
 				res.sendStatus(409);
 			}
@@ -202,32 +207,13 @@ app.get(BASE_API_PATH+"/television-stats/:groupTV/:year", (req, res)=>{
 					var television_send = televisionGET.map((newGroupTV)=>{
 				return {groupTV:newGroupTV.groupTV, country:newGroupTV.country, year:newGroupTV.year, 			          													cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, 				                    	avg_audience_month:newGroupTV.avg_audience_month};
 				});
-				res.status(201).send(JSON.stringify(television_send,null,2));
+				res.status(20).send(JSON.stringify(television_send,null,2));
 				}
 			}	
 		});
     });
 		
-//GET a un recurso 
-app.get(BASE_API_PATH +"/television-stats/:x", (req,res)=>{ 
-	var x = req.params.x;
-	db.find({ $or:[{groupTV:x, country:x, year:x, cable_tv_broadcast_avg_audience_year:x, avg_age:x, avg_audience_month:x}]}, (err,televisionGET)=>{
-			if(err){
-				console.error("Error accessing the database with GET: " + err);
-				res.sendStatus(500);
-			}else{
-				if(televisionGET.length==0){
-					res.sendStatus(404);
-				}
-				else{
-					var television_send = televisionGET.map((newGroupTV)=>{
-						return {groupTV:newGroupTV.groupTV, country:newGroupTV.country, year:newGroupTV.year, 			          													cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, 				                    	avg_audience_month:newGroupTV.avg_audience_month};
-				});
-				res.status(201).send(JSON.stringify(television_send,null,2));
-				}
-			}	
-		});
-	});
+	
 //DELETE a un recurso
 app.delete(BASE_API_PATH+"/television-stats/:groupTV/:year",(req, res)=>{
 		var groupTV = req.params.groupTV;
