@@ -59,7 +59,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/loadInitialdata",
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/loadInitialData",
 					"protocol": "https",
 					"host": [
 						"sos2021-06",
@@ -70,7 +70,289 @@
 						"api",
 						"v1",
 						"streaming-stats",
-						"loadInitialdata"
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Recurso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"platform\": \"Mixer\",\r\n\"country\": \"Spain\",\r\n\"year\": 2020,\r\n\"hour_viewed\": 0,\r\n\"avg_age\": 50,\r\n\"avg_audience\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Recurso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Twitch/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"Twitch",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Recurso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Mixer/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"Mixer",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Recurso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"platform\": \"Mixer\",\r\n\"country\": \"Spain\",\r\n\"year\": 2020,\r\n\"hour_viewed\": 0,\r\n\"avg_age\": 50,\r\n\"avg_audience\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Twitch/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"Twitch",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST No Válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"platform\": \"Mixer\",\r\n\"country\": \"Spain\",\r\n\"year\": 2020,\r\n\"hours_viewed\": 0,\r\n\"avg_age\": 50,\r\n\"avg_audience\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Twitch/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"Twitch",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT No Válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						""
 					]
 				}
 			},

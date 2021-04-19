@@ -41,7 +41,8 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 	db.insert(televisionInitial);
 
     res.status(200).send("Datos iniciados");
-	});
+});
+
 
 
 //GET a la lista de recursos
