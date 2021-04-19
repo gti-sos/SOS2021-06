@@ -6,13 +6,27 @@ on:
     branches: [ main ]
 
 jobs:
-  integrationTests:
+  integration_Stream_Tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm start &
       - run: npx newman run tests/IntegrationStream.json
+	  
+integration_TV_Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm start &
       - run: npx newman run tests/IntegrationTV.json
+      
+integration_OnlineMedia_Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm start &
       - run: npx newman run tests/OnlineTest.json
 	
