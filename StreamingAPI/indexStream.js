@@ -85,7 +85,7 @@ module.exports.register = (app) => {
         }
 
         //BUSQUEDA
-		if(req.query.groupTV){
+		if(req.query.platform){
 			query["platform"] = req.query.platform;
 			i++;
 		} 
@@ -98,7 +98,7 @@ module.exports.register = (app) => {
 			i++;
 		} 
         
-        if(req.query.cable_tv_broadcast_avg_audience_year){
+        if(req.query.hour_viewed){
 			query["hour_viewed"] = parseInt(req.query.hour_viewed);
 			i++;
 		} 
@@ -107,7 +107,7 @@ module.exports.register = (app) => {
 			query["avg_age"] = parseInt(req.query.avg_age);
 			i++;
 		} 
-        if(req.query.avg_audience_month){
+        if(req.query.avg_audience){
 			 query["avg_audience"] =parseInt(req.query.avg_audience);
 			i++;
 		}
@@ -132,10 +132,10 @@ module.exports.register = (app) => {
                 delete f._id
             		});
 					if(streaming.length==1){
-						res.send(JSON.stringify(streaming[0],null,2));
+						res.status(200).send(JSON.stringify(streaming[0],null,2));
 					}
 					else{
-						res.send(JSON.stringify(streaming,null,2));
+						res.status(200).send(JSON.stringify(streaming,null,2));
 					}		
 				}
 			}
@@ -183,7 +183,7 @@ module.exports.register = (app) => {
 					var stream_send = streamGet.map((newStreaming)=>{
 				return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
 				});
-				res.status(201).send(JSON.stringify(stream_send,null,2));
+				res.status(200).send(JSON.stringify(stream_send,null,2));
 				}
 			}	
 		});
