@@ -143,19 +143,19 @@ module.exports.register = (app) => {
     });
 	//POST A la lista de recursos
 	app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
-	var newStream = req.body;
+	var newStreaming = req.body;
 	console.log(`new Stream to be added: <${JSON.stringify(newStream,null,2)}>`);
-	db.find({online_media:newStream.online_media,country:newStream.country, year:newStream.year, account_price_per_month:newStream.account_price_per_month, mark:newStream.mark, audience:newStream.audience}, (err,streaming)=>{
+	db.find({platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience}, (err,streaming)=>{
 		if(err){
 			console.error("Error accediendo a la base de datos: " + err);
 			res.sendStatus(500);
 		}else{
 			if(streaming.length==0){
-				if (Object.keys(newStream).length != 6){
+				if (Object.keys(newStreaming).length != 6){
                     console.log("Error entering data");
                     return res.sendStatus(400);
                 } else{
-					db.insert(newStream);
+					db.insert(newStreaming);
 					res.sendStatus(201);
 				}
 			}else{
