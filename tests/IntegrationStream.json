@@ -6,41 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "GET digitalstreaming-stats",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
-					"protocol": "https",
-					"host": [
-						"sos2021-06",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streaming-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GET loadInitialdata",
 			"event": [
 				{
@@ -77,14 +42,148 @@
 			"response": []
 		},
 		{
+			"name": "GET digitalstreaming-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are 6 platforms\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Platform matches string Twitch\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Twitch\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats?platform=Twitch&year=2019=true",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					],
+					"query": [
+						{
+							"key": "platform",
+							"value": "Twitch"
+						},
+						{
+							"key": "year",
+							"value": "2019=true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"There are at most 3 platforms\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.below(4);;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats?limit=3&offset=2",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST Recurso",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -121,14 +220,18 @@
 			"response": []
 		},
 		{
-			"name": "GET Recurso",
+			"name": "GET Recurso Creado",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"platform\"&&\"country\"&&\"year\"&&\"hour_viewed\"&&\"avg_age\"&&\"avg_audience\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -139,7 +242,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Twitch/2020",
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Mixer/2020",
 					"protocol": "https",
 					"host": [
 						"sos2021-06",
@@ -150,7 +253,7 @@
 						"api",
 						"v1",
 						"streaming-stats",
-						"Twitch",
+						"Mixer",
 						"2020"
 					]
 				}
@@ -158,7 +261,96 @@
 			"response": []
 		},
 		{
-			"name": "DELETE Recurso",
+			"name": "POST Recurso Again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"platform\": \"Mixer\",\r\n\"country\": \"Spain\",\r\n\"year\": 2020,\r\n\"hour_viewed\": 0,\r\n\"avg_age\": 50,\r\n\"avg_audience\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"platform\": \"Mixer\",\r\n\"country\": \"Spain\",\r\n\"year\": 2020,\r\n\"hour_viewed\": 0,\r\n\"avg_age\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Recurso Creado",
 			"event": [
 				{
 					"listen": "test",
@@ -174,6 +366,43 @@
 			],
 			"request": {
 				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Mixer/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"streaming-stats",
+						"Mixer",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Recurso Borrado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "https://sos2021-06.herokuapp.com/api/v1/streaming-stats/Mixer/2020",
