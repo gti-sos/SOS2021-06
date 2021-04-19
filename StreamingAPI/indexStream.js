@@ -68,20 +68,79 @@ module.exports.register = (app) => {
 	});
 
 	//GET A la lista de recursos
-	app.get(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
-		db.find({}, (err,streaming)=>{
+	app.get(BASE_API_PATH +"/streaming-stats", (req,res)=>{
+		var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
+		var i = 0;
+		
+        //PAGINACIÓN
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
+        }
+
+        //BUSQUEDA
+		if(req.query.groupTV){
+			query["platform"] = req.query.platform;
+			i++;
+		} 
+        if(req.query.country){
+			 query["country"]= req.query.country;
+			i++;
+		}
+        if(req.query.year){
+			query["year"] = parseInt(req.query.year);
+			i++;
+		} 
+        
+        if(req.query.cable_tv_broadcast_avg_audience_year){
+			query["hour_viewed"] = parseInt(req.query.hour_viewed);
+			i++;
+		} 
+		
+        if(req.query.avg_age){
+			query["avg_age"] = parseInt(req.query.avg_age);
+			i++;
+		} 
+        if(req.query.avg_audience_month){
+			 query["avg_audience"] =parseInt(req.query.avg_audience);
+			i++;
+		}
+	
+
+        db.find(query).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, streaming) =>{
+
+            
 			if(err){
-				console.error("Error accediendo a la base de datos: " + err);
 				res.sendStatus(500);
 			}else{
-				var streaming_send = streaming.map((newStreaming)=>{
-					return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
-				});
-				res.status(200).send(JSON.stringify(streaming_send,null,2));
-
+				if(streaming.length==0){
+					if(i==0){
+						res.send(JSON.stringify(streaming,null,2));
+					}else{
+						console.log();
+						res.sendStatus(404);
+					}
+				}
+				else{
+					streaming.forEach((f)=>{
+                delete f._id
+            		});
+					if(streaming.length==1){
+						res.send(JSON.stringify(streaming[0],null,2));
+					}
+					else{
+						res.send(JSON.stringify(streaming,null,2));
+					}		
+				}
 			}
-		});
-	});
+        });
+    });
 	//POST A la lista de recursos
 	app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
 	var newStream = req.body;
@@ -92,35 +151,19 @@ module.exports.register = (app) => {
 			res.sendStatus(500);
 		}else{
 			if(streaming.length==0){
-				db.insert(newStream);
-				res.sendStatus(201);
+				if(newStream.length != 6){
+					res.sendStatus(400);
+				} else {
+					db.insert(newStream);
+					res.sendStatus(201);
+				}
 			}else{
 				res.sendStatus(409);
 			}
 		}
 	});
-	
-	
 });
 
-	/*
-	app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
-		var newStreaming = req.body;
-		console.log(`new Streaming to be added: <${JSON.stringify(newStreaming,null,2)}>`);
-		db.find({platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age,avg_audience:newStreaming.avg_audience}, (err,streaming)=>{
-			if(err){
-				console.error("Error accediendo a la base de datos: " + err);
-				res.sendStatus(500);
-			}else{
-				if(streaming.length==0){
-					db.insert(newStreaming);
-					res.sendStatus(201);
-				}else{
-					res.sendStatus(409);
-				}
-			}
-		});
-	});*/
 	
 
 	//GET A un recurso
