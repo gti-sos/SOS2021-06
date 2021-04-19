@@ -165,13 +165,8 @@ app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 			res.sendStatus(500);
 		}else{
 			if(onlinemedia.length==0){
-				if(newOnlineMedia.length != 6){
-                    res.sendStatus(400);
-                } else {
-                    db.insert(newOnlineMedia);
-                    res.sendStatus(201);
-                }
-				
+				db.insert(newOnlineMedia);
+				res.sendStatus(201);
 			}else{
 				res.sendStatus(409);
 			}
