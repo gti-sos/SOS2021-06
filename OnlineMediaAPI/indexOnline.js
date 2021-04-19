@@ -79,21 +79,81 @@ app.get(BASE_API_PATH+"/onlinemedia-stats/loadInitialData", (req, res)=>{
 });*/
 
 //GET a la lista de recursos
-app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
-	db.find({}, (err,onlinemedia)=>{
-		if(err){
-			console.error("Error accediendo a la base de datos: " + err);
-			res.sendStatus(500);
-		}else{
-			var onlinemedia_send = onlinemedia.map((newOnlineMedia)=>{
-				return {online_media:newOnlineMedia.online_media,country:newOnlineMedia.country, year:newOnlineMedia.year, 			          								account_price_per_month:newOnlineMedia.account_price_per_month, mark:newOnlineMedia.mark, audience:newOnlineMedia.audience};
-			});
-			res.send(JSON.stringify(onlinemedia_send,null,2));
-			
+app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
+		var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
+		var i = 0;
+		
+        //PAGINACIÓN
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
+        }
+
+        //BUSQUEDA
+		if(req.query.online_media){
+			query["onlineMedia"] = req.query.online_media;
+			i++;
+		} 
+        if(req.query.country){
+			 query["country"]= req.query.country;
+			i++;
 		}
-	});
+        if(req.query.year){
+			query["year"] = parseInt(req.query.year);
+			i++;
+		} 
+        
+        if(req.query.account_price_per_month){
+			query["account_price_per_month"] = parseInt(req.query.account_price_per_month);
+			i++;
+		} 
+		
+        if(req.query.mark){
+			query["mark"] = parseInt(req.query.mark);
+			i++;
+		} 
+        if(req.query.audience){
+			 query["audience"] =parseInt(req.query.audience);
+			i++;
+		}
 	
-});
+
+        db.find(query).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, onlinemedia) =>{
+
+            
+			if(err){
+				res.sendStatus(500);
+			}else{
+				if(onlinemedia.length==0){
+					if(i==0){
+						res.send(JSON.stringify(onlinemedia,null,2));
+					}else{
+						console.log();
+						res.sendStatus(404);
+					}
+				}
+				else{
+					onlinemedia.forEach((f)=>{
+                delete f._id
+            		});
+					if(onlinemedia.length==1){
+						res.send(JSON.stringify(onlinemedia[0],null,2));
+					}
+					else{
+						res.send(JSON.stringify(onlinemedia,null,2));
+					}		
+				}
+			}
+           
+        });
+
+    });
 
 //POST a la lista de recursos
 app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
@@ -105,8 +165,12 @@ app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 			res.sendStatus(500);
 		}else{
 			if(onlinemedia.length==0){
+				if(!newOnlineMedia.online_media||!newOnlineMedia.country|| !newOnlineMedia.year||!newOnlineMedia.account_price_per_month|| 								!newOnlineMedia.mark|| !newOnlineMedia.audience){
+					 res.sendStatus(400);
+				}else{
 				db.insert(newOnlineMedia);
 				res.sendStatus(201);
+				}
 			}else{
 				res.sendStatus(409);
 			}
