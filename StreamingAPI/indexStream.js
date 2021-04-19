@@ -10,52 +10,52 @@ module.exports.register = (app) => {
 
 	var streamingInitial = [
 		{
-			"Platform" : "Twitch",
+			"platform" : "Twitch",
 			"country" : "Spain",
 			"year" : 2020,
-			"hours-viewed" : 18410000000,
-			"avg-age" : 21,
-			"avg-audience" : 2500000
+			"hour_viewed" : 18410000000,
+			"avg_age" : 21,
+			"avg_audience" : 2500000
 		},
 		{
-			"Platform" : "Twitch",
+			"platform" : "Twitch",
 			"country" : "Spain",
 			"year" : 2019,
-			"hours-viewed" : 11000000000,
-			"avg-age" : 21,
-			"avg-audience" : 1200000
+			"hour_viewed" : 11000000000,
+			"avg_age" : 21,
+			"avg_audience" : 1200000
 		},
 		{
-			"Platform" : "YouTube",
+			"platform" : "YouTube",
 			"country" : "Spain",
 			"year" : 2020,
-			"hours-viewed" : 61900000000,
-			"avg-age" : 30,
-			"avg-audience" : 871000
+			"hour_viewed" : 61900000000,
+			"avg_age" : 30,
+			"avg_audience" : 871000
 		},
 		{
-			"Platform" : "YouTube",
+			"platform" : "YouTube",
 			"country" : "Spain",
 			"year" : 2019,
-			"hours-viewed" : 31900000000,
-			"avg-age" : 30,
-			"avg-audience" : 443256
+			"hour_viewed" : 31900000000,
+			"avg_age" : 30,
+			"avg_audience" : 443256
 		},
 		{
-			"Platform" : "Facebook",
+			"platform" : "Facebook",
 			"country" : "Spain",
 			"year" : 2020,
-			"hours-viewed" : 31000000000,
-			"avg-age" : 26,
-			"avg-audience" : 408000
+			"hour_viewed" : 31000000000,
+			"avg_age" : 26,
+			"avg_audience" : 408000
 		},
 		{
-			"Platform" : "Facebook",
+			"platform" : "Facebook",
 			"country" : "Spain",
 			"year" : 2019,
-			"hours-viewed" : 1090000000,
-			"avg-age" : 26,
-			"avg-audience" : 136000
+			"hour_viewed" : 1090000000,
+			"avg_age" : 26,
+			"avg_audience" : 136000
 		}
 	];
 	
