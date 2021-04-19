@@ -33,11 +33,12 @@ var televisionInitial = [
 
 //Cargar Datos iniciales
 	
-app.get(BASE_API_PATH+"television-stats/loadInitialData", (req, res)=>{
+app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 	db.insert(televisionInitial);
 
-     res.status(200).send("Loaded Initial Data");
+    res.status(200).send("Datos iniciados");
 });
+
 
 
 //GET a la lista de recursos
