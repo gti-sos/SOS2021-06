@@ -61,10 +61,7 @@ var televisionInitial = [
 	
 ];
 	
-	 
-
-
-
+	
 //Cargar Datos iniciales
 	
 app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
@@ -121,7 +118,7 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 		}
 	
 
-        db.find(dbquery).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, television) =>{
+        db.find(query).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, television) =>{
 
             
 			if(err){
