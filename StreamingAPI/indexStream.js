@@ -24,6 +24,38 @@ module.exports.register = (app) => {
 			"hour_viewed" : 11000000000,
 			"avg_age" : 21,
 			"avg_audience" : 1200000
+		},
+		{
+			"platform" : "YouTube",
+			"country" : "Spain",
+			"year" : 2020,
+			"hour_viewed" : 61900000000,
+			"avg_age" : 30,
+			"avg_audience" : 871000
+		},
+		{
+			"platform" : "YouTube",
+			"country" : "Spain",
+			"year" : 2019,
+			"hour_viewed" : 31900000000,
+			"avg_age" : 30,
+			"avg_audience" : 443256
+		},
+		{
+			"platform" : "Facebook",
+			"country" : "Spain",
+			"year" : 2020,
+			"hour_viewed" : 31000000000,
+			"avg_age" : 26,
+			"avg_audience" : 408000
+		},
+		{
+			"platform" : "Facebook",
+			"country" : "Spain",
+			"year" : 2019,
+			"hour_viewed" : 1090000000,
+			"avg_age" : 26,
+			"avg_audience" : 136000
 		}
 	];
 	
