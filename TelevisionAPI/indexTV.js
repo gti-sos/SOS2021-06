@@ -30,42 +30,15 @@ var televisionInitial = [
 	}
 	
 ];
-	
-
-	
-//Paginacion
-	/*
-app.get('/', (req, res) => {
-    let offset_param = parseInt(req.query.offset);
-    let limit_param = parseInt(req.query.limit);
-
-    let offset = isNaN(offset_param) ? 0 : offset_param;
-    let limit = isNaN(limit_param) ? 0 : limit_param;
-
-    db.find(documentFromParams(req.query), {_id: 0}).skip(offset).limit(limit).exec(function (err, docs) {
-        if(err){
-            console.error(err);
-            res.sendStatus(500);
-        }
-        else res.json(docs);
-    });
-})*/
 
 //Cargar Datos iniciales
 	
-app.get(BASE_API_PATH+"television-stats/loadInitialData", (req, res)=>{
+app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 	db.insert(televisionInitial);
 
-     res.status(200).send("Loaded Initial Data");
-});
-/*
-app.get(BASE_API_PATH+"/television-stats/loadInitialData",(req,res)=>{
- for(var i=0;i<televisionInitial.length;i++){
-        television.push(televisionInitial[i]);
-    }
-    console.log("Loaded Initial Data");
-    res.sendStatus(200);
-});*/
+    res.status(200).send("Datos iniciados");
+	});
+
 
 //GET a la lista de recursos
 app.get(BASE_API_PATH +"/television-stats", (req,res)=>{ 
