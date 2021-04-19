@@ -1,5 +1,9 @@
 var BASE_API_PATH = "/api/v1";
 
+var  Datastore = require("nedb");
+
+var db = new Datastore();
+
 module.exports.register = (app) => {
 	var streaming = [];
 
@@ -23,98 +27,138 @@ module.exports.register = (app) => {
 		}
 	];
 	
-	//5,2
+	
+	//Carga de datos inicial
+	app.get(BASE_API_PATH+"/streaming-stats/loadInitialData", (req, res)=>{
+	db.insert(streamingInitial);
 
-	app.get(BASE_API_PATH +"/streaming-stats/loadInitialData",(req,res)=>{ 
-		//res.send(JSON.stringify(streaming,null,2));
-		for (var i=0;i <streamingInitial.length;i++){
-			streaming.push(streamingInitial[i]);
-		}
-		console.log('Datos cargados correctamente')
-		return res.sendStatus(200).json(streaming);
+    res.status(200).send("Datos iniciados");
 	});
-	//6.1
+
+	//GET A la lista de recursos
 	app.get(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
-		res.send(JSON.stringify(streaming,null,2));
-	});
+		db.find({}, (err,streaming)=>{
+			if(err){
+				console.error("Error accediendo a la base de datos: " + err);
+				res.sendStatus(500);
+			}else{
+				var streaming_send = streaming.map((newStreaming)=>{
+					return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
+				});
+				res.status(200).send(JSON.stringify(streaming_send,null,2));
 
-	//6.2
-	app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
-		var newStat = req.body;
-		console.log(`new stat to be added: <${JSON.stringify(newStat,null,2)}>`);
-		streaming.push(newStat);
-		res.sendStatus(201);
-	});
-
-	//6.3
-	app.get(BASE_API_PATH +"/streaming-stats/:platform/:year", (req,res)=>{ 
-		var plataforma = req.params.platform;
-		var ano = req.params.year;
-		var newStat = [];
-
-		for(var i=0; i < streaming.length; i++){
-			if(streaming[i].platform == plataforma && streaming[i].year== ano){
-				newStat.push(streaming[i]);
 			}
-		}
-		res.status(200).send(JSON.stringify(newStat,null,2));
+		});
+	});
+	//POST A la lista de recursos
+	app.post(BASE_API_PATH +"/streaming-stats", (req,res)=>{ 
+		var newStreaming = req.body;
+		console.log(`new Streaming to be added: <${JSON.stringify(newStreaming,null,2)}>`);
+		db.find({platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience}, (err,streaming)=>{
+			if(err){
+				console.error("Error accediendo a la base de datos: " + err);
+				res.sendStatus(500);
+			}else{
+				if(streaming.length==0){
+					db.insert(newStreaming);
+					res.sendStatus(201);
+				}else{
+					res.sendStatus(409);
+				}
+			}
+		});
 	});
 	
+
+	//GET A un recurso
+	app.get(BASE_API_PATH+"/streaming-stats/:platform/:year", (req, res)=>{
+		var plataforma = req.params.platform;
+		var ano = parseInt(req.params.year);
+        db.find({$and:[{platform:plataforma}, {year:ano}]}, (err,streamGet)=>{
+			if(err){
+				console.error("Error al acceder a la BBDD con GET");
+				res.sendStatus(500);
+			}else{
+				if(streamGet.length==0){
+					res.sendStatus(404);
+				}
+				else{
+					var stream_send = streamGet.map((newStreaming)=>{
+				return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
+				});
+				res.status(201).send(JSON.stringify(stream_send,null,2));
+				}
+			}	
+		});
+    });
+	
+	//GET A cualquier recurso
 	app.get(BASE_API_PATH +"/streaming-stats/:x", (req,res)=>{ 
 		var x = req.params.x;
-		var newStat = [];
-
+		db.find({ $or: [{ platform: x}, { year: x}, { country: x}, { hour_viewed: x}, { avg_age: x}, { avg_audience: x}]}, (err,streamGet)=>{
+			if(err){
+				console.error("Error al acceder a la BBDD con GET");
+				res.sendStatus(500);
+			}else{
+				if(streamGet.length==0){
+					res.sendStatus(404);
+				}
+				else{
+					var stream_send = streamGet.map((newStreaming)=>{
+						return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
+				});
+				res.status(201).send(JSON.stringify(stream_send,null,2));
+				}
+			}	
+		});
+		/*
 		for(var i=0; i < streaming.length; i++){
 			if(streaming[i].platform == x || streaming[i].country == x || streaming[i].year == x || streaming[i].hour_viewed == x || streaming[i].avg_age == x || streaming[i].avg_audience == x){
 				newStat.push(streaming[i]);
 			}
 		}
-		res.status(200).send(JSON.stringify(newStat,null,2));
+		res.status(200).send(JSON.stringify(newStat,null,2));*/
 	});
 	
-	//6.4
-	app.delete(BASE_API_PATH+"/television/:groupTV/:year",(req, res)=>{
-		groupTV = req.params.groupTV;
-		year = req.params.year;
-		var newGroupTV = [];
-		for(var i=0; i < television.length; i++){
-			if(television[i].groupTV == groupTV && television[i].year==year){
-				newGroupTV = television.splice(i, 1);
-				console.log(newGroupTV);
+	//DELETE A un recurso
+	app.delete(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
+		var plataforma = req.params.platform;
+		var ano = parseInt(req.params.year);
+		db.remove({$and:[{platform:plataforma}, {year:ano}]},{},(err,numDelete)=>{
+			if(err){
+				console.error("Error accediendo a la base de datos: " + err);
+				res.sendStatus(500);
+			}else{
+				if(numDelete==0){
+					res.sendStatus(409);
+				}else{
+					res.sendStatus(200);
+				}
 			}
-		}
-		res.sendStatus(204);
-		res.send("Deleted " +groupTV+" "+year);
-
+		});
 	});
 
-	app.delete(BASE_API_PATH+"/streaming-stats/:platform/:year", (req,res)=>{
-		var platform = req.params.platform;
-		var ano = req.params.year;
-		for (var i=0; i < streaming.length; i++){
-			if(streaming[i].platform == platform && streaming[i].year == ano){
-				streaming.splice(i,1);
-				res.send("Deleted " +platform+" "+ano);
-				return res.sendStatus(204);
+	//PUT A un recurso
+	app.put(BASE_API_PATH+"/onlinemedia-stats/:platform/:year", function(req, res) { 
+		var plataforma = req.params.platform;
+		var ano = parseInt(req.params.year);
+		var streamUp = req.body;
+
+		db.update({ $and: [{ platform: plataforma }, { year: ano }] }, { $set: streamUp }, {}, function (err, streamPut) {
+			if (err) {
+				console.error("Error en la BBDD con PUT");
+				res.sendStatus(500);
+			} else {
+				if (streamPut == 0) {
+					console.error("No encontrado");
+					res.sendStatus(404);
+				} else {
+					console.log("Actualizacion correcta");
+					res.sendStatus(200);
+				}
 			}
-		}
-		return res.sendStatus(404);
+		});
 	});
-
-	//6.5
-	app.put(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
-		platform = req.params.platform;
-		year = req.params.year;
-
-		for(var i=0; i<streaming.length; i++){
-			if(streaming[i].platform==platform && streaming[i].year==year){
-				streaming[i]=req.body;
-			}
-		}
-		res.send("Updated "+platform+" "+year);
-		res.sendStatus(200);
-	});
-
 	//6.6
 
 	app.post(BASE_API_PATH+"/streaming-stats/:platform/:year", (req, res) => {
@@ -128,15 +172,18 @@ module.exports.register = (app) => {
 		res.sendStatus(405);
 	});
 
-	//6.8
+	//DELETE A la lista de recursos
 	app.delete(BASE_API_PATH+"/streaming-stats", (req,res)=>{
-		if (streaming.length == 0){
-			console.log("No hay datos para borrar");
-			res.sendStatus(405);
-		} else {
-			streaming.length = 0;
-			console.log("Datos borrados correctamente");
-			res.sendStatus(200);
+		db.remove({}, {multi:true}, (err, streamRemove)=>{
+		if (err){
+			console.error("Error en la BBDD con DELETE: "+err);
+		}else{
+			if(streamRemove==0){
+				res.sendStatus(404);
+			}else{
+				res.sendStatus(200);
+			}
 		}
+		});
 	});
-}
+};
