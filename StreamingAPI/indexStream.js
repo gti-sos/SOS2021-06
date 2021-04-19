@@ -151,9 +151,10 @@ module.exports.register = (app) => {
 			res.sendStatus(500);
 		}else{
 			if(streaming.length==0){
-				if(newStream.length != 6){
-					res.sendStatus(400);
-				} else {
+				if (Object.keys(newStream).length != 6){
+                    console.log("Error entering data");
+                    return res.sendStatus(400);
+                } else{
 					db.insert(newStream);
 					res.sendStatus(201);
 				}
