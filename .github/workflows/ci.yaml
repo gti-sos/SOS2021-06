@@ -7,12 +7,13 @@ on:
 
 jobs:
   integrationTest:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm start &
-      - run: npx newman run tests/IntegrationStream.json && tests/IntegrationTV.json
+      - run: npx newman run tests/IntegrationStream.json 
+	  - run: npx newman run tests/IntegrationTV.json
 
 
 	
