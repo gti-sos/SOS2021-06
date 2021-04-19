@@ -34,6 +34,7 @@ var televisionInitial = [
 
 	
 //Paginacion
+	/*
 app.get('/', (req, res) => {
     let offset_param = parseInt(req.query.offset);
     let limit_param = parseInt(req.query.limit);
@@ -48,7 +49,7 @@ app.get('/', (req, res) => {
         }
         else res.json(docs);
     });
-})
+})*/
 
 //Cargar Datos iniciales
 	
