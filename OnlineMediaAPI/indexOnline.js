@@ -3,8 +3,18 @@ var BASE_API_PATH = "/api/v1";
 
 var  Datastore = require("nedb");
 
-var db = new Datastore();
 
+
+const path = require("path");
+const dbFile =path.join(__dirname,"indexTV.db");
+
+const db = new Datastore({
+					filename: dbFile, 
+					autoload: true,
+					autoload: true,
+					autoload: true,
+					autoload: true
+			});
 
 
 module.exports.register = (app) => {
