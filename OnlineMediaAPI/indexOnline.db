@@ -1,5 +1,10 @@
-{"online_media": "Netflix","country": "France","year": 2021,"account_price_per_month": 7.99,"mark": 4.5,"audience": 4200000}
-{"online_media": "HBO","country": "Spain","year": 2020,"account_price_per_month": 8.99,"mark": 2.5,"audience": 731000}
-{"online_media": "Amazon Prime","country": "Spain","year": 2020,"account_price_per_month": 3.99,"mark": 4.4,"audience": 1200000}
-{"online_media": "Disney Plus","country": "Spain","year": 2020,"account_price_per_month": 6.99 ,"mark": 4.4,"audience": 1200000}
-{"online_media": "Rakuten","country": "Spain","year": 2020,"account_price_per_month": 6.99 ,"mark": 4.0,"audience": 2200000}
+{"online_media":"Rakuten","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4,"audience":2200000,"_id":"2bGMpBZ00FhScWZ0"}
+{"online_media":"Amazon Prime","country":"Spain","year":2020,"account_price_per_month":3.99,"mark":4.4,"audience":1200000,"_id":"5CgFXmgg7kH6N89d"}
+{"online_media":"Netflix","country":"France","year":2021,"account_price_per_month":7.99,"mark":4.5,"audience":4200000,"_id":"9fEP3qV9m9zjnyn0"}
+{"online_media":"HBO","country":"Spain","year":2020,"account_price_per_month":8.99,"mark":2.5,"audience":731000,"_id":"S9mqzme082R912qB"}
+{"online_media":"Disney Plus","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4.4,"audience":1200000,"_id":"XxtNf8hhdDJ427sd"}
+{"$$deleted":true,"_id":"2bGMpBZ00FhScWZ0"}
+{"$$deleted":true,"_id":"5CgFXmgg7kH6N89d"}
+{"$$deleted":true,"_id":"9fEP3qV9m9zjnyn0"}
+{"$$deleted":true,"_id":"S9mqzme082R912qB"}
+{"$$deleted":true,"_id":"XxtNf8hhdDJ427sd"}
