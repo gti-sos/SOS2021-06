@@ -1,6 +1,12 @@
-{"groupTV" : "Telecinco","country" : "Spain","year" : 2020,"cable_tv_broadcast_avg_audience_year" : 18200000,"avg_age" : 58,"avg_audience_month" : 2164000}
-{"groupTV" : "Antena3","country" : "Spain","year" : 2020,"cable_tv_broadcast_avg_audience_year" :  19800000,"avg_age" : 57,"avg_audience_month" : 2330000}
-{"groupTV" : "La1","country" : "Spain","year" : 2020,"cable_tv_broadcast_avg_audience_year" : 10500000,"avg_age" : 60,"avg_audience_month" : 1725000}
-{"groupTV" : "Telecinco","country" : "Spain","year" : 2019,"cable_tv_broadcast_avg_audience_year" : 13400000,"avg_age" : 55,"avg_audience_month" : 1923000}
-{"groupTV" : "Antena3","country" : "Spain","year" : 2019,"cable_tv_broadcast_avg_audience_year" :  1926000,"avg_age" : 52,"avg_audience_month" : 2330000}
-{"groupTV" : "La1","country" : "Spain","year" : 2019,"cable_tv_broadcast_avg_audience_year" : 1573000,"avg_age" : 59,"avg_audience_month" : 1725000}
+{"groupTV":"Antena3","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1926000,"avg_age":52,"avg_audience_month":2330000,"_id":"Cu6oYSVqXg7NWwJo"}
+{"groupTV":"La1","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":10500000,"avg_age":60,"avg_audience_month":1725000,"_id":"GGC1IMwGTI4U4NoO"}
+{"groupTV":"Telecinco","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":13400000,"avg_age":55,"avg_audience_month":1923000,"_id":"gSUGItQLEtlRoVbS"}
+{"groupTV":"La1","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1573000,"avg_age":59,"avg_audience_month":1725000,"_id":"nU1ZrefLUMGP5zyY"}
+{"groupTV":"Telecinco","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":18200000,"avg_age":58,"avg_audience_month":2164000,"_id":"v48XJIZwqQdlrHFY"}
+{"groupTV":"Antena3","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":19800000,"avg_age":57,"avg_audience_month":2330000,"_id":"xOCAgWXNZJqwpt7A"}
+{"$$deleted":true,"_id":"Cu6oYSVqXg7NWwJo"}
+{"$$deleted":true,"_id":"GGC1IMwGTI4U4NoO"}
+{"$$deleted":true,"_id":"gSUGItQLEtlRoVbS"}
+{"$$deleted":true,"_id":"nU1ZrefLUMGP5zyY"}
+{"$$deleted":true,"_id":"v48XJIZwqQdlrHFY"}
+{"$$deleted":true,"_id":"xOCAgWXNZJqwpt7A"}
