@@ -202,20 +202,17 @@ app.post(BASE_API_PATH +"/television-stats", (req,res)=>{
 app.get(BASE_API_PATH+"/television-stats/:groupTV/:year", (req, res)=>{
 		var groupTV = req.params.groupTV;
 		var year = parseInt(req.params.year);
-        db.find({$and:[{groupTV:groupTV}, {year:year}]}, (err,televisionGet)=>{
+        db.find({$and:[{groupTV:groupTV}, {year:year}]},{ _id: 0 }, function (err, televisionGet){
 			if(err){
-				console.error("Error al acceder a la BBDD con GET");
+				console.error("Error accessing the database with GET: " + err );
 				res.sendStatus(500);
 			}else{
 				if(televisionGet.length==0){
 					res.sendStatus(404);
 				}
 				else{
-					var television_send = televisionGet.map((newGroupTV)=>{
-				return {groupTV:newGroupTV.groupTV,country:newGroupTV.country, year:newGroupTV.year, cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, avg_audience_month:newGroupTV. avg_audience_month};
-				});
-				res.send(JSON.stringify(television_send,null,2));
-				}
+          res.status(200).send(JSON.stringify(televisionGet[0], null, 2));
+        }
 			}
 		
 		});
