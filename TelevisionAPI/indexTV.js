@@ -200,7 +200,7 @@ app.post(BASE_API_PATH +"/television-stats", (req,res)=>{
 });
 	
 //GET a un recurso
-app.get(BASE_API_PATH+"/television-stats/:groupTV/:year", { _id: 0 }, function (err, televisionGet)
+app.get(BASE_API_PATH+"/television-stats/:groupTV/:year",(req, res)=>{
 		var groupTV = req.params.groupTV;
 		var year = parseInt(req.params.year);
         db.find({$and:[{groupTV:groupTV}, {year:year}]},{ _id: 0 }, function (err, televisionGet){
