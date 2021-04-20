@@ -206,7 +206,7 @@ app.get(BASE_API_PATH+"/television-stats/:groupTV/:year", (req, res)=>{
 					var television_send = televisionGet.map((newGroupTV)=>{
 				return {groupTV:newGroupTV.groupTV,country:newGroupTV.country, year:newGroupTV.year, cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, avg_audience_month:newGroupTV. avg_audience_month};
 				});
-				res.send(JSON.stringify(television_send,null,2));
+				res.send(JSON.stringify(television_send[0],null,2));
 				}
 			}
 		
