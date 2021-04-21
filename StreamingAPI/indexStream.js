@@ -183,39 +183,12 @@ module.exports.register = (app) => {
 					var stream_send = streamGet.map((newStreaming)=>{
 				return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
 				});
-				res.status(200).send(JSON.stringify(stream_send,null,2));
+				res.status(200).send(JSON.stringify(stream_send[0],null,2));
 				}
 			}	
 		});
     });
 	
-	//GET A cualquier recurso
-	app.get(BASE_API_PATH +"/streaming-stats/:x", (req,res)=>{ 
-		var x = req.params.x;
-		db.find({ $or: [{ platform: x}, { year: x}, { country: x}, { hour_viewed: x}, { avg_age: x}, { avg_audience: x}]}, (err,streamGet)=>{
-			if(err){
-				console.error("Error al acceder a la BBDD con GET");
-				res.sendStatus(500);
-			}else{
-				if(streamGet.length==0){
-					res.sendStatus(404);
-				}
-				else{
-					var stream_send = streamGet.map((newStreaming)=>{
-						return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
-				});
-				res.status(201).send(JSON.stringify(stream_send,null,2));
-				}
-			}	
-		});
-		/*
-		for(var i=0; i < streaming.length; i++){
-			if(streaming[i].platform == x || streaming[i].country == x || streaming[i].year == x || streaming[i].hour_viewed == x || streaming[i].avg_age == x || streaming[i].avg_audience == x){
-				newStat.push(streaming[i]);
-			}
-		}
-		res.status(200).send(JSON.stringify(newStat,null,2));*/
-	});
 	
 	//DELETE A un recurso
 	app.delete(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
