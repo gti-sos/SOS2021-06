@@ -39,12 +39,12 @@
 	<table>
         <thead>
              <tr>
-                <th>platform</th>
-                <th>country</th>
-                <th>year</th>
-                <th>hour_viewed</th>
-                <th>avg-age</th>
-                <th>avg_audience</th>
+                <th>plataforma</th>
+                <th>pais</th>
+                <th>año</th>
+                <th>horas vistas</th>
+                <th>edad media</th>
+                <th>audiencia media</th>
             </tr>
         </thead>
         <tbody>
