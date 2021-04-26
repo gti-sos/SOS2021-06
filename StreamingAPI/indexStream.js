@@ -168,27 +168,24 @@ module.exports.register = (app) => {
 	
 
 	//GET A un recurso
-	app.get(BASE_API_PATH+"/streaming-stats/:platform/:year", (req, res)=>{
+	app.get(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
 		var plataforma = req.params.platform;
 		var ano = parseInt(req.params.year);
-        db.find({$and:[{platform:plataforma}, {year:ano}]}, (err,streamGet)=>{
+        db.find({$and:[{platform:plataforma}, {year:ano}]},{ _id: 0 }, function (err, streamGet){
 			if(err){
-				console.error("Error al acceder a la BBDD con GET");
+				console.error("Error accessing the database with GET: " + err );
 				res.sendStatus(500);
 			}else{
 				if(streamGet.length==0){
 					res.sendStatus(404);
 				}
 				else{
-					var stream_send = streamGet.map((newStreaming)=>{
-				return {platform:newStreaming.platform,country:newStreaming.country, year:newStreaming.year, hour_viewed:newStreaming.hour_viewed, avg_age:newStreaming.avg_age, avg_audience:newStreaming.avg_audience};
-				});
-				res.status(200).send(JSON.stringify(stream_send[0],null,2));
-				}
-			}	
+          res.status(200).send(JSON.stringify(streamGet[0], null, 2));
+        }
+			}
+		
 		});
     });
-	
 	
 	//DELETE A un recurso
 	app.delete(BASE_API_PATH+"/streaming-stats/:platform/:year",(req, res)=>{
