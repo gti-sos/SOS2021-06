@@ -41,12 +41,12 @@
 	<table>
         <thead>
              <tr>
-                <th>online_media</th>
-                <th>country</th>
-                <th>year</th>
-                <th>account_price_per_month</th>
-                <th>mark</th>
-                <th>audience</th>
+                <th>Plataforma de Entretenimiento de Pago</th>
+                <th>País</th>
+                <th>Año</th>
+                <th>Precio mensual(€)</th>
+                <th>Nota en Google Play Store España</th>
+                <th>Audiencia</th>
             </tr>
         </thead>
         <tbody>
