@@ -27,7 +27,7 @@ db.find();
 var onlinemediaInitial = [
 	{
 		"online_media": "Netflix",
-		"country": "France",
+		"country": "Spain",
 		"year": 2021,
 		"account_price_per_month": 7.99,
 		"mark": 4.5,
