@@ -192,23 +192,20 @@ app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 
 //GET a un recurso 
 	
-app.get(BASE_API_PATH+"/onlinemedia-stats/:country/:year", (req, res)=>{
-		var country = req.params.country;
+app.get(BASE_API_PATH+"/onlinemedia-stats/:online_media/:year", (req, res)=>{
+		var online_media = req.params.online_media;
 		var year = parseInt(req.params.year);
-        db.find({$and:[{country:country}, {year:year}]}, (err,onlineGet)=>{
+        db.find({$and:[{online_media:online_media}, {year:year}]},{ _id: 0 }, function (err, onlineGet){
 			if(err){
-				console.error("Error al acceder a la BBDD con GET");
+				console.error("Error en la BBDD con GET: " + err );
 				res.sendStatus(500);
 			}else{
 				if(onlineGet.length==0){
 					res.sendStatus(404);
 				}
 				else{
-					var online_send = onlineGet.map((newOnlineMedia)=>{
-				return {online_media:newOnlineMedia.online_media,country:newOnlineMedia.country, year:newOnlineMedia.year, 			          								account_price_per_month:newOnlineMedia.account_price_per_month, mark:newOnlineMedia.mark, audience:newOnlineMedia.audience};
-				});
-				res.send(JSON.stringify(online_send,null,2));
-				}
+          res.status(200).send(JSON.stringify(onlineGet[0], null, 2));
+        }
 			}
 		
 		});
