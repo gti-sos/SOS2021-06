@@ -4,8 +4,20 @@
   "description": "- **Team**   - [Gonzalo Camacho Pérez de Sevilla](https://github.com/Goncamper)   - [Salvador Romero Merino](https://github.com/SalvadorRomMer)   - [Daniel Gallardo Carrión](https://github.com/dangalcar) - **Project description**: My awesome project - **Repository**: [gti-sos/SOS2021-06](https://github.com/gti-sos/SOS2021-06) - **URL**: [http://sos2021-00.herokuapp.com](http://sos2021-00.herokuapp.com) -  **APIs**:     - [https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-1/docs](https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-1/docs) (developed by [Student 1](https://github.com/404))     - [https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-2/docs](https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-2/docs) (developed by [Student 2](https://github.com/404))     - [https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-3/docs](https://sos2021-00.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Student 3](https://github.com/404))",
   "main": "index.js",
   "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
   },
   "repository": {
     "type": "git",
@@ -23,6 +35,8 @@
     "express": "^4.17.1",
     "nedb": "^1.8.0",
     "newman": "^5.2.2",
-    "start": "^5.1.0"
+    "start": "^5.1.0",
+    "svelte-spa-router": "^3.1.0",
+    "sveltestrap": "^3.14.1"
   }
 }

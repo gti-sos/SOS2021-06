@@ -54,7 +54,7 @@ onlinemed.register(app);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(port,() => {
-	console.log("Server ready listening on port" + port)
+	console.log("Server ready listening on port: " + port)
 });
 		
 console.log(cool());
