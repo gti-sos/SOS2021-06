@@ -43,7 +43,7 @@
                 <th>country</th>
                 <th>year</th>
                 <th>hour_viewed</th>
-                <th>avg-age</th>
+                <th>avg_age</th>
                 <th>avg_audience</th>
             </tr>
         </thead>
