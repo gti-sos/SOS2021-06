@@ -21,9 +21,6 @@ module.exports.register = (app) => {
 var onlinemedia = [];
 
 
-
-db.find();
-
 var onlinemediaInitial = [
 	{
 		"online_media": "Netflix",
@@ -31,7 +28,7 @@ var onlinemediaInitial = [
 		"year": 2021,
 		"account_price_per_month": 7.99,
 		"mark": 4.5,
-		"audience": 4200000,
+		"audience": 4200000
 
 },
 {
@@ -40,7 +37,7 @@ var onlinemediaInitial = [
 		"year": 2020,
 		"account_price_per_month": 8.99,
 		"mark": 2.5,
-		"audience": 731000,
+		"audience": 731000
 
 },
 {
@@ -49,7 +46,7 @@ var onlinemediaInitial = [
 		"year": 2020,
 		"account_price_per_month": 3.99,
 		"mark": 4.4,
-		"audience": 1200000,
+		"audience": 1200000
 
 },
 {
@@ -58,7 +55,7 @@ var onlinemediaInitial = [
 		"year": 2020,
 		"account_price_per_month": 6.99 ,
 		"mark": 4.4,
-		"audience": 1200000,
+		"audience": 1200000
 
 },
 {
@@ -67,9 +64,9 @@ var onlinemediaInitial = [
 		"year": 2020,
 		"account_price_per_month": 6.99 ,
 		"mark": 4.0,
-		"audience": 2200000,
+		"audience": 2200000
 
-},
+}
 
 ];
 
