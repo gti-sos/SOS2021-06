@@ -22,7 +22,7 @@
                 href="/api/v1/television-stats">/television-stats</a>
             (Realizado por: Daniel Gallardo Carrion) </li>
         <li>Enlace a la API: <a
-                href="/api/v1/renewablepowercapacities-stats">/onlinemedia-stats</a>
+                href="/api/v1/onlinemedia-stats">/onlinemedia-stats</a>
             (Realizado por: Salvador Romero Merino</li>
         <li>Enlace a la API: <a
                 href="/api/v1/streaming-stats">/streaming-stats</a>
