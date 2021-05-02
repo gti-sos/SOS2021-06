@@ -81,8 +81,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Country matches string France\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"France\");\r",
+							"pm.test(\"Country matches string Spain\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Spain\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -93,7 +93,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2021-06.herokuapp.com/api/v1/onlinemedia-stats?country=France&year=2021=true",
+					"raw": "https://sos2021-06.herokuapp.com/api/v1/onlinemedia-stats?country=Spain&year=2020=true",
 					"protocol": "https",
 					"host": [
 						"sos2021-06",
@@ -108,11 +108,11 @@
 					"query": [
 						{
 							"key": "country",
-							"value": "France"
+							"value": "Spain"
 						},
 						{
 							"key": "year",
-							"value": "2021=true"
+							"value": "2020=true"
 						}
 					]
 				}
