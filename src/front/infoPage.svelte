@@ -1,7 +1,7 @@
 <div class="container">
-    <h1 style="text-align: center; text-decoration: underline;">Información a los distintos enlaces del proyecto</h1><br>
+    <h1>Información a los distintos enlaces del proyecto</h1><br>
     <h4>Repositorio github SOS2021-06:</h4>
-    <p><a href="https://github.com/gti-sos/SOS2021-06">https://github.com/gti-sos/SOS2021-06</a>)</p>
+    <p><a href="https://github.com/gti-sos/SOS2021-06">https://github.com/gti-sos/SOS2021-06</a></p>
 
     <h4>Enlace a la pagina en Heroku</h4>
     <p><a href="https://sos2021-06.herokuapp.com">https://sos2021-06.herokuapp.com</a></p>
@@ -35,18 +35,22 @@
     <ul>
         <li>Enlace a github de Daniel Gallardo Carrion (television-stats): <a
                 href="https://github.com/dangalcar">https://github.com/dangalcar</a><br>
-                Documentación Postman: <a href="https://documenter.getpostman.com/view/9776351/TzJoELMw"> Aquí</a></li>
+                Documentación Postman: <a href="https://documenter.getpostman.com/view/9776351/TzJoELMw"> Aquí</a>.</li>
         <li>Enlace a github de Salvador Romero Merino (onlinemedia-stats): <a
                 href="https://github.com/SalvadorRomMer">https://github.com/SalvadorRomMer</a><br>
-                Documentación Postman: <a href="https://documenter.getpostman.com/view/9683549/TzJoE1Lc"> Aquí</a></li>
+                Documentación Postman: <a href="https://documenter.getpostman.com/view/9683549/TzJoE1Lc"> Aquí</a>.</li>
         <li>Enlace a github de Gonzalo Camacho Perez de Sevilla (streaming-stats): <a
                 href="https://github.com/Goncamper">https://github.com/Goncamper</a><br>
-                Documentación Postman: <a href="https://documenter.getpostman.com/view/14967656/TzJoE1Bg"> Aquí</a></li>
+                Documentación Postman: <a href="https://documenter.getpostman.com/view/14967656/TzJoE1Bg"> Aquí</a>.</li>
     </ul>
 </div>
 <style>
     .container{
         margin-top: 4em;
         margin-bottom: 4.6em;
+    }
+    h1{
+        text-align: center;
+        text-decoration: underline;
     }
 </style>

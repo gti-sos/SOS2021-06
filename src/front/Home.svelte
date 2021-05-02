@@ -141,7 +141,7 @@
 						<div class="card-body">
 							<h5 class="card-title">Daniel Gallardo Carrion</h5>
 							<p class="card-text" style="padding-top: 10%;">Link al GitHub del usuario.</p>
-							<a href="https://github.com/dangalcar" class="btn btn-primary" style="margin-left: 25%;">Go GitHub</a>
+							<a href="https://github.com/dangalcar" class="btn btn-primary" style="margin-left: 25%;">Ir a GitHub</a>
 						</div>
 					</div>
 					<div class="card" style="width: 16rem;">
@@ -151,7 +151,7 @@
 								Gonzalo Camacho Perez de Sevilla
 							</h5>
 							<p class="card-text">Link al GitHub del usuario.</p>
-							<a href="https://github.com/Goncamper" class="btn btn-primary" style="margin-left: 25%;">Go GitHub</a>
+							<a href="https://github.com/Goncamper" class="btn btn-primary" style="margin-left: 25%;">Ir a GitHub</a>
 						</div>
 					</div>
 					<div class="card" style="width: 16rem;">
@@ -159,7 +159,7 @@
 						<div class="card-body">
 							<h5 class="card-title">Salvador Romero Merino</h5>
 							<p class="card-text">Link al GitHub del usuario.</p>
-							<a href="https://github.com/SalvadorRomMer" class="btn btn-primary" style="margin-left: 25%;">Go GitHub</a>
+							<a href="https://github.com/SalvadorRomMer" class="btn btn-primary" style="margin-left: 25%;">Ir a GitHub</a>
 						</div>
 					</div>
 				</div>
