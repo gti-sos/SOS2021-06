@@ -37,17 +37,17 @@ app.get("/info/digitalstreaming-stats",(request,response)=>{
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var tv = require("./TelevisionAPI/indexTV.js");
+var tv = require("./src/back/TelevisionAPI/indexTV.js");
 tv.register(app);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var stream = require("./StreamingAPI/indexStream.js");
+var stream = require("./src/back/StreamingAPI/indexStream.js");
 
 stream.register(app);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var onlinemed = require("./OnlineMediaAPI/indexOnline.js");
+var onlinemed = require("./src/back/OnlineMediaAPI/indexOnline.js");
 
 onlinemed.register(app);
 
