@@ -7,6 +7,7 @@
       NavItem,
       NavLink,
       Table,
+      Button
     } from "sveltestrap";
 
     //Boton Cargar
@@ -21,11 +22,22 @@
 
     //API
     let televisionStats = [];
+    let newGroupTV ={
+            groupTV:"",
+            country:"",
+            year:"",
+            cable_tv_broadcast_avg_audience_year:"",
+            avg_age:"",
+            avg_audience_month:""
+    }
+
+    const BASE_CONTACT_API_PATH = "/api/v1";
+    
     //Functions
 
    async function loadInitialData() {
         console.log("Loading data...");
-        const res = await fetch("api/v1/television-stats/loadInitialData").then(
+        const res = await fetch(BASE_CONTACT_API_PATH+"/television-stats/loadInitialData").then(
         function (res) {
             if (res.ok) {
                 console.log("OK");
@@ -43,7 +55,7 @@
     }
     async function getGroupsTV() {
         console.log("Fetching data...");
-        const res = await fetch("api/v1/television-stats/");
+        const res = await fetch(BASE_CONTACT_API_PATH+"/television-stats");
         if (res.ok) {
             console.log("Ok.");
             const json = await res.json();
@@ -53,11 +65,11 @@
             console.log("Error!");
         }
     }
-    onMount(getGroupsTV);
+   
 
     async function deleteData() {
       console.log("Deleting data...");
-      const res = await fetch("api/v1/television-stats/", {
+      const res = await fetch(BASE_CONTACT_API_PATH+"/television-stats", {
         method: "DELETE",
       }).then(function (res) {
         if (res.ok) {
@@ -73,7 +85,34 @@
         }
       });
     }
-    getGroupsTV();
+
+    async function insertGroupTV(){
+        console.log("Inserting GroupTV "+ JSON.stringify(newGroupTV));
+
+        const res = await fetch(BASE_CONTACT_API_PATH+"/television-stats",
+                            {
+                                method: "POST",
+                                body: JSON.stringify(newGroupTV),
+                                headers:{
+                                    "Content-Type": "application/json"
+                                }
+                            }
+                           ).then( (res) => {
+                               getGroupsTV();
+                           })
+    }
+    async function deleteGroupTV(groupName,year){
+        console.log("Deleting GroupTV with name "+ groupName);
+
+        const res = await fetch(BASE_CONTACT_API_PATH+"/television-stats/"+groupName+"/"+year,
+                            {
+                                method: "DELETE"
+                            }
+                           ).then( (res) => {
+                               getGroupsTV();
+                           })
+    }
+    onMount(getGroupsTV);
   </script>
   
   <main>
@@ -82,8 +121,13 @@
         <NavLink href="/" type="button" class="btn btn-primary btn-sm" style= "margin: 1em">Volver</NavLink>
       </NavItem>
       <NavItem id="Boton">
-        <NavLink href="#" on:click={BotonCargar} id="Boton" type="button" class="btn btn-success btn-sm" style= "margin: 1em">
+        {#if televisionStats.length ===0}
+        <NavLink  href="#" on:click={BotonCargar} id="Boton" type="button" class="btn btn-success btn-sm" style= "margin: 1em">
+          Cargar datos iniciales</NavLink>
+        {:else}
+        <NavLink disabled href="#" on:click={BotonCargar} id="Boton" type="button" class="btn btn-success btn-sm" style= "margin: 1em">
             Cargar datos iniciales</NavLink>
+        {/if}
       </NavItem>
       <NavItem>
         {#if televisionStats.length ===0}
@@ -98,11 +142,8 @@
     </Nav>
 
   <!-- Table -->
-    {#if televisionStats.length === 0}
-      <p>Se necesita  cargar los datos.</p>
-    {:else}
-      <Table borderer>
-        <thead>
+    <Table bordered>
+      <thead>
           <tr>
             <th>GroupTV</th>
             <th>country</th>
@@ -111,21 +152,30 @@
             <th>avg-age</th>
             <th>avg audience month</th>
           </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
+          <tr>
+              <td><input bind:value="{newGroupTV.groupTV}"></td>
+              <td><input bind:value="{newGroupTV.country}"></td>
+              <td><input type="number" bind:value={newGroupTV.year}></td>
+              <td><input type="number" bind:value={newGroupTV.cable_tv_broadcast_avg_audience_year}></td>
+              <td><input type="number" bind:value={newGroupTV.avg_age}></td>
+              <td><input type="number" bind:value={newGroupTV.avg_audience_month}></td>
+              <td><Button on:click={insertGroupTV}>Insert</Button></td>
+          </tr>
           {#each televisionStats as stat}
-            <tr>
-                <td>{stat.groupTV}</td>
-                <td>{stat.country}</td>
-                <td>{stat.year}</td>
-                <td>{stat.cable_tv_broadcast_avg_audience_year}</td>
-                <td>{stat.avg_age}</td>
-                <td>{stat.avg_audience_month}</td>
-            </tr>
+              <tr>
+                  <td><a href="#/television-stats/{stat.groupTV}">{stat.groupTV}</a></td>
+                  <td>{stat.country}</td>
+                  <td>{stat.year}</td>
+                  <td>{stat.cable_tv_broadcast_avg_audience_year}</td>
+                  <td>{stat.avg_age}</td>
+                  <td>{stat.avg_audience_month}</td>
+                  <td><Button on:click={deleteGroupTV(stat.groupTV,stat.year)}>Delete</Button></td>
+              </tr>
           {/each}
-        </tbody><tbody />
-      </Table>
-    {/if}
+      </tbody>
+  </Table>
   </main>
   
   <style>
@@ -134,13 +184,5 @@
       padding: 3em;
       padding-top: 1em;
       margin: 0 auto;
-      
-    }
-    table {
-      text-align: center;
-      padding: 3em;
-      padding-top: 1em;
-      margin: 0 auto;
-      
     }
   </style>

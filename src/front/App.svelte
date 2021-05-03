@@ -1,6 +1,5 @@
 <script>
   
-	
 	import NotFound from "./NotFound.svelte";
 	import Home from './Home.svelte'
 	import Router from 'svelte-spa-router';
@@ -15,7 +14,8 @@
 		"/onlinemedia-stats": OnlineMediaApi,
 		"/streaming-stats": StreamingAPI,
 		"/info": InfoPage,
-		'*': NotFound};
+		'*': NotFound
+		};
 </script>
 
 <main>
