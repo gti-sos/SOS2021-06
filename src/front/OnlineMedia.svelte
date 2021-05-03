@@ -7,15 +7,11 @@
 
     import {
     Nav,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
     NavItem,
     NavLink,
     Button,
-    Table,
-    UncontrolledAlert ,
+    Table
+    
   } from "sveltestrap";
  
     //Boton Cargar
@@ -110,7 +106,7 @@
                            })
     }
     async function deleteOnlineMedia(groupName,year){
-        console.log("Deleting GroupTV with name "+ groupName);
+        console.log("Deleting OnlineMedia with name "+ groupName);
 
         const res = await fetch(BASE_CONTACT_API_PATH+"/onlinemedia-stats/"+groupName+"/"+year,
                             {
@@ -120,6 +116,33 @@
                             getOnlineMedia();
                            })
     }
+
+    async function updateOnlineMedia(groupName, year){
+      console.log("Editing OnlineMedia with name "+ groupName);
+            const res = await fetch(BASE_CONTACT_API_PATH+"/onlinemedia-stats/"+groupName + "/" + year, {
+                    method:"PUT",
+                    body:JSON.stringify(newOnlineMedia),
+                    headers:{
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (res) {
+                    visible=true;
+                    if (res.status == 200){
+                        console.log("Data updated");
+                        getOnlineMedia();
+                        color = "success";
+                        checkMSG ="Entrada modificada correctamente en la base de datos";
+                    }else if(res.status == 400){
+                        console.log("ERROR Data was not correctly introduced");
+                        color = "danger";
+                        checkMSG= "Los datos de la entrada no fueron introducidos correctamente";
+                    }else if(res.status == 409){
+                        console.log("ERROR There is already a data with that province and year in the da tabase");
+                        color = "danger";
+                        checkMSG= "Ya existe una entrada en la base de datos con los datos introducidos";
+                    }
+                });	
+            }
     
     onMount(getOnlineMedia);
 </script>
@@ -152,7 +175,7 @@
 	<table>
         <thead>
              <tr>
-                <th>Plataforma de Entretenimiento de Pago</th>
+                <th>Plataforma</th>
                 <th>País</th>
                 <th>Año</th>
                 <th>Precio mensual(€)</th>
@@ -162,8 +185,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value="{newOnlineMedia.online_media}"></td>
-                <td><input bind:value="{newOnlineMedia.country}"></td>
+                <td><input type="text" bind:value="{newOnlineMedia.online_media}"></td>
+                <td><input type="text" bind:value="{newOnlineMedia.country}"></td>
                 <td><input type="number" bind:value={newOnlineMedia.year}></td>
                 <td><input type="number" bind:value={newOnlineMedia.account_price_per_month}></td>
                 <td><input type="number" bind:value={newOnlineMedia.mark}></td>
@@ -179,6 +202,7 @@
                 <td>{stat.mark}</td>
                 <td>{stat.audience}</td>
                 <td><Button on:click={deleteOnlineMedia(stat.online_media,stat.year)}>Delete</Button></td>
+                <td><Button on:click={updateOnlineMedia(stat.online_media,stat.year)}>Update</Button></td>
             </tr>
             {/each}
         </tbody>
