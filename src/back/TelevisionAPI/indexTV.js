@@ -177,7 +177,9 @@ app.get(BASE_API_PATH +"/television-stats", (req,res)=>{
 app.post(BASE_API_PATH +"/television-stats", (req,res)=>{ 
 	var newGroupTV = req.body;
 	console.log(`new GroupTV to be added: <${JSON.stringify(newGroupTV,null,2)}>`);
-	db.find({groupTV:newGroupTV.groupTV,country:newGroupTV.country, year:newGroupTV.year, cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year, avg_age:newGroupTV.avg_age, avg_audience_month:newGroupTV. avg_audience_month}, (err,televisionPOST)=>{
+	db.find({groupTV:newGroupTV.groupTV,country:newGroupTV.country, year:newGroupTV.year, 
+		cable_tv_broadcast_avg_audience_year:newGroupTV.cable_tv_broadcast_avg_audience_year,
+		avg_age:newGroupTV.avg_age, avg_audience_month:newGroupTV. avg_audience_month}, (err,televisionPOST)=>{
 		if(err){
 			console.error("Error accessing the database: " + err);
 			res.sendStatus(500);

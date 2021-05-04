@@ -112,10 +112,24 @@
                             {
                                 method: "DELETE"
                             }
-                           ).then( (res) => {
-                            getOnlineMedia();
-                           })
-    }
+                           ).then(function(res){
+                            visible=true;
+                            if (res.status==200) {
+                                getOnlineMedia();
+                                console.log("Data Base deteled");
+                                color = "success";
+                                alertBox = "La OnlineMedia (" +groupName+") ha sido eliminado correctamente"
+                            } else if ((res.status = 404)) {
+                                console.log("ERROR Data not found in database");
+                                color = "danger";
+                                alertBox = "No existen datos para borrar"
+                            } else {
+                                console.log("ERROR");
+                                color = "danger";
+                                alertBox = "No se ha podido borrar los datos"
+                            }
+                            });
+                        }
 
     async function updateOnlineMedia(groupName, year){
       console.log("Editing OnlineMedia with name "+ groupName);
@@ -126,20 +140,17 @@
                         "Content-Type": "application/json"
                     }
                 }).then(function (res) {
-                    visible=true;
+                    
                     if (res.status == 200){
                         console.log("Data updated");
                         getOnlineMedia();
-                        color = "success";
-                        checkMSG ="Entrada modificada correctamente en la base de datos";
+                        
                     }else if(res.status == 400){
                         console.log("ERROR Data was not correctly introduced");
-                        color = "danger";
-                        checkMSG= "Los datos de la entrada no fueron introducidos correctamente";
+                        
                     }else if(res.status == 409){
                         console.log("ERROR There is already a data with that province and year in the da tabase");
-                        color = "danger";
-                        checkMSG= "Ya existe una entrada en la base de datos con los datos introducidos";
+                        
                     }
                 });	
             }

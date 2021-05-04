@@ -8,7 +8,17 @@
       NavItem,
       NavLink,
       Table,
+      Button
     } from "sveltestrap";
+
+    let newStream = {
+      platform: "",
+      country: "",
+      year:"",
+      hour_viewed:"",
+      avg_age:"",
+      avg_audience:""
+    }
 
     //Boton Cargar
     const BotonCargar = () => {
@@ -26,6 +36,7 @@
 
     async function loadInitialData() {
         console.log("Loading data...");
+        let error = 0;
         const res = await fetch("api/v1/streaming-stats/loadInitialData").then(
         function (res) {
             if (res.ok) {
@@ -54,6 +65,35 @@
         } else {
             console.log("Error!");
         }
+    }
+    onMount(getStreams);
+
+    async function insertStream(){
+        console.log("Inserting stream "+ JSON.stringify(newStream));
+
+        const res = await fetch("/api/v1/streaming-stats",
+                            {
+                                method: "POST",
+                                body: JSON.stringify(newStream),
+                                headers:{
+                                    "Content-Type": "application/json"
+                                }
+                            }
+                           ).then( (res) => {
+                               getStreams();
+                           })
+    }
+
+    async function deleteStream(streamPlatform,streamYear){
+        console.log("Deleting stream with platform "+ streamPlatform+" with year "+streamYear);
+
+        const res = await fetch("/api/v1/streaming-stats/"+streamPlatform+"/"+streamYear,
+                            {
+                                method: "DELETE"
+                            }
+                           ).then( (res) => {
+                               getStreams();
+                           })
     }
     onMount(getStreams);
 
@@ -116,14 +156,24 @@
           </tr>
         </thead>
         <tbody>
+            <tr>
+              <td><input bind:value="{newStream.platform}"></td>
+              <td><input bind:value="{newStream.country}"></td>
+              <td><input type="number" bind:value="{newStream.year}"></td>
+              <td><input type="number" bind:value="{newStream.hour_viewed}"></td>
+              <td><input type="number" bind:value="{newStream.avg_age}"></td>
+              <td><input type="number" bind:value="{newStream.avg_audience}"></td>
+              <td><Button on:click={insertStream}>Insert</Button></td>
+            </tr>
             {#each streamingStats as stat}
             <tr>
-                <td>{stat.platform}</td>
+                <td><a href="#/streaming-stats/{stat.platform}/{stat.year}">{stat.platform}</a></td>
                 <td>{stat.country}</td>
                 <td>{stat.year}</td>
                 <td>{stat.hour_viewed}</td>
                 <td>{stat.avg_age}</td>
                 <td>{stat.avg_audience}</td>
+                <td><Button on:click={deleteStream(stat.platform,stat.year)}>Delete</Button></td>
             </tr>
             {/each}
         </tbody><tbody />
@@ -133,13 +183,6 @@
 
 <style>
     main {
-      text-align: center;
-      padding: 3em;
-      padding-top: 1em;
-      margin: 0 auto;
-      
-    }
-    table {
       text-align: center;
       padding: 3em;
       padding-top: 1em;
