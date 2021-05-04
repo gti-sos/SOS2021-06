@@ -163,7 +163,7 @@
               <td><input type="number" bind:value="{newStream.hour_viewed}"></td>
               <td><input type="number" bind:value="{newStream.avg_age}"></td>
               <td><input type="number" bind:value="{newStream.avg_audience}"></td>
-              <td><Button on:click={insertStream}>Insert</Button></td>
+              <td><Button on:click={insertStream}>Insertar</Button></td>
             </tr>
             {#each streamingStats as stat}
             <tr>
@@ -173,7 +173,7 @@
                 <td>{stat.hour_viewed}</td>
                 <td>{stat.avg_age}</td>
                 <td>{stat.avg_audience}</td>
-                <td><Button on:click={deleteStream(stat.platform,stat.year)}>Delete</Button></td>
+                <td><Button on:click={deleteStream(stat.platform,stat.year)}>Borrar</Button></td>
             </tr>
             {/each}
         </tbody><tbody />

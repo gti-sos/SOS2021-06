@@ -92,12 +92,12 @@
                     <td><input type="number" bind:value="{updatedHours}"></td>
                     <td><input type="number" bind:value="{updatedAge}"></td>
                     <td><input type="number" bind:value="{updatedAudience}"></td>
-                    <td> <Button outline color="primary" on:click={updateStream}>Update</Button> </td>
+                    <td> <Button outline color="primary" on:click={updateStream}>Actualizar</Button> </td>
                 </tr>
         </tbody>
         </Table>
     {#if errorMsg}
         <p style="color: red">ERROR: {errorMsg}</p>
     {/if}
-    <Button outline color="secondary" on:click={pop}>Back</Button>
+    <Button outline color="secondary" on:click={pop}>Volver</Button>
 </main>
