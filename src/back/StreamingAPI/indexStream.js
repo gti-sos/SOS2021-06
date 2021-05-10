@@ -132,7 +132,7 @@ module.exports.register = (app) => {
                 delete f._id
             		});
 					if(streaming.length==1){
-						res.status(200).send(JSON.stringify(streaming[0],null,2));
+						res.status(200).send(JSON.stringify(streaming,null,2));
 					}
 					else{
 						res.status(200).send(JSON.stringify(streaming,null,2));
