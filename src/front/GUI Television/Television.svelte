@@ -5,7 +5,7 @@ import { is_empty } from "svelte/internal";
     PaginationLink,} from "sveltestrap";
 
 
-  const BASE_API_PATH = "/api/v1";
+  const BASE_API_PATH = "/api/v2";
 
   //Variables Alertas
   let visible = false;
@@ -423,7 +423,8 @@ import { is_empty } from "svelte/internal";
             <td><Button
                 outline
                 color="info"
-                on:click={editGroupTV(stat.groupTV, stat.year)}>Editar</Button
+                href="/#/television-stats/{stat.groupTV}/{stat.year}"
+                >Editar</Button
               ></td>
           </tr>
         {/each}

@@ -235,7 +235,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"online_media\": \"Netflix\",\r\n\"country\": \"France\",\r\n\"year\": 2021,\r\n\"account_price_per_month\": 7.99,\r\n\"mark\": 5\r\n\r\n}",
+					"raw": "{\r\n\"online_media\": \"Netflix\",\r\n\"country\": \"Spain\",\r\n\"year\": 2022,\r\n\"account_price_per_month\": 7.99,\r\n\"mark\": 5\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

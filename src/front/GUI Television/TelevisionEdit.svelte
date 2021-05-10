@@ -3,34 +3,35 @@
   
     import { Table, Button, Nav, NavItem, NavLink } from "sveltestrap";
   
-    const BASE_API_PATH = "/api/v1";
+    const BASE_API_PATH = "/api/v2";
     export let params = {};
+
     let stat = {};
-    let updatePlatform = "XXXX";
+    let updateGroupTV = "XXXX";
     let updateCountry = "XXXX";
     let updateYear = 0;
-    let updateHours = 0;
-    let updateAge = 0;
-    let updateAudience = 0;
+    let updateCable_tv_broadcast_avg_audience_year = 0;
+    let updateAvg_age = 0;
+    let updateAvg_audience_month = 0;
     let errorMsg = "";
     let okMsg = "";
     
     async function getStat() {
-      console.log("Fetching stat..." + params.streamPlatform + " " + params.streamYear);
+      console.log("Fetching stat..." + params.groupTV + " " + params.year);
       const res = await fetch(
-        BASE_API_PATH +"/streaming-stats/" + params.streamPlatform +"/" + params.streamYear
+        BASE_API_PATH +"/television-stats/" + params.groupTV +"/" + params.year
       );
   
       if (res.ok) {
         console.log("Ok:");
         const json = await res.json();
         stat = json;
-        updatePlatform = stat.platform;
+        updateGroupTV = stat.groupTV;
         updateCountry = stat["country"];
         updateYear = stat.year;
-        updateHours = stat["hour_viewed"];
-        updateAge = stat["avg_age"];
-        updateAudience = stat["avg_audience"];
+        updateCable_tv_broadcast_avg_audience_year = stat["cable_tv_broadcast_avg_audience_year"];
+        updateAvg_age = stat["avg_age"];
+        updateAvg_audience_month = stat["avg_audience_month"];
 
        
         console.log("Received stat.");
@@ -49,25 +50,22 @@
     async function updateStat() {
       console.log(
         "Updating stat..." +
-          JSON.stringify(params.streamPlatform) +
-          JSON.stringify(params.streamYear)
+          JSON.stringify(params.groupTV) +
+          JSON.stringify(params.year)
       );
   
       const res = await fetch(
         BASE_API_PATH +
-          "/streaming-stats/" +
-          params.streamPlatform +
-          "/" +
-          params.streamYear,
+          "/television-stats/" + params.groupTV + "/" + params.year,
         {
           method: "PUT",
           body: JSON.stringify({
-            "platform": params.streamPlatform,
+            "groupTV": params.groupTV,
             "country": updateCountry,
-            "year": parseInt(params.streamYear),
-            "hour_viewed": parseInt(updateHours),
-            "avg_age": parseInt(updateAge),
-            "avg_audience": parseInt(updateAudience),
+            "year": parseInt(params.year),
+            "cable_tv_broadcast_avg_audience_year": parseInt(updateCable_tv_broadcast_avg_audience_year),
+            "avg_age": parseInt(updateAvg_age),
+            "avg_audience_month": parseInt(updateAvg_audience_month),
             
           }),
           headers: {
@@ -101,34 +99,36 @@
   <main>
     <Nav>
       <NavItem>
-        <NavLink href="#/streaming-stats">Volver</NavLink>
+        <NavLink 
+        type="button"
+        class="btn btn-primary btn-sm"
+        href="#/television-stats">Volver</NavLink>
       </NavItem>
     </Nav>
   
     <h2>
-      Editar campo <strong>{params.streamPlatform}</strong>
-      <strong>{params.streamYear}</strong>
-    </h2>
+      Editar GrupoTV <strong>{params.groupTV}</strong> del año
+      <strong>{params.year}</strong>
+    </h2><br>
     <Table bordered>
       <thead>
         <tr>
-          <th>Plataforma</th>
+          <th>GrupoTV</th>
           <th>Pais</th>
           <th>Año</th>
-          <th>Horas vistas</th>
-          <th>Edad media</th>
-          <th>Audiencia media</th>
-          <th>Acciones</th>
+          <th>Cable/tv broadcast media audiencia/año</th>
+          <th>Media edad</th>
+          <th>Media audiencia/mes</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{updatePlatform}</td>
+          <td>{updateGroupTV}</td>
           <td><input type="text" bind:value={updateCountry} /></td>
           <td>{updateYear}</td>
-          <td><input type="number" bind:value={updateHours} /></td>
-          <td><input type="number" bind:value={updateAge} /></td>
-          <td><input type="number" bind:value={updateAudience} /></td>
+          <td><input type="number" bind:value={updateCable_tv_broadcast_avg_audience_year} /></td>
+          <td><input type="number" bind:value={updateAvg_age} /></td>
+          <td><input type="number" bind:value={updateAvg_audience_month} /></td>
 
           <td>
             <Button outline color="primary" on:click={updateStat}>Actualizar</Button>
@@ -148,7 +148,8 @@
   <style>
     main{
       text-align: center;
-      padding: 1em;
-      margin: 0 auto;
+    padding: 3em;
+    padding-top: 1em;
+    margin: 0 auto;
     }
   </style>
