@@ -1,11 +1,20 @@
 <script>
   import { onMount } from "svelte";
-  import { Nav, NavItem, NavLink, Table, Button, Alert } from "sveltestrap";
+import { is_empty } from "svelte/internal";
+  import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+    PaginationLink,} from "sveltestrap";
 
 
+  const BASE_API_PATH = "/api/v1";
+
+  //Variables Alertas
   let visible = false;
-  let color = "success";
+  let color = "";
   let alertBox = "";
+
+  function offAlert () {
+    visible = false;
+  }
 
   //Boton Cargar
   const BotonCargar = () => {
@@ -16,6 +25,38 @@
   const BotonBorrar = () => {
     deleteData();
   };
+
+
+  //Variables paginacion
+  let limit = 10;
+  let offset = 0;
+	let currentPage = 1; 
+	let moreData = true; 
+
+
+  function upOffset (numPag) {
+		offset += numPag;
+		currentPage += numPag;
+		getGroupsTV();
+	}
+
+  function downOffset () {
+		offset = 0;
+		currentPage = 1;
+		getGroupsTV();
+	}
+  
+  function deleteInputs() {
+    let reset= {
+    groupTV: "",
+    country: "",
+    year: "",
+    cable_tv_broadcast_avg_audience_year: "",
+    avg_age: "",
+    avg_audience_month: "",
+  };
+  newGroupTV=reset;
+  }
 
   //API
   let televisionStats = [];
@@ -28,9 +69,57 @@
     avg_audience_month: "",
   };
 
-  const BASE_API_PATH = "/api/v1";
   onMount(getGroupsTV);
+
+
   //Functions
+
+  async function SearchGroupsTV() {
+		let url = BASE_API_PATH+"/television-stats?"
+		console.log("Searching GroupTVs...");
+
+		let searchTV= {
+			groupTV: newGroupTV.groupTV,
+			country: newGroupTV.country,
+			year: parseInt(newGroupTV.year),
+			cable_tv_broadcast_avg_audience_year: parseInt(newGroupTV.cable_tv_broadcast_avg_audience_year),
+			avg_age: parseInt(newGroupTV.avg_age),
+			avg_audience_month: parseInt(newGroupTV.avg_audience_month),
+		};
+    
+    
+      Object.entries(searchTV).forEach(([x,y]) => {
+      if(isNaN(y) && !is_empty(y)){
+				url = url + "&" + x + "=" + y;
+      };
+      if(!isNaN(y) && (y)!=""){
+        url = url + "&" + x + "=" + y;
+      }
+		});
+
+		console.log(url);
+		const res = await fetch(url);
+		if (res.ok) {
+      visible=true;
+			console.log("Ok");
+			const json = await res.json();
+			televisionStats = json;
+			console.log("Received " + televisionStats.length + " groupsTV.");
+			if (televisionStats.length > 0){
+        color="success"
+				alertBox = "Se ha realizado la búsqueda.";
+				
+			}else{
+			  color="danger";
+				alertBox = "La búsqueda no ha obtenido resultados.";
+        getGroupsTV();
+			};
+			
+		} else {
+			console.log("ERROR!");
+		};
+    setTimeout(offAlert,1750);
+	};
 
   async function loadInitialData() {
     console.log("Loading data...");
@@ -43,26 +132,38 @@
         getGroupsTV();
         color = "success";
         alertBox = "Todos los datos han sido cargados correctamente"
+
       } else if (res.status == 409) {
         getGroupsTV();
         color = "danger";
         alertBox = "Conflicto al cargar los datos iniciales"
         console.log("Conflict");
+
       } else {
         getGroupsTV();
-        ecolor = "danger";
+        color = "danger";
         alertBox = "Error al cargar los datos iniciales"
         console.log("Error");
       }
     });
+    setTimeout(offAlert,1750);
   }
+
+
   async function getGroupsTV() {
     console.log("Fetching data...");
-    const res = await fetch(BASE_API_PATH + "/television-stats");
-    if (res.ok) {
+    const res = await fetch(BASE_API_PATH + "/television-stats?offset=" + limit * offset + "&limit=" + limit);
+    const resNext = await fetch(BASE_API_PATH + "/television-stats?offset=" + limit * (offset+1) + "&limit=" + limit);
+    if (res.ok && resNext.ok) {
       console.log("Ok.");
       const json = await res.json();
+      const jsonNext = await resNext.json();
       televisionStats = json;
+      if (jsonNext.length == 0) {
+              moreData = false;
+      } else {
+              moreData = true;
+            }
       console.log(`We have received ${televisionStats.length} groupsTV.`);
     } else {
       console.log("Error!");
@@ -75,29 +176,38 @@
       method: "DELETE",
     }).then(function (res) {
       visible=true;
+      downOffset();
       if (res.status==200) {
         console.log("Data Base deteled");
         televisionStats = [];
         color = "success";
         alertBox = "Todos los datos han sido borrados correctamente"
+       
       } else if ((res.status = 404)) {
         console.log("ERROR Data not found in database");
         color = "danger";
         alertBox = "No existen datos para borrar"
+     
       } else {
         console.log("ERROR");
         color = "danger";
         alertBox = "No se ha podido borrar los datos"
+      
       }
     });
+    setTimeout(offAlert,1750);
   }
 
   async function insertGroupTV(){
 		 
      console.log("Inserting new GroupTV...");
 
-     if (newGroupTV.groupTV == "" || newGroupTV.year == null) {
-        alert("Los campos 'GroupTV' y 'Año' no pueden estar vacios");
+     if (newGroupTV.groupTV == "" || newGroupTV.country=="" ||
+      newGroupTV.year==""|| newGroupTV.cable_tv_broadcast_avg_audience_year ==""||
+      newGroupTV.avg_age ==""||newGroupTV.avg_audience_month== "") {
+      visible=true;
+      color = "danger";
+      alertBox= "Error, existe algun campo vacio, debe rellenar todos los campos";
      }else {
          const res = await fetch(BASE_API_PATH + "/television-stats",{
              method:"POST",
@@ -106,51 +216,58 @@
                  "Content-Type": "application/json"
              }
          }).then(function (res) {
+             
              visible=true;
              if (res.status == 201){
                  getGroupsTV();
                  console.log("Data introduced");
                  color = "success";
                  alertBox="El grupoTV ("+ newGroupTV.groupTV +") ha sido introducido correctamente";
+                
              }else if(res.status == 400){
                  console.log("ERROR Data was not correctly introduced");
                  color = "danger";
                  alertBox= "Los datos no fueron introducidos correctamente";
+                 
              }else if(res.status == 409){
                  console.log("ERROR There is already a data with that GroupTV and year in the database");
                  color = "danger";
                  alertBox= "Ya existe una entrada con el mismo GroupTV y año introducido";
              }
-         });	
+         });
+         
+         deleteInputs();
      }
+     setTimeout(offAlert,3000);	
  }
 
 
   async function deleteGroupTV(groupName, year) {
-    console.log("Deleting GroupTV with name " + groupName);
+    console.log("Deleting GroupTV with name: " + groupName +"and year: " + year);
 
-    const res = await fetch(
-      BASE_API_PATH + "/television-stats/" + groupName + "/" + year,
-      {
+    const res = await fetch(BASE_API_PATH + "/television-stats/" + groupName + "/" + year,{
         method: "DELETE",
       }
     ).then(function(res){
+      getGroupsTV();
       visible=true;
-      if (res.status==200) {
-        getGroupsTV();
+      if (res.ok) {
         console.log("Data Base deteled");
         color = "success";
         alertBox = "El grupoTV (" +groupName+") ha sido eliminado correctamente"
+
       } else if ((res.status = 404)) {
         console.log("ERROR Data not found in database");
         color = "danger";
         alertBox = "No existen datos para borrar"
+        
       } else {
         console.log("ERROR");
         color = "danger";
         alertBox = "No se ha podido borrar los datos"
       }
     });
+    setTimeout(offAlert,1750);
   }
 
   async function editGroupTV(groupName, year) {
@@ -165,24 +282,30 @@
         },
       }
     ).then(function (res) {
-      visible = true;
+        visible = true;
       if (res.status == 200) {
         console.log("Data updated");
         getGroupsTV();
         color = "success";
         alertBox = "Datos modificados correctamente";
+       
       } else if (res.status == 400) {
         console.log("ERROR Data was not correctly introduced");
         color = "danger";
         alertBox ="Los datos de la entrada no fueron introducidos correctamente";
+        
       } else if (res.status == 409) {
         console.log("ERROR There is already a data with that province and year in the da tabase");
         color = "danger";
         alertBox ="Ya existe una entrada en la base de datos con los datos introducidos";
       }
     });
-  }
-  
+    setTimeout(offAlert,1750);
+    deleteInputs();
+
+    }
+
+ 
 </script>
 
 <main>
@@ -196,7 +319,7 @@
       >
     </NavItem>
     <NavItem id="Boton">
-      {#if televisionStats.length === 0}
+     <!-- {#if televisionStats.length === 0}-->
         <NavLink
           href="#"
           on:click={BotonCargar}
@@ -207,7 +330,7 @@
         >
           Cargar datos iniciales</NavLink
         >
-      {:else}
+     <!-- {:else}
         <NavLink
           disabled
           href="#"
@@ -219,8 +342,10 @@
         >
           Cargar datos iniciales</NavLink
         >
-      {/if}
+      {/if}-->
     </NavItem>
+
+
     <NavItem>
       {#if televisionStats.length === 0}
         <NavLink
@@ -248,7 +373,7 @@
   </Nav>
 
   <!-- Table -->
-  <Alert color={color} isOpen={visible} toggle={() => (visible = false)}>
+  <Alert color={color} isOpen={visible}  toggle={() => (visible = false)}>
     {#if alertBox}
     {alertBox}
     {/if}
@@ -270,58 +395,70 @@
       </thead>
       <tbody>
         <tr>
-          <td><input type="text" bind:value={newGroupTV.groupTV} /></td>
-          <td><input type="text" bind:value={newGroupTV.country} /></td>
-          <td><input type="number" bind:value={newGroupTV.year} /></td>
-          <td
-            ><input
-              type="number"
-              bind:value={newGroupTV.cable_tv_broadcast_avg_audience_year}
-            /></td
-          >
-          <td><input type="number" bind:value={newGroupTV.avg_age} /></td>
-          <td
-            ><input
-              type="number"
-              bind:value={newGroupTV.avg_audience_month}
-            /></td
-          >
-          <td
-            ><Button outline color="primary" on:click={insertGroupTV}
-              >Insertar</Button
-            ></td
-          >
+          <td><input class= new type="text" bind:value={newGroupTV.groupTV} /></td>
+          <td><input class= new type="text" bind:value={newGroupTV.country} /></td>
+          <td><input class= new type="number" bind:value={newGroupTV.year} /></td>
+          <td><input class= new type="number" bind:value={newGroupTV.cable_tv_broadcast_avg_audience_year}/></td>
+          <td><input class= new type="number" bind:value={newGroupTV.avg_age} /></td>
+          <td><input class= new type="number" bind:value={newGroupTV.avg_audience_month}/></td>
+
+          <td><Button outline color="primary" on:click={insertGroupTV}>Insertar</Button></td>
+          <td><Button color="primary" on:click={SearchGroupsTV(offset)}>Buscar</Button></td>
         </tr>
+
+
         {#each televisionStats as stat}
           <tr>
-            <td
-              ><a href="#/television-stats/{stat.groupTV}">{stat.groupTV}</a
-              ></td
-            >
+            <td>{stat.groupTV}</td>
             <td>{stat.country}</td>
             <td>{stat.year}</td>
             <td>{stat.cable_tv_broadcast_avg_audience_year}</td>
             <td>{stat.avg_age}</td>
             <td>{stat.avg_audience_month}</td>
-            <td
-              ><Button
+            <td><Button
                 outline
                 color="danger"
-                on:click={deleteGroupTV(stat.groupTV, stat.year)}>Borrar</Button
-              ></td
-            >
-            <td
-              ><Button
+                on:click={deleteGroupTV(stat.groupTV, stat.year)} >Borrar</Button
+              ></td>
+            <td><Button
                 outline
                 color="info"
                 on:click={editGroupTV(stat.groupTV, stat.year)}>Editar</Button
-              ></td
-            >
+              ></td>
           </tr>
         {/each}
       </tbody>
     </Table>
   {/if}
+
+
+  <Pagination ariaLabel="Cambiar de página" style="padding-left: 47%;">
+      <!-- Previous-->
+    <PaginationItem class="{currentPage === 1 ? 'disabled' : ''}">
+        <PaginationLink previous href="#/television-stats" on:click="{() => upOffset(-1)}" />
+    </PaginationItem>
+    
+    {#if currentPage != 1}
+        <PaginationItem>
+            <PaginationLink href="#/television-stats" on:click="{() => upOffset(-1)}" >{currentPage - 1}</PaginationLink>
+        </PaginationItem>
+    {/if}
+
+       <!-- Current-->
+    <PaginationItem active>
+        <PaginationLink href="#/television-stats" >{currentPage}</PaginationLink>
+    </PaginationItem>
+
+    <!-- Next-->
+    {#if moreData}
+        <PaginationItem >
+            <PaginationLink href="#/television-stats" on:click="{() => upOffset(1)}">{currentPage + 1}</PaginationLink>
+        </PaginationItem>
+    {/if}
+    <PaginationItem class="{moreData ? '' : 'disabled'}">
+        <PaginationLink next href="#/television-stats" on:click="{() => upOffset(1)}"/>
+    </PaginationItem>  
+</Pagination>
 </main>
 
 <style>

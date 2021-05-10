@@ -4,13 +4,7 @@ var Datastore = require("nedb");
 const path = require("path");
 const dbFile =path.join(__dirname,"indexTV.db");
 
-const db = new Datastore({
-					filename: dbFile, 
-					autoload: true,
-					autoload: true,
-					autoload: true,
-					autoload: true
-			});
+var db = new Datastore({ filename: dbFile, autoload: true});
 
 
 module.exports.register = (app) => {
@@ -85,8 +79,7 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
 		var query = {};
         let offset = 0;
         let limit = Number.MAX_SAFE_INTEGER;
-		var i = 0;
-		
+	
         //PAGINACIÓN
         if (req.query.offset) {
             offset = parseInt(req.query.offset);
@@ -98,54 +91,42 @@ app.get(BASE_API_PATH+"/television-stats/loadInitialData", (req, res)=>{
         }
 
         //BUSQUEDA
-		if(req.query.groupTV){
-			query["groupTV"] = req.query.groupTV;
-			i++;
-		} 
-        if(req.query.country){
-			 query["country"]= req.query.country;
-			i++;
-		}
-        if(req.query.year){
-			query["year"] = parseInt(req.query.year);
-			i++;
-		} 
-        
-        if(req.query.cable_tv_broadcast_avg_audience_year){
-			query["cable_tv_broadcast_avg_audience_year"] = parseInt(req.query.cable_tv_broadcast_avg_audience_year);
-			i++;
-		} 
+		if(req.query.groupTV) query["groupTV"] = req.query.groupTV;
+			
 		
-        if(req.query.avg_age){
-			query["avg_age"] = parseInt(req.query.avg_age);
-			i++;
-		} 
-        if(req.query.avg_audience_month){
-			 query["avg_audience_month"] =parseInt(req.query.avg_audience_month);
-			i++;
-		}
+        if(req.query.country) query["country"]= req.query.country;
+			
+		
+        if(req.query.year) query["year"] = parseInt(req.query.year);
+			
+		
+        
+        if(req.query.cable_tv_broadcast_avg_audience_year) query["cable_tv_broadcast_avg_audience_year"] = parseInt(req.query.cable_tv_broadcast_avg_audience_year);
+			
+		
+		
+        if(req.query.avg_age) query["avg_age"] = parseInt(req.query.avg_age);
+			
+		
+        if(req.query.avg_audience_month) query["avg_audience_month"] =parseInt(req.query.avg_audience_month);
+			
 	
 
         db.find(query).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, television) =>{
 
-            
 			if(err){
 				res.sendStatus(500);
 			}else{
 				if(television.length==0){
-					if(i==0){
-						res.send(JSON.stringify(television,null,2));
-					}else{
-						console.log();
-						res.sendStatus(404);
-					}
+					res.send(JSON.stringify(television,null,2));
+					console.log();
 				}
 				else{
 					television.forEach((f)=>{
                 delete f._id
             		});
 					if(television.length==1){
-						res.send(JSON.stringify(television[0],null,2));
+						res.status(200).send(JSON.stringify(television,null,2));
 					}
 					else{
 						res.send(JSON.stringify(television,null,2));
