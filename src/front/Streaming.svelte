@@ -54,6 +54,18 @@
     let streamingStats = [];
     
     //FUNCTIONS
+    function deleteInputs() {
+        let reset= {
+        online_media: "",
+        country: "",
+        year: "",
+        account_price_per_month: "",
+        mark: "",
+        audience: "",
+      };
+      newOnlineMedia=reset;
+    }
+
     async function next(numPag){
       offset+=numPag;
       page+=numPag;
@@ -100,8 +112,13 @@
         console.log("Received "+streamingStats.length+" streams");
         if (televisionStats.length > 0){
           color="success"
-				  alertBox = "Se ha realizado la búsqueda correctamente.";
-				
+				  alertBox = "Búsqueda realizada de " + (
+                newStream.platform ||
+                newStream.country||
+                newStream.year ||
+                newStream.hour_viewed ||
+                newStream.avg_age ||
+                newStream.avg_audience );
 			  }else{
           getStreams();
 			    color="danger";
@@ -190,7 +207,7 @@
                              } else if (res.status== 409){
                                 console.log("ERROR There is already a data with that GroupTV and year in the database");
                                 color = "danger";
-                                alertBox= "Ya existe una entrada con el mismo GroupTV y año introducido";
+                                alertBox= "Ya existe una entrada con la plataforma "+newStream.platform +" y año " + newStream.year;
                              }
                           });
         }
@@ -219,7 +236,7 @@
                                 } else {
                                   console.log("ERROR");
                                   color = "danger";
-                                  alertBox = "No se ha podido borrar los datos"
+                                  alertBox = "No se ha podido borrar los datos de "+ newStream.platform;
                                 }
                            })
                            setTimeout(offAlert,1750);
