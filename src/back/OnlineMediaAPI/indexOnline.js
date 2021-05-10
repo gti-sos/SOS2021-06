@@ -104,7 +104,7 @@ app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 
         //BUSQUEDA
 		if(req.query.online_media){
-			query["onlineMedia"] = req.query.online_media;
+			query["online_media"] = req.query.online_media;
 			i++;
 		} 
         if(req.query.country){
@@ -117,12 +117,12 @@ app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 		} 
         
         if(req.query.account_price_per_month){
-			query["account_price_per_month"] = parseInt(req.query.account_price_per_month);
+			query["account_price_per_month"] = parseFloat(req.query.account_price_per_month);
 			i++;
 		} 
 		
         if(req.query.mark){
-			query["mark"] = parseInt(req.query.mark);
+			query["mark"] = parseFloat(req.query.mark);
 			i++;
 		} 
         if(req.query.audience){
@@ -138,19 +138,16 @@ app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 				res.sendStatus(500);
 			}else{
 				if(onlinemedia.length==0){
-					if(i==0){
+					
 						res.send(JSON.stringify(onlinemedia,null,2));
-					}else{
 						console.log();
-						res.sendStatus(404);
-					}
-				}
-				else{
+						
+					}else{
 					onlinemedia.forEach((f)=>{
                 delete f._id
             		});
 					if(onlinemedia.length==1){
-						res.send(JSON.stringify(onlinemedia[0],null,2));
+						res.send(JSON.stringify(onlinemedia,null,2));
 					}
 					else{
 						res.send(JSON.stringify(onlinemedia,null,2));
@@ -164,15 +161,19 @@ app.get(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{
 
 //POST a la lista de recursos
 app.post(BASE_API_PATH +"/onlinemedia-stats", (req,res)=>{ 
+	var newOMStat = req.body;
+
+    var newCountry = req.body.country;
+    var newYear = parseInt(req.body.year);
 	var newOnlineMedia = req.body;
 	console.log(`new OnlineMedia to be added: <${JSON.stringify(newOnlineMedia,null,2)}>`);
-	db.find({online_media:newOnlineMedia.online_media,country:newOnlineMedia.country, year:newOnlineMedia.year, account_price_per_month:newOnlineMedia.account_price_per_month, mark:newOnlineMedia.mark, audience:newOnlineMedia.audience}, (err,onlinemedia)=>{
+	db.find({online_media:newOnlineMedia.online_media, year:newOnlineMedia.year }, (err,onlinemedia)=>{
 		if(err){
 			console.error("Error accediendo a la base de datos: " + err);
 			res.sendStatus(500);
 		}else{
 			if(onlinemedia.length==0){
-				if(!newOnlineMedia.online_media||!newOnlineMedia.country|| !newOnlineMedia.year||!newOnlineMedia.account_price_per_month|| 								!newOnlineMedia.mark|| !newOnlineMedia.audience){
+				if(!newOnlineMedia.online_media||!newOnlineMedia.country|| !newOnlineMedia.year||!newOnlineMedia.account_price_per_month||!newOnlineMedia.mark|| !newOnlineMedia.audience || Object.keys(newOMStat).length != 6){
 					 res.sendStatus(400);
 				}else{
 				db.insert(newOnlineMedia);
