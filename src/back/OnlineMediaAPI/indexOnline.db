@@ -1,19 +1,5 @@
-{"online_media":"Netflix","country":"France","year":2021,"account_price_per_month":7.99,"mark":4.5,"audience":4200000,"_id":"5mFq16ViBWyzsDIC"}
-{"online_media":"HBO","country":"Spain","year":2020,"account_price_per_month":8.99,"mark":2.5,"audience":731000,"_id":"KTaMHZU4JlqNfCQO"}
-{"online_media":"Rakuten","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4,"audience":2200000,"_id":"dld5iFOdmrblCXx6"}
-{"online_media":"Amazon Prime","country":"Spain","year":2020,"account_price_per_month":3.99,"mark":4.4,"audience":1200000,"_id":"kkxJwtMBduv8syhx"}
-{"online_media":"Disney Plus","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4.4,"audience":1200000,"_id":"maZZZQigtykzXt29"}
-{"online_media":"PepeTv","country":"Angola","year":2045,"account_price_per_month":3,"mark":3.4,"audience":100000000,"_id":"0TlxupMG3owv7dBI"}
-{"$$deleted":true,"_id":"0TlxupMG3owv7dBI"}
-{"online_media":"dds","country":"bjbj","year":788,"account_price_per_month":88,"mark":888,"audience":888,"_id":"kXtelyPWvpksexxa"}
-{"$$deleted":true,"_id":"kXtelyPWvpksexxa"}
-{"$$deleted":true,"_id":"5mFq16ViBWyzsDIC"}
-{"$$deleted":true,"_id":"KTaMHZU4JlqNfCQO"}
-{"$$deleted":true,"_id":"dld5iFOdmrblCXx6"}
-{"$$deleted":true,"_id":"kkxJwtMBduv8syhx"}
-{"$$deleted":true,"_id":"maZZZQigtykzXt29"}
 {"online_media":"Netflix","country":"Spain","year":2021,"account_price_per_month":7.99,"mark":4.5,"audience":4200000,"_id":"HYb8r3p6wuhhlXWZ"}
-{"online_media":"HBO","country":"Spain","year":2020,"account_price_per_month":8.99,"mark":2.5,"audience":731000,"_id":"lVY9OHVgqwBuU7HI"}
 {"online_media":"Amazon Prime","country":"Spain","year":2020,"account_price_per_month":3.99,"mark":4.4,"audience":1200000,"_id":"NHeVDwjjnMmXUNLF"}
 {"online_media":"Disney Plus","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4.4,"audience":1200000,"_id":"gKHDghJB92sT60IL"}
+{"online_media":"HBO","country":"Spain","year":2020,"account_price_per_month":8.99,"mark":2.5,"audience":731000,"_id":"lVY9OHVgqwBuU7HI"}
 {"online_media":"Rakuten","country":"Spain","year":2020,"account_price_per_month":6.99,"mark":4,"audience":2200000,"_id":"nirPxmKToveWIpPz"}

@@ -30,6 +30,8 @@
       deleteData();
     };
 
+    let element = 1;
+
     //API
     let streamingStats = [];
     //FUNCTIONS
@@ -56,7 +58,7 @@
 
     async function getStreams() {
         console.log("Fetching data...");
-        const res = await fetch("/api/v1/streaming-stats/");
+        const res = await fetch("/api/v1/streaming-stats?limit=3&offset=0");
         if (res.ok) {
             console.log("Ok.");
             const json = await res.json();
@@ -116,6 +118,40 @@
       });
     }
     getStreams();
+
+    async function nextPage(){
+      if(element>streamingStats.length){
+        element = 1;
+      } else {
+        element +=3;
+      }
+
+      const res = await fetch("/api/v1/streaming-stats?limit=3&offset="+(element-1));
+
+      if(streamingStats.length==0){
+        console.log("Error no datos");
+      } else if (res.ok) {
+        const json = await res.json();
+        streamingStats = json;
+      }
+    }
+
+    async function prevPage(){
+      if(element-3>1){
+        element -= 3;
+      } else {
+        element = 1;
+      }
+
+      const res = await fetch("/api/v1/streaming-stats?limit=3&offset="+(element-1));
+
+      if(streamingStats.length==0){
+        console.log("Error no datos");
+      } else if (res.ok) {
+        const json = await res.json();
+        streamingStats = json;
+      }
+    }
 
 </script>
 
@@ -178,6 +214,8 @@
             {/each}
         </tbody><tbody />
       </Table>
+      <Button on:click={prevPage}>Anterior</Button>
+      <Button on:click={nextPage}>Siguiente</Button>
     {/if}
 </main>
 
