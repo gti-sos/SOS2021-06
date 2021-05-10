@@ -44,7 +44,10 @@
 							</p>
 							<br/><a
 								href="https://documenter.getpostman.com/view/9776351/TzJoELMw">
-								<button type="button" class="btn btn-light">Postman</button></a>
+								<button type="button" class="btn btn-light">Postman v1</button></a><br>
+							<br/><a
+								href="https://documenter.getpostman.com/view/9776351/TzRSh8Ew">
+								<button type="button" class="btn btn-light">Postman v2</button></a>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 text-center">

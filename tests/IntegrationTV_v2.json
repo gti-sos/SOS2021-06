@@ -1,0 +1,617 @@
+{
+	"info": {
+		"_postman_id": "71dc37e3-9951-4ba6-a88e-4526a5dd20cf",
+		"name": "API TV SOS2021-06  v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "television-stats/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/loadInitialData",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "television-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are 6 Groups TV\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"groupTV\": \"LaSexta\",\r\n\"country\": \"Spain\",\r\n\"year\": 2027,\r\n\"cable/tv broadcast avg-audience-year\": 19800000,\r\n\"avg-age\": 57,\r\n\"avg-audience-month\": 2330000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter search television-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GroupTV matches string Antena3\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Antena3\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats?groupTV=Antena3&year=2019=true",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					],
+					"query": [
+						{
+							"key": "groupTV",
+							"value": "Antena3"
+						},
+						{
+							"key": "year",
+							"value": "2019=true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter pagination television-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"There are at most 3 Groups TV\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.below(4);;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats?limit=3&offset=2",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add GroupTv",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request, Status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"groupTV\": \"LaSexta\",\r\n\"country\": \"Spain\",\r\n\"year\": 2027,\r\n\"cable_tv_broadcast_avg_audience_year\": 19800000,\r\n\"avg_age\": 57,\r\n\"avg_audience_month\": 2330000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get GroupTV posted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"groupTV\"&&\"country\"&&\"year\"&&\"cable_tv_broadcast_avg_audience_year\"&&\"avg_age\"&&\"avg_audience_month\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/LaSexta/2027",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"LaSexta",
+						"2027"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST same GroupTV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"groupTV\": \"LaSexta\",\r\n\"country\": \"Spain\",\r\n\"year\": 2027,\r\n\"cable_tv_broadcast_avg_audience_year\": 19800000,\r\n\"avg_age\": 57,\r\n\"avg_audience_month\": 2330000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"groupTV\": \"CanalSur\",\r\n\"country\": \"Spain\",\r\n\"cable_tv_broadcast_avg_audience_year\": 19800000,\r\n\"avg_age\": 57,\r\n\"avg_audience_month\": 2330000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete GroupTv posted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/LaSexta/2027",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"LaSexta",
+						"2027"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group TV non-existent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/LaSexta/2027",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"LaSexta",
+						"2027"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put GroupTV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"groupTV\": \"Telecinco\",\r\n\"country\": \"German\",\r\n\"year\": 2020,\r\n\"cable_tv_broadcast_avg_audience_year\": 150000,\r\n\"avg_age\": 58,\r\n\"avg_audience_month\": 2164000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/Telecinco/2019",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"Telecinco",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add specific GroupTV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405, method not allowed\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats/LaSexta/2020",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats",
+						"LaSexta",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put List GroupTV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405, method not allowed\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2021-06.herokuapp.com/api/v2/television-stats",
+					"protocol": "https",
+					"host": [
+						"sos2021-06",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"television-stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
