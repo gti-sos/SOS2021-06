@@ -105,12 +105,12 @@
 
       console.log(url);
       const res = await fetch(url);
+      visible=true;
       if(res.ok){
-        visible=true;
         const json = await res.json();
         streamingStats = json;
         console.log("Received "+streamingStats.length+" streams");
-        if (televisionStats.length > 0){
+        if (streamingStats.length > 0){
           color="success"
 				  alertBox = "Búsqueda realizada de " + (
                 newStream.platform ||
@@ -119,13 +119,15 @@
                 newStream.hour_viewed ||
                 newStream.avg_age ||
                 newStream.avg_audience );
-			  }else{
-          getStreams();
+			  } else {
 			    color="danger";
 				  alertBox = "La búsqueda no ha obtenido resultados.";
 			  };
       } else {
-        console.log("ERROR!")
+          color="danger";
+				  alertBox = "La búsqueda no ha obtenido resultados.";
+          console.log("ERROR!")
+          getStreams();
       }
       setTimeout(offAlert,1750);
     };
