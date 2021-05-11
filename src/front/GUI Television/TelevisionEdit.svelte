@@ -7,8 +7,8 @@
     export let params = {};
 
     let stat = {};
-    let updateGroupTV = "XXXX";
-    let updateCountry = "XXXX";
+    let updateGroupTV = "";
+    let updateCountry = "";
     let updateYear = 0;
     let updateCable_tv_broadcast_avg_audience_year = 0;
     let updateAvg_age = 0;
@@ -53,6 +53,13 @@
           JSON.stringify(params.groupTV) +
           JSON.stringify(params.year)
       );
+
+      if(updateGroupTV == "" || updateCountry=="" ||
+      updateYear==null|| updateCable_tv_broadcast_avg_audience_year == null||
+      updateAvg_age == null||updateAvg_audience_month== null) {
+        okMsg = "";
+        errorMsg= "Error, existe algun campo vacio, debe rellenar todos los campos";
+     }else {
   
       const res = await fetch(
         BASE_API_PATH +
@@ -74,23 +81,23 @@
         }
       ).then(function (res) {
         if (res.ok) {
-          console.log("OK");
+          console.log("Data updated");
           getStat();
           errorMsg = "";
           okMsg = "Operación realizada correctamente";
         } else {
-          if(res.status===409){
-          errorMsg = "El dato ya se encuentra cargado";
+          if(res.status===400){
+          console.log("ERROR Data was not correctly introduced");
+          errorMsg = "Los datos de la entrada no fueron introducidos correctamente";
         }else if(res.status ===500){
           errorMsg = "No se han podido acceder a la base de datos";
-        }else if(res.status ===404){
-          errorMsg = "No se ha encontrado el dato solicitado";
         }
           okMsg = "";
           getStat();
           console.log("ERROR!" + errorMsg);
         }
       });
+    } 
     }
   
     onMount(getStat);

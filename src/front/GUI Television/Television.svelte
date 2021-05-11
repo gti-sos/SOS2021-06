@@ -269,42 +269,6 @@ import { is_empty } from "svelte/internal";
     });
     setTimeout(offAlert,1750);
   }
-
-  async function editGroupTV(groupName, year) {
-    console.log("Editing GroupTV with name " + groupName);
-    const res = await fetch(
-      BASE_API_PATH + "/television-stats/" + groupName + "/" + year,
-      {
-        method: "PUT",
-        body: JSON.stringify(newGroupTV),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then(function (res) {
-        visible = true;
-      if (res.status == 200) {
-        console.log("Data updated");
-        getGroupsTV();
-        color = "success";
-        alertBox = "Datos modificados correctamente";
-       
-      } else if (res.status == 400) {
-        console.log("ERROR Data was not correctly introduced");
-        color = "danger";
-        alertBox ="Los datos de la entrada no fueron introducidos correctamente";
-        
-      } else if (res.status == 409) {
-        console.log("ERROR There is already a data with that province and year in the da tabase");
-        color = "danger";
-        alertBox ="Ya existe una entrada en la base de datos con los datos introducidos";
-      }
-    });
-    setTimeout(offAlert,1750);
-    deleteInputs();
-
-    }
-
  
 </script>
 

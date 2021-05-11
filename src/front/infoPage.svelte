@@ -35,13 +35,14 @@
     <ul>
         <li>Enlace a github de Daniel Gallardo Carrion (television-stats): <a
                 href="https://github.com/dangalcar">https://github.com/dangalcar</a><br>
-                Documentación Postman: <a href="https://documenter.getpostman.com/view/9776351/TzJoELMw"> Aquí</a>.</li>
+                Documentación Postman v1: <a href="https://documenter.getpostman.com/view/9776351/TzJoELMw"> Aquí</a>.<br>
+                Documentación Postman v2: <a href="https://documenter.getpostman.com/view/9776351/TzRSh8Ew"> Aquí</a>.</li>
         <li>Enlace a github de Salvador Romero Merino (onlinemedia-stats): <a
                 href="https://github.com/SalvadorRomMer">https://github.com/SalvadorRomMer</a><br>
                 Documentación Postman: <a href="https://documenter.getpostman.com/view/9683549/TzJoE1Lc"> Aquí</a>.</li>
         <li>Enlace a github de Gonzalo Camacho Perez de Sevilla (streaming-stats): <a
                 href="https://github.com/Goncamper">https://github.com/Goncamper</a><br>
-                Documentación Postman: <a href="https://documenter.getpostman.com/view/14967656/TzJoE1Bg"> Aquí</a>.</li>
+                Documentación Postman v1: <a href="https://documenter.getpostman.com/view/14967656/TzJoE1Bg"> Aquí</a>.</li>
     </ul>
 </div>
 <style>
