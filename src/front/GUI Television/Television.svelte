@@ -76,6 +76,7 @@ import { is_empty } from "svelte/internal";
 
   async function SearchGroupsTV() {
 		let url = BASE_API_PATH+"/television-stats?"
+    
 		console.log("Searching GroupTVs...");
 
 		let searchTV= {
@@ -100,6 +101,8 @@ import { is_empty } from "svelte/internal";
 		console.log(url);
 		const res = await fetch(url);
 		if (res.ok) {
+
+      deleteInputs();
       visible=true;
 			console.log("Ok");
 			const json = await res.json();
@@ -276,7 +279,7 @@ import { is_empty } from "svelte/internal";
   <Nav>
     <NavItem>
       <NavLink
-        href="/"
+        on:click={getGroupsTV}
         type="button"
         class="btn btn-primary btn-sm"
         style="margin: 1em">Volver</NavLink
