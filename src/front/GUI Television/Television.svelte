@@ -1,7 +1,7 @@
 <script>
-  import { onMount } from "svelte";
+import { onMount } from "svelte";
 import { is_empty } from "svelte/internal";
-  import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
     PaginationLink,} from "sveltestrap";
 
 
