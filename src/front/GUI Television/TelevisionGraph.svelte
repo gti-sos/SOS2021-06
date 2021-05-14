@@ -22,20 +22,7 @@ let avg_audience_month = [];
 
 async function loadGraph(){
 
-  console.log("Fetching data...");
   
-  const res = await fetch(BASE_API_PATH + "/television-stats");
-  televisionData = await res.json();
-
-  if (res.ok) {
-    televisionData.forEach(stat => {
-    divorceChartCountryDateData.push(stat.country+"-"+stat.date);
-    divorceChartMarriageRateData.push(stat["marriage-rate"]);
-    divorceChartDivorceRateData.push(stat["divorce-rate"]);
-    divorceChartRatioActualData.push(stat["ratio-actual"]);
-    divorceChartRatioPercentData.push(stat["ratio-percent"])
-    });
-  }
 Highcharts.chart('container', {
 
     title: {
