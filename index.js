@@ -9,6 +9,7 @@ var BASE_API_PATH2 = "/api/v2";
 
 app.use("/",express.static(path.join(__dirname , "public")));
 app.use(bodyParser.json());
+
 app.get("/cool",(request,response)=>{
 	response.send(cool());
 	console.log("New request to /cool has arrived");
