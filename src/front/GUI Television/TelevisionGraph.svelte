@@ -5,7 +5,37 @@ import { onMount } from "svelte";
 import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
       PaginationLink,} from "sveltestrap";
 
+
+const BASE_API_PATH = "/api/v2";
+
+let televisionData = [];
+let televisionGraphData = [];
+
+let groupTV = [];
+let country = [];
+let year = [];
+let cable_tv_broadcast_avg_audience_year = [];
+let avg_age = [];
+let avg_audience_month = [];
+
+
+
 async function loadGraph(){
+
+  console.log("Fetching data...");
+  
+  const res = await fetch(BASE_API_PATH + "/television-stats");
+  televisionData = await res.json();
+
+  if (res.ok) {
+    televisionData.forEach(stat => {
+    divorceChartCountryDateData.push(stat.country+"-"+stat.date);
+    divorceChartMarriageRateData.push(stat["marriage-rate"]);
+    divorceChartDivorceRateData.push(stat["divorce-rate"]);
+    divorceChartRatioActualData.push(stat["ratio-actual"]);
+    divorceChartRatioPercentData.push(stat["ratio-percent"])
+    });
+  }
 Highcharts.chart('container', {
 
     title: {
@@ -42,6 +72,23 @@ Highcharts.chart('container', {
             pointStart: 2010
         }
     },
+
+    series: [{
+        name: 'Installation',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+    }, {
+        name: 'Manufacturing',
+        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+    }, {
+        name: 'Sales & Distribution',
+        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+    }, {
+        name: 'Project Development',
+        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+    }, {
+        name: 'Other',
+        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+    }],
 
     responsive: {
         rules: [{
