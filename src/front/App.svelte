@@ -6,7 +6,8 @@
 	import TelevisionApi from "./GUI Television/Television.svelte";
 	import TelevisionEdit from "./GUI Television/TelevisionEdit.svelte";
 	import TelevisionGraph from "./GUI Television/TelevisionGraph.svelte";
-	import OnlineMediaApi from "./OnlineMedia.svelte";
+	import OnlineMediaApi from "./GUI OnlineMedia/OnlineMedia.svelte";
+	import OnlineMediaGraph from "./GUI OnlineMedia/OnlineMediaGraph.svelte";
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
 	import StreamGraph from "./GUI Streaming/StreamGraph.svelte";
@@ -19,6 +20,7 @@
 		"/television-stats/:groupTV/:year":TelevisionEdit,
 		"/television-stats/graph":TelevisionGraph,
 		"/onlinemedia-stats": OnlineMediaApi,
+		"/onlinemedia-stats/graph":OnlineMediaGraph,
 		"/streaming-stats": StreamingAPI,
 		"/streaming-stats/:streamPlatform/:streamYear":StreamEdit,
 		"/streaming-stats/graph":StreamGraph,

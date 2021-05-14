@@ -259,12 +259,12 @@
         console.log("Data updated");
         getOnlineMedia();
         color = "success";
-        alertBox = "Datos actualizados de" + groupName
+        alertBox = "Datos actualizados de " + groupName
         
       } else if (res.status == 400) {
         console.log("ERROR Data was not correctly introduced");
         color = "danger";
-        alertBox = "No se ha podido actualizar los datos de" + groupName
+        alertBox = "No se ha podido actualizar los datos de " + groupName
       } else if (res.status == 409) {
         console.log("ERROR There is already a data with that province and year in the da tabase");
         color = "danger";
