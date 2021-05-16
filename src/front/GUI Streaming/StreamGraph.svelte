@@ -13,6 +13,11 @@
 
     let streamingStats = [];
 
+    let platformyearStats = [];
+    let hourStats = [];
+    let ageStats = [];
+    let audienceStats = [];
+
     async function getStreams() {
         console.log("Fetching data...");
         const res = await fetch("/api/v1/streaming-stats");
@@ -21,33 +26,37 @@
             const json = await res.json();
             streamingStats = json;
             console.log(`We have received ${streamingStats.length} streaming platforms.`);
+            streamingStats.forEach(stat => {
+                platformyearStats.push(stat.platform+"/"+stat.year);
+                hourStats.push(stat.hour_viewed/1000000000);
+                ageStats.push(stat.avg_age);
+                audienceStats.push(stat.avg_audience/100000);
+            });
         } else {
             console.log("Error!");
         }
+        loadGraph()
     }
     onMount(getStreams);
-
+    console.log(platformyearStats)
     async function loadGraph(){
             Highcharts.chart('container', {
 
       title: {
-          text: 'Solar Employment Growth by Sector, 2010-2016'
-      },
-
-      subtitle: {
-          text: 'Source: thesolarfoundation.com'
+          text: 'Datos plataformas de streaming'
       },
 
       yAxis: {
           title: {
-              text: 'Number of Employees'
+              text: 'Valor'
           }
       },
 
       xAxis: {
-          accessibility: {
-              rangeDescription: 'Range: 2010 to 2017'
-          }
+        title: {
+              text: 'Plataforma/Año'
+          },
+          categories : platformyearStats
       },
 
       legend: {
@@ -56,19 +65,19 @@
           verticalAlign: 'middle'
       },
 
-      plotOptions: {
-          series: {
-              label: {
-                  connectorAllowed: false
-              },
-              pointStart: 2010
-          }
-      },
-
       series: [{
-          name: 'Installation',
-          data: streamingStats
-      }],
+          name: 'Horas visualizadas anuales (Miles de millones)',
+          data: hourStats
+      },
+      {
+          name: 'Edad media audiencia',
+          data: ageStats
+      },
+      {
+          name: 'Average audience (Cientos de miles)',
+          data: audienceStats
+      }
+    ],
 
       responsive: {
           rules: [{
@@ -92,11 +101,6 @@
 <main>
     <figure class="highcharts-figure">
         <div id="container"></div>
-        <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
-        </p>
       </figure>
 </main>
 

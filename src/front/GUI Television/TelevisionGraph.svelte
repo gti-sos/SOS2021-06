@@ -1,5 +1,13 @@
-<script>
+<svelte:head>   
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
+</svelte:head>
 
+
+<script>
 
 import { onMount } from "svelte";
 import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
@@ -9,115 +17,113 @@ import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationIte
 const BASE_API_PATH = "/api/v2";
 
 let televisionData = [];
-let televisionGraphData = [];
 
-let groupTV = [];
-let country = [];
-let year = [];
-let cable_tv_broadcast_avg_audience_year = [];
-let avg_age = [];
-let avg_audience_month = [];
+let graphGroupTVyear = [];
+let graphCountry = [];
+let graphCable_tv_broadcast_avg_audience_year = [];
+let graphAvg_age = [];
+let graphAvg_audience_month = [];
 
 
 
 async function loadGraph(){
 
-  
-Highcharts.chart('container', {
-
-    title: {
-        text: 'Solar Employment Growth by Sector, 2010-2016'
-    },
-
-    subtitle: {
-        text: 'Source: thesolarfoundation.com'
-    },
-
-    yAxis: {
-        title: {
-            text: 'Number of Employees'
-        }
-    },
-
-    xAxis: {
-        accessibility: {
-            rangeDescription: 'Range: 2010 to 2017'
-        }
-    },
-
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-    },
-
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2010
-        }
-    },
-
-    series: [{
-        name: 'Installation',
-        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-    }, {
-        name: 'Manufacturing',
-        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-    }, {
-        name: 'Sales & Distribution',
-        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-        name: 'Project Development',
-        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-    }, {
-        name: 'Other',
-        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
+    console.log("Fetching data...");
+    const res = await fetch(BASE_API_PATH + "/television-stats");
+    televisionData = await res.json();
+    if (res.ok) {
+        console.log("va bien");
+      televisionData.forEach(stat => {
+        graphGroupTVyear.push(stat.groupTV+"-"+stat.year);
+        graphAvg_age.push(stat.avg_age);
+        graphCable_tv_broadcast_avg_audience_year.push(stat.cable_tv_broadcast_avg_audience_year);
+        graphAvg_audience_month.push(stat.avg_audience_month);
+      });
     }
+    
+    Highcharts.chart('container', {
 
-});
+        title: {
+            text: 'Television-stats'
+        },
+
+        yAxis: {
+            title: {
+                text:'Valor'
+            },
+        },
+
+        xAxis: {
+            title: {
+                text: 'GrupoTV-Año'
+            },
+            categories: graphGroupTVyear,
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+        annotations: [
+          {
+            labels: [
+              {
+                point: "date",
+                text: "",
+              },
+              {
+                point: "min",
+                text: "Min",
+                backgroundColor: "white",
+              },
+            ],
+          },
+        ],
+
+        series: [
+        {
+            name: 'Media edad',
+            data: graphAvg_age,
+        },
+        {
+            name: 'Cable/tv broadcast media audiencia/año',
+            data: graphCable_tv_broadcast_avg_audience_year,
+        },
+        {
+            name: 'Media audiencia/mes',
+            data: graphAvg_audience_month,
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
 }
 
 </script>
 
 
-
-<svelte:head>   
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
-</svelte:head>
-
-
 <main>
+    
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
+           Grafico de linea sobre los datos de edad y audiencia (mes y año) de las cadenas de television
         </p>
     </figure>
-
 </main>
 
 <style>

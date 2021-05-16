@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 {"groupTV":"Telecinco","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":18200000,"avg_age":58,"avg_audience_month":2164000,"_id":"0KgYqK4aiKCVFH5i"}
 {"groupTV":"La1","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1573000,"avg_age":59,"avg_audience_month":1725000,"_id":"1lssRnPswi2ZkUci"}
 {"groupTV":"La1","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":10500000,"avg_age":60,"avg_audience_month":1725000,"_id":"8EdonaAyYqfG9QAA"}
 {"groupTV":"Antena3","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":19800000,"avg_age":57,"avg_audience_month":2330000,"_id":"AJUXmqVDz9AjpNEi"}
 {"groupTV":"Antena3","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1926000,"avg_age":52,"avg_audience_month":2330000,"_id":"so3k8IZbQbZl52zZ"}
 {"groupTV":"Telecinco","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":13400000,"avg_age":55,"avg_audience_month":1923000,"_id":"tlGfRIPelfNCEby9"}
+=======
+{"groupTV":"La1","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":10500000,"avg_age":60,"avg_audience_month":1725000,"_id":"M8z0mJycUJDAMtMR"}
+{"groupTV":"Telecinco","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":18200000,"avg_age":58,"avg_audience_month":2164000,"_id":"RAaocphhpMRBXG1z"}
+{"groupTV":"Telecinco","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":13400000,"avg_age":55,"avg_audience_month":1923000,"_id":"WVnZY6FNnIboViJ7"}
+{"groupTV":"La1","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1573000,"avg_age":59,"avg_audience_month":1725000,"_id":"eVMfGRxhSNIYH1t8"}
+{"groupTV":"Antena3","country":"Spain","year":2020,"cable_tv_broadcast_avg_audience_year":19800000,"avg_age":57,"avg_audience_month":2330000,"_id":"i9yCqqVokUyIGtEh"}
+{"groupTV":"Antena3","country":"Spain","year":2019,"cable_tv_broadcast_avg_audience_year":1926000,"avg_age":52,"avg_audience_month":2330000,"_id":"wpwKedMZSk7SMEQp"}
+>>>>>>> a911aba2e24d75ee8614d743305bb80ebb5232eb
