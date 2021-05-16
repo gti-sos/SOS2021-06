@@ -17,42 +17,57 @@
     const BASE_API_PATH = "/api/v1";
 
     let onlinemediaStats = [];
+    let streamingStats = [];
+    let televisionStats = [];
     
 
-    let platform_yearGraph = [];
-    let priceGraph = [];
-    let markGraph = [];
-    let audienceGraph = [];
+    let platform_yearGraphOM = [];
+    let platform_yearGraphS = [];
+    let platform_yearGraphTV = [];
+
+    
+    let audienceGraphOM = [];
+    let audienceGraphS = [];
+
+    let audienceGraphTV = [];
+
     
 
-    async function getOnlineMedia() {
-        console.log("Fetching data...");
-        const res = await fetch("/api/v1/onlinemedia-stats");
-        if (res.ok) {
-            console.log("Ok.");
-            const json = await res.json();
-            onlinemediaStats = json;
-            console.log(`We have received ${onlinemediaStats.length} streaming platforms.`);
-        } else {
-            console.log("Error!");
-        }
-    }
-    onMount(getOnlineMedia);
+    
 
     async function loadGraph(){
 
-        const res = await fetch(BASE_API_PATH + "/onlinemedia-stats");
-        onlinemediaStats = await res.json();
+        const resOM = await fetch(BASE_API_PATH + "/onlinemedia-stats");
+        onlinemediaStats = await resOM.json();
+        const resS = await fetch(BASE_API_PATH + "/streaming-stats");
+        streamingStats = await resS.json();
+        const resTV = await fetch( "/api/v2/television-stats");
+        televisionStats = await resTV.json();
 
-    if (res.ok){
+    
+
+    if (resOM.ok && resS.ok && resTV.ok){
         onlinemediaStats.forEach(stat => {
-            platform_yearGraph.push(stat.online_media + "/" + stat.year);
-            priceGraph.push(stat.account_price_per_month);
-            markGraph.push(stat.mark);
-            audienceGraph.push(stat.audience);
+            platform_yearGraphOM.push(stat.online_media + "/" + stat.year);
+    
+            audienceGraphOM.push(stat.audience*1000000);
 
         })
+        streamingStats.forEach(stat => {
+            platform_yearGraphOM.push(stat.platform + "/" + stat.year);
+            audienceGraphOM.push(stat.avg_audience);
+
+        })
+        televisionStats.forEach(stat => {
+            platform_yearGraphOM.push(stat.groupTV + "/" + stat.year);
+            audienceGraphOM.push(stat.avg_audience_month);
+
+        })
+
     }
+    
+
+    console.log(platform_yearGraphOM);
 
     Highcharts.chart('container', {
 
@@ -68,9 +83,9 @@
 
       xAxis: {
           title: {
-              text: 'País/Año'
+              text: 'Plataforma/Año'
           },
-          categories : platform_yearGraph,
+          categories : platform_yearGraphOM,
       },
 
       legend: {
@@ -83,17 +98,11 @@
 
       series: [
         {
-          name: "Precio por subscripción mensual",
-          data: priceGraph,
+            name: "Audiencia Mensual",
+            data: audienceGraphOM,
         },
-        {
-          name: "Nota en Google Play España",
-          data: markGraph,
-        },
-        {
-          name: "Audiencia (Millones)",
-          data: audienceGraph,
-        }
+        
+        
         
       ],
 
@@ -119,8 +128,7 @@
 <main>
     <figure class="highcharts-figure">
         <div id="container"></div>
-       
-          
+        
       </figure>
 </main>
 

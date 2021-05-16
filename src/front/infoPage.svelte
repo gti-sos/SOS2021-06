@@ -6,6 +6,9 @@
     <h4>Enlace a la pagina en Heroku</h4>
     <p><a href="https://sos2021-06.herokuapp.com">https://sos2021-06.herokuapp.com</a></p>
 
+    <h4>Grafica Común</h4>
+    <p><a href="#/analytics">Gráfica</a></p>
+
     <h4>APIs (Front-End)</h4>
     <ul>
         <li>Enlace a la API: <a href="#/television-stats">/television-stats</a>

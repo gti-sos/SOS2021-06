@@ -11,6 +11,7 @@
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
 	import StreamGraph from "./GUI Streaming/StreamGraph.svelte";
+	import TeamGraph from "./TeamGraph.svelte";
 	import InfoPage from "./infoPage.svelte";
 
 	
@@ -24,6 +25,7 @@
 		"/streaming-stats": StreamingAPI,
 		"/streaming-stats/:streamPlatform/:streamYear":StreamEdit,
 		"/streaming-stats/graph":StreamGraph,
+		"/analytics":TeamGraph,
 		"/info": InfoPage,
 		'*': NotFound
 		};
