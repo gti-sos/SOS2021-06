@@ -448,7 +448,7 @@
         <th>Año</th>
         <th>Precio mensual(€)</th>
         <th>Nota en Google Play Store España</th>
-        <th>Audiencia</th>
+        <th>Audiencia (Millones)</th>
       </tr>
     </thead>
     <tbody>
