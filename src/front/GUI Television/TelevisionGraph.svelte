@@ -1,3 +1,12 @@
+<svelte:head>   
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
+</svelte:head>
+
+
 <script>
 
 import { onMount } from "svelte";
@@ -84,8 +93,7 @@ async function loadGraph(){
         {
             name: 'Media audiencia/mes',
             data: graphAvg_audience_month,
-        }
-        ],
+        }],
 
         responsive: {
             rules: [{
@@ -108,24 +116,12 @@ async function loadGraph(){
 </script>
 
 
-
-<svelte:head>   
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
-</svelte:head>
-
-
 <main>
     
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
+           Grafico de linea sobre los datos de edad y audiencia (mes y año) de las cadenas de television
         </p>
     </figure>
 </main>

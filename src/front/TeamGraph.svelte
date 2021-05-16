@@ -15,19 +15,16 @@
 
 
     const BASE_API_PATH = "/api/v1";
+    const BASE_API_PATH2 = "/api/v2";
 
     let onlinemediaStats = [];
     let streamingStats = [];
     let televisionStats = [];
-    
 
-    let platform_yearGraphOM = [];
-    let platform_yearGraphS = [];
-    let platform_yearGraphTV = [];
-
+    let platform_yearGraph = [];
     
-    let audienceGraphOM = [];
-    let audienceGraphS = [];
+    let audienceGraphOM = ["","","","","",""];
+    let audienceGraphS = ["","","","","","","","","","",""];
 
     let audienceGraphTV = [];
 
@@ -41,43 +38,42 @@
         onlinemediaStats = await resOM.json();
         const resS = await fetch(BASE_API_PATH + "/streaming-stats");
         streamingStats = await resS.json();
-        const resTV = await fetch( "/api/v2/television-stats");
+        const resTV = await fetch( BASE_API_PATH2 + "/television-stats");
         televisionStats = await resTV.json();
 
     
 
     if (resOM.ok && resS.ok && resTV.ok){
+
+        televisionStats.forEach(stat => {
+            platform_yearGraph.push(stat.groupTV + "/" + stat.year);
+            audienceGraphTV.push(stat.avg_audience_month);
+
+        }),
         onlinemediaStats.forEach(stat => {
-            platform_yearGraphOM.push(stat.online_media + "/" + stat.year);
-    
+            platform_yearGraph.push(stat.online_media + "/" + stat.year);
             audienceGraphOM.push(stat.audience*1000000);
 
-        })
+        }),
         streamingStats.forEach(stat => {
-            platform_yearGraphOM.push(stat.platform + "/" + stat.year);
-            audienceGraphOM.push(stat.avg_audience);
+            platform_yearGraph.push(stat.platform + "/" + stat.year);
+            audienceGraphS.push(stat.avg_audience);
 
-        })
-        televisionStats.forEach(stat => {
-            platform_yearGraphOM.push(stat.groupTV + "/" + stat.year);
-            audienceGraphOM.push(stat.avg_audience_month);
-
-        })
-
+        });
     }
     
 
-    console.log(platform_yearGraphOM);
+    console.log(platform_yearGraph);
 
     Highcharts.chart('container', {
 
       title: {
-          text: 'Datos de las principales plataformas de pago de contenido bajo demanda en España'
+          text: 'Datos de las audiencias de las principales plataformas audiovisuales en España'
       },
 
       yAxis: {
           title: {
-              text: 'Valor'
+              text: 'Audiencia (Millones)'
           }
       },
 
@@ -85,7 +81,7 @@
           title: {
               text: 'Plataforma/Año'
           },
-          categories : platform_yearGraphOM,
+          categories : platform_yearGraph, 
       },
 
       legend: {
@@ -94,22 +90,24 @@
           verticalAlign: 'middle'
       },
 
-     
-
       series: [
         {
-            name: "Audiencia Mensual",
+            name: "Audiencia Mensual Tv",
+            data: audienceGraphTV,
+        },
+        {
+            name: "Audiencia Mensual Online media",
             data: audienceGraphOM,
         },
-        
-        
-        
-      ],
+        {
+            name: "Audiencia Mensual streaming",
+            data: audienceGraphS,
+        }],
 
       responsive: {
           rules: [{
               condition: {
-                  maxWidth: 500
+                  maxWidth: 800
               },
               chartOptions: {
                   legend: {
@@ -126,6 +124,9 @@
 </script>
 
 <main>
+    <div>
+        <h2>Gráfica lineal</h2>
+    </div>
     <figure class="highcharts-figure">
         <div id="container"></div>
         
@@ -133,10 +134,18 @@
 </main>
 
 <style>
-    .highcharts-figure, .highcharts-data-table table {
+.highcharts-figure, .highcharts-data-table table {
     min-width: 360px; 
     max-width: 800px;
+
     margin: 1em auto;
+}
+main {
+    margin: 50px auto;
+    text-align: center;
+}
+#container{
+    height: 450px;
 }
 
 .highcharts-data-table table {
