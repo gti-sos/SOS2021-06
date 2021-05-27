@@ -3,25 +3,25 @@
 	<br /><br />
 	<header class="masthead">
 		<div class="container h-100">
-			<div
-				class="row h-100 align-items-center justify-content-center text-center"
-			>
+			<div class="row h-100 align-items-center justify-content-center text-center">
 				<div class="col-lg-10 align-self-end">
 					<h1 class="text-uppercase text-black font-weight-bold">
 						SOS2021-06
 					</h1>
 					<hr class="divider my-4" />
 				</div>
-				<div class="col-lg-8 align-self-baseline">
+				<div class="col-lg-4">
+					<a href="#/info"
+						><button type="button" class="btn btn-primary"
+							>Información</button></a>
+					<br/><br />
 					<a href="https://github.com/gti-sos/SOS2021-06"
 						><button type="button" class="btn btn-primary"
-							>Repositorio de GitHub</button
-						></a
-					>
-					<br /><br />
-					<p class="text-white-75 font-weight-light mb-5">
+							>Repositorio GitHub</button></a>
+					<br/><br />
+					<!--<p class="text-white-75 font-weight-light mb-3">
 						Enlace a nuestro repositorio GitHub
-					</p>
+					</p>-->
 				</div>
 			</div>
 		</div>

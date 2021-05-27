@@ -362,14 +362,14 @@ import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationIte
       </thead>
       <tbody>
         <tr>
-          <td><input class= new type="text" bind:value={newGroupTV.groupTV} /></td>
-          <td><input class= new type="text" bind:value={newGroupTV.country} /></td>
-          <td><input class= new type="number" bind:value={newGroupTV.year} /></td>
-          <td><input class= new type="number" bind:value={newGroupTV.cable_tv_broadcast_avg_audience_year}/></td>
-          <td><input class= new type="number" bind:value={newGroupTV.avg_age} /></td>
-          <td><input class= new type="number" bind:value={newGroupTV.avg_audience_month}/></td>
+          <td><input id="inputGroup" class= new type="text" bind:value={newGroupTV.groupTV} /></td>
+          <td><input id="inputCountry" class= new type="text" bind:value={newGroupTV.country} /></td>
+          <td><input id="inputYear" class= new type="number" bind:value={newGroupTV.year} /></td>
+          <td><input id="inputAudienceYear" class= new type="number" bind:value={newGroupTV.cable_tv_broadcast_avg_audience_year}/></td>
+          <td><input id="inputAge" class= new type="number" bind:value={newGroupTV.avg_age} /></td>
+          <td><input id="inputAudienceMonth" class= new type="number" bind:value={newGroupTV.avg_audience_month}/></td>
 
-          <td><Button outline color="primary" on:click={insertGroupTV}>Insertar</Button></td>
+          <td><Button  id="insert" outline color="primary" on:click={insertGroupTV}>Insertar</Button></td>
           <td><Button color="primary" on:click={SearchGroupsTV(offset)}>Buscar</Button></td>
         </tr>
 
