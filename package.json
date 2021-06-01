@@ -35,7 +35,11 @@
     "express": "^4.17.1",
     "nedb": "^1.8.0",
     "newman": "^5.2.2",
+<<<<<<< HEAD
     "request": "^2.88.2",
+=======
+    "puppeteer": "^9.1.1",
+>>>>>>> c1be15af540f27279c04fad91b75209aa79cbae8
     "start": "^5.1.0",
     "svelte-spa-router": "^3.1.0",
     "sveltestrap": "^3.14.1"
