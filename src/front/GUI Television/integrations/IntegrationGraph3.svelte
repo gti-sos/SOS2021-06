@@ -1,14 +1,16 @@
 <svelte:head>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js" on on:load={loadGraph}></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
 
 
 </svelte:head>
 <script>
 
-const BASE_API_PATH = "http://sos2021-24.herokuapp.com/api/v2";
+const BASE_API_PATH = "/proxyHeroku/api/v2";
 
 let Datas = [];
 
@@ -33,51 +35,55 @@ async function loadGraph(){
         graphYear.push(stat.avg_age);
         graphchildren_out_school_male.push(stat.children_out_school_male);
         graphchildren_out_school_female.push(stat.children_out_school_female);
-        graphchildren_out_school_total.push(stat.tchildren_out_school_total);
+        graphchildren_out_school_total.push(stat.children_out_school_total);
       });
     }
 
 
     Highcharts.chart('container', {
   chart: {
-    type: 'column'
+    type: 'cylinder',
+    options3d: {
+      enabled: true,
+      alpha: 15,
+      beta: 15,
+      depth: 50,
+      viewDistance: 25
+    }
   },
   title: {
-    text: 'Analisis del abandono escolar'
+    text: 'Numero total de abandonos escolares'
   },
   xAxis: {
     categories: graphCountry
   },
-  credits: {
-    enabled: false
+  plotOptions: {
+    series: {
+      depth: 25,
+      colorByPoint: true
+    }
   },
   series: [{
-            name: 'Media edad',
-            data: graphchildren_out_school_male,
-        },
-        {
-            name: 'Cable/tv broadcast media audiencia/año',
-            data: graphchildren_out_school_female,
-        },
-        {
-            name: 'Media audiencia/mes',
-            data: graphchildren_out_school_total,
-        }]
+    data: graphchildren_out_school_total,
+    name: 'Cylinders',
+    showInLegend: false
+  }]
 });
-
 }
-
 </script>
 
 <main>
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        
-      </figure>
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+      Chart showing basic use of 3D cylindrical columns. A 3D cylinder chart
+      is similar to a 3D column chart, with a different shape.
+    </p>
+  </figure>
 </main>
 
 <style>
-    #container {
+  #container {
   height: 400px; 
 }
 
