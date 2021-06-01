@@ -13,6 +13,9 @@ var path = require("path");
 var BASE_API_PATH = "/api/v1";
 var BASE_API_PATH2 = "/api/v2";
 
+var cors= require("cors");
+
+app.use(cors());
 
 app.use("/",express.static(path.join(__dirname , "public")));
 app.use(bodyParser.json());

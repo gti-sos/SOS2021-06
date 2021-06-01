@@ -6,6 +6,7 @@ const dbFile =path.join(__dirname,"indexTV.db");
 
 const db = new Datastore({ filename: dbFile, autoload: true});
 
+const request = require("request");
 
 module.exports.register = (app) => {
 	
@@ -264,5 +265,16 @@ app.delete(BASE_API_PATH+"/television-stats", (req,res)=>{
 			}
 		}
 		});
+	});
+//proxy
+	app.use("/proxyHeroku", function(req, res) {
+		console.log("New Proxy Call!");
+		var apiServerHost = "http://sos2021-06.herokuapp.com";
+		var url = apiServerHost + req.url;
+		console.log("apiServerHost = "+ apiServerHost);
+		console.log("baseURL = "+ req.baseUrl);
+		console.log("url = "+ req.url);
+		console.log('piped: ' + req.baseUrl + req.url + "->" + url);
+		req.pipe(request(url)).pipe(res);
 	});
 };
