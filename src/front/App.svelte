@@ -10,7 +10,7 @@
 	import OnlineMediaGraph from "./GUI OnlineMedia/OnlineMediaGraph.svelte";
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
-	import StreamGraph from "./GUI Streaming/StreamGraph.svelte";
+	import StreamGraph from "./GUI Streaming/StreamGraphBar.svelte";
 	import TeamGraph from "./TeamGraph.svelte";
 	import InfoPage from "./infoPage.svelte";
 
