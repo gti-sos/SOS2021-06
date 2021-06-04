@@ -1,14 +1,15 @@
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/variwide.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"on:load={loadGraph}></script>
 </svelte:head>
 
 <script>
 
-const BASE_API_PATH = "http://sos2021-27.herokuapp.com/api/v2";
+const BASE_API_PATH = "https://sos2021-27.herokuapp.com/api/v2";
+
 
 let Datas = [];
 
@@ -27,89 +28,103 @@ async function loadGraph(){
     if (res.ok) {
         console.log("va bien");
       Datas.forEach(stat => {
-        graphProvince.push(stat.province+"-"+stat.year);
+        graphProvince.push(stat.province);
         graphBudget.push(stat.budget);
         graphInvest_promotion.push(stat.invest_promotion);
         graphLiquid.push(stat.liquid);
         graphPercentage.push(stat.percentage);
       });
     }
+
     Highcharts.chart('container', {
 
 chart: {
-  type: 'variwide'
+  polar: true,
+  type: 'line'
+},
+
+accessibility: {
+  description: 'A spiderweb chart compares the allocated budget against actual spending within an organization. The spider chart has six spokes. Each spoke represents one of the 6 departments within the organization: sales, marketing, development, customer support, information technology and administration. The chart is interactive, and each data point is displayed upon hovering. The chart clearly shows that 4 of the 6 departments have overspent their budget with Marketing responsible for the greatest overspend of $20,000. The allocated budget and actual spending data points for each department are as follows: Sales. Budget equals $43,000; spending equals $50,000. Marketing. Budget equals $19,000; spending equals $39,000. Development. Budget equals $60,000; spending equals $42,000. Customer support. Budget equals $35,000; spending equals $31,000. Information technology. Budget equals $17,000; spending equals $26,000. Administration. Budget equals $10,000; spending equals $14,000.'
 },
 
 title: {
-  text: 'Labor Costs in Europe, 2016'
+  text: 'Budget vs spending',
+  x: -80
 },
 
-subtitle: {
-  text: 'Source: <a href="http://ec.europa.eu/eurostat/web/' +
-    'labour-market/labour-costs/main-tables">eurostat</a>'
+pane: {
+  size: '80%'
 },
 
 xAxis: {
-  type: 'category'
+  categories: graphProvince,
+  tickmarkPlacement: 'on',
+  lineWidth: 0
 },
 
-caption: {
-  text: 'Column widths are proportional to GDP'
+yAxis: {
+  gridLineInterpolation: 'polygon',
+  lineWidth: 0,
+  min: 0
+},
+
+tooltip: {
+  shared: true,
+  pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
 },
 
 legend: {
-  enabled: false
+  align: 'right',
+  verticalAlign: 'middle',
+  layout: 'vertical'
 },
 
 series: [{
-  name: 'Labor Costs',
-  data: [
-    ['Norway', 50.2, 335504],
-    ['Denmark', 42, 277339],
-    ['Belgium', 39.2, 421611],
-    ['Sweden', 38, 462057],
-    ['France', 35.6, 2228857],
-    ['Netherlands', 34.3, 702641],
-    ['Finland', 33.2, 215615],
-    ['Germany', 33.0, 3144050],
-    ['Austria', 32.7, 349344],
-    ['Ireland', 30.4, 275567],
-    ['Italy', 27.8, 1672438],
-    ['United Kingdom', 26.7, 2366911],
-    ['Spain', 21.3, 1113851],
-    ['Greece', 14.2, 175887],
-    ['Portugal', 13.7, 184933],
-    ['Czech Republic', 10.2, 176564],
-    ['Poland', 8.6, 424269],
-    ['Romania', 5.5, 169578]
+  name: 'Allocated Budget',
+  data: graphBudget,
+  pointPlacement: 'on'
+}, {
+  name: 'Actual Spending',
+  data: graphLiquid,
+  pointPlacement: 'on'
+}],
 
-  ],
-  dataLabels: {
-    enabled: true,
-    format: '€{point.y:.0f}'
-  },
-  tooltip: {
-    pointFormat: 'Labor Costs: <b>€ {point.y}/h</b><br>' +
-      'GDP: <b>€ {point.z} million</b><br>'
-  },
-  colorByPoint: true
-}]
+responsive: {
+  rules: [{
+    condition: {
+      maxWidth: 500
+    },
+    chartOptions: {
+      legend: {
+        align: 'center',
+        verticalAlign: 'bottom',
+        layout: 'horizontal'
+      },
+      pane: {
+        size: '70%'
+      }
+    }
+  }]
+}
 
 });
 }
 </script>
 <main>
-
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+      A spiderweb chart or radar chart is a variant of the polar chart.
+      Spiderweb charts are commonly used to compare multivariate data sets,
+      like this demo using six variables of comparison.
+    </p>
+  </figure>
 </main>
 
 <style>
-#container {
-  height: 500px;
-}
-
 .highcharts-figure, .highcharts-data-table table {
-  min-width: 320px; 
-  max-width: 800px;
+  min-width: 320px;
+  max-width: 700px;
   margin: 1em auto;
 }
 
