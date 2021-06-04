@@ -269,7 +269,7 @@ app.delete(BASE_API_PATH+"/television-stats", (req,res)=>{
 //proxy
 	app.use("/proxyHeroku", function(req, res) {
 		console.log("New Proxy Call!");
-		var apiServerHost = "http://sos2021-24.herokuapp.com";
+		var apiServerHost = "https://sos2021-24.herokuapp.com";
 		var url = apiServerHost + req.url;
 		console.log("apiServerHost = "+ apiServerHost);
 		console.log("baseURL = "+ req.baseUrl);

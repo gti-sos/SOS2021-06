@@ -7,21 +7,14 @@
 
 </svelte:head>
 <script>
-
 const BASE_API_PATH = "/api/v2";
-
 let televisionData = [];
-
 let graphGroupTVyear = [];
 let graphCountry = [];
 let graphCable_tv_broadcast_avg_audience_year = [];
 let graphAvg_age = [];
 let graphAvg_audience_month = [];
-
-
-
 async function loadGraph(){
-
     console.log("Fetching data...");
     const res = await fetch(BASE_API_PATH + "/television-stats");
     televisionData = await res.json();
@@ -34,8 +27,6 @@ async function loadGraph(){
         graphAvg_audience_month.push(stat.avg_audience_month);
       });
     }
-
-
     Highcharts.chart('container', {
   chart: {
     type: 'column'
@@ -62,9 +53,7 @@ async function loadGraph(){
             data: graphAvg_audience_month,
         }]
 });
-
 }
-
 </script>
 
 <main>
@@ -82,13 +71,11 @@ async function loadGraph(){
     #container {
   height: 400px; 
 }
-
 .highcharts-figure, .highcharts-data-table table {
   min-width: 310px; 
   max-width: 800px;
   margin: 1em auto;
 }
-
 .highcharts-data-table table {
   font-family: Verdana, sans-serif;
   border-collapse: collapse;
@@ -116,5 +103,4 @@ async function loadGraph(){
 .highcharts-data-table tr:hover {
   background: #f1f7ff;
 }
-
 </style>

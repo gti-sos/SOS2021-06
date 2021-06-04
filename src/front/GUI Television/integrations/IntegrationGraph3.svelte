@@ -5,9 +5,9 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
-
-
 </svelte:head>
+
+
 <script>
 
 const BASE_API_PATH = "/proxyHeroku/api/v2";
