@@ -1,4 +1,5 @@
 
+const request = require("request");
 var BASE_API_PATH = "/api/v1";
 
 var  Datastore = require("nedb");
@@ -336,4 +337,32 @@ app.delete(BASE_API_PATH+"/onlinemedia-stats", (req,res)=>{
 		res.sendStatus(200);
 	}
 });*/
+
+		app.use("/obesityProxy", function(req, res) {
+			console.log("New Proxy Call!");
+			var apiServerHost = "http://sos2021-10.herokuapp.com";
+			var url = apiServerHost + req.url;
+			console.log("apiServerHost = "+ apiServerHost);
+			console.log("baseURL = "+ req.baseUrl);
+			console.log("url = "+ req.url);
+			console.log('piped: ' + req.baseUrl + req.url + "->" + url);
+			req.pipe(request(url)).pipe(res);
+		});
+
+		/*app.use("/proxySOSobesity", function(req, res) {
+			console.log("New Proxy Call!");
+	
+			var apiServerHost = "http://sos2021-10.herokuapp.com";	///descargar.php?id=227&tipo=JSON;
+			console.log("apiServerHost = "+ apiServerHost);
+			console.log("baseURL = "+ req.baseUrl);
+			console.log("url = "+ req.url);
+	
+			var url = apiServerHost + req.url;
+	
+			console.log('piped: ' + req.url);
+			
+			req.pipe(request(url)).pipe(res);
+		  });*/ 
+  
+
 };
