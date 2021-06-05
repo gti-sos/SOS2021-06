@@ -14,6 +14,9 @@
     let streamingStats = [];
 
     let platforms = [];
+    let hourStats = [];
+    let ageStats = [];
+    let audienceStats = [];
 
     async function getStreams() {
         console.log("Fetching data...");
@@ -26,12 +29,16 @@
             let i = 0;
             while(i<streamingStats.length){
 
-                platforms.push({label: streamingStats[i].platform+"/"+streamingStats[i].year, value: ""+streamingStats[i].avg_audience/100000})
+				platforms.push({label: ""+streamingStats[i].platform+"/"+streamingStats[i].year});
+				hourStats.push({value: ""+streamingStats[i].hour_viewed/1000000000});
+				ageStats.push({value: ""+streamingStats[i].avg_age});
+				audienceStats.push({value: ""+streamingStats[i].avg_audience/100000});
 				i++;
 			}
         } else {
             console.log("Error!");
         }
+        console.log(platforms)
     loadGraph();
 }
     onMount(getStreams);
@@ -41,19 +48,37 @@
 async function loadGraph(){
     const dataSource = {
         "chart": {
-            "caption": "Audience Share of Streaming Platforms",
-            "plottooltext": "<b>$percentValue</b> of the streaming audience was on $label servers",
-            "showlegend": "1",
-            "showpercentvalues": "1",
-            "legendposition": "bottom",
-            "usedataplotcolorforlabels": "1",
-            "theme": "fusion"
+            "caption": "Datos streaming",
+            "yaxisname": "",
+            "stack100percent": "0",
+            "theme": "fusion",
+            "yaxismaxvalue": "100",
+            "decimals": "1",
+            "drawcrossline": "0"
         },
-        "data": platforms
-        };
+        "categories": [
+            {
+            "category": platforms
+            }
+        ],
+        "dataset": [
+            {
+            "seriesname": "Horas visualizadas anuales (Miles de millones)",
+            "data": hourStats
+            },
+            {
+            "seriesname": "Edad media audiencia",
+            "data": ageStats
+            },
+            {
+            "seriesname": "Average audience (Cientos de miles)",
+            "data": audienceStats
+            }
+        ]
+    };
 
     chartConfigs = {
-        type: 'pie2d',
+        type: 'marimekko',
         width: 600,
         height: 400,
         dataFormat: 'json',

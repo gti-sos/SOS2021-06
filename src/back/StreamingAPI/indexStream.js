@@ -4,11 +4,21 @@ var  Datastore = require("nedb");
 
 var db = new Datastore();
 
+const request = require("request");
+
 module.exports.register = (app) => {
 	var streaming = [];
 
 
 	var streamingInitial = [
+		{
+			"platform" : "Twitch",
+			"country" : "Spain",
+			"year" : 2021,
+			"hour_viewed" : 21540000000,
+			"avg_age" : 20,
+			"avg_audience" : 2870000
+		},
 		{
 			"platform" : "Twitch",
 			"country" : "Spain",
@@ -24,6 +34,22 @@ module.exports.register = (app) => {
 			"hour_viewed" : 11000000000,
 			"avg_age" : 21,
 			"avg_audience" : 1200000
+		},
+		{
+			"platform" : "Twitch",
+			"country" : "Spain",
+			"year" : 2018,
+			"hour_viewed" : 9870000000,
+			"avg_age" : 21,
+			"avg_audience" : 871000
+		},
+		{
+			"platform" : "Twitch",
+			"country" : "Spain",
+			"year" : 2017,
+			"hour_viewed" : 8000000000,
+			"avg_age" : 21,
+			"avg_audience" : 123000
 		},
 		{
 			"platform" : "YouTube",
@@ -113,7 +139,7 @@ module.exports.register = (app) => {
 		}
 	
 
-        db.find(query).sort({country:1,year:-1}).skip(offset).limit(limit).exec((err, streaming) =>{
+        db.find(query).sort({platform:1,year:1}).skip(offset).limit(limit).exec((err, streaming) =>{
 
             
 			if(err){
@@ -252,5 +278,16 @@ module.exports.register = (app) => {
 			}
 		}
 		});
+	});
+
+	app.use("/proxyGoncamper", function(req, res) {
+		console.log("New Proxy Call!");
+		var apiServerHost = "https://sos2021-09.herokuapp.com";
+		var url = apiServerHost + req.url;
+		console.log("apiServerHost = "+ apiServerHost);
+		console.log("baseURL = "+ req.baseUrl);
+		console.log("url = "+ req.url);
+		console.log('piped: ' + req.baseUrl + req.url + "->" + url);
+		req.pipe(request(url)).pipe(res);
 	});
 };

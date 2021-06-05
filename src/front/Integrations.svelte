@@ -23,17 +23,12 @@
                 href="/api/v1/streaming-stats">/streaming-stats</a>
             (Realizado por: Gonzalo Camacho Perez de Sevilla</li>
     </ul>
-    <h4>Integraciones (Gonzalo Camacho Lopez de Sevilla)</h4>
+    <h4>Integraciones (Gonzalo Camacho Pérez de Sevilla)</h4>
     <ul>
-        <li>Enlace a la API: <a
-            href="/api/v1/television-stats">/television-stats</a>
-        (Realizado por: Daniel Gallardo Carrion) </li>
-         <li>Enlace a la API: <a
-            href="/api/v1/onlinemedia-stats">/onlinemedia-stats</a>
-        (Realizado por: Salvador Romero Merino</li>
-         <li>Enlace a la API: <a
-            href="/api/v1/streaming-stats">/streaming-stats</a>
-        (Realizado por: Gonzalo Camacho Perez de Sevilla</li>
+        <li>Uso "Rendimiento según grado"  <a href="#/streaming-stats/integrationPerf">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso "Juegos"  <a href="#/streaming-stats/integrationGames">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
     </ul>
 
 </div>
