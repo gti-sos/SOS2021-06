@@ -1,5 +1,3 @@
-
-
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -34,40 +32,55 @@ async function loadGraph(){
 
     Highcharts.chart('container', {
     chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
+        type: 'packedbubble',
+        height: '100%'
     },
     title: {
-        text: 'Browser market shares in January, 2018'
+        text: 'Obesidad en el mundo'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
+        useHTML: true,
+        pointFormat: '<b>{point.name}:</b> {point.value} habitantes'
     },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
+        packedbubble: {
+            minSize: '30%',
+            maxSize: '120%',
+            zMin: 0,
+            zMax: 1000,
+            layoutAlgorithm: {
+                splitSeries: false,
+                gravitationalConstant: 0.02
+            },
             dataLabels: {
                 enabled: true,
-                format: '<b>Manolo</b>: {point.percentage:.1f} %'
+                format: '{point.name}',
+                filter: {
+                    property: 'y',
+                    operator: '>',
+                    value: 250
+                },
+                style: {
+                    color: 'black',
+                    textOutline: 'none',
+                    fontWeight: 'normal'
+                }
             }
         }
     },
     series: [{
-                type : 'pie',
-                name: 'Porcentaje de Hombres con Obesidad',
+                name: gCountry,
                 data: gObesitymale
-            
+            },
+            {
+                name: 'Porcentaje de Mujeres con Obesidad',
+                data: gObesityfemale
+            },
+            {
+                name: 'Población Total',
+                data: gObesitytotal
             }]
         });
-   
   }
 
 </script>
@@ -82,7 +95,7 @@ async function loadGraph(){
 </main>
 
 <style>
-.highcharts-figure, .highcharts-data-table table {
+    .highcharts-figure, .highcharts-data-table table {
     min-width: 320px; 
     max-width: 800px;
     margin: 1em auto;
@@ -115,14 +128,4 @@ async function loadGraph(){
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-
-
-input[type="number"] {
-	min-width: 50px;
-}
 </style>
-
-
-
-
-
