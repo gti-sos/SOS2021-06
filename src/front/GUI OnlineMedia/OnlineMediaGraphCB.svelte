@@ -8,27 +8,38 @@
 <script>
 
 let datos = [];
-
-let gCountry = [];
+let array = [];
+let gDistrict = [];
 let gYear = [];
-let gObesitymale = [];
-let gObesityfemale = [];
-let gObesitytotal = [];
+let gFundraising = [];
+let gSpectator = [];
+let gSPV = [];
 
 async function loadGraph(){
-    console.log("Fetching data...");
-    const res = await fetch("http://sos2021-10.herokuapp.com/api/integration/obesity-stats");
-    datos = await res.json();
-    if (res.ok) {
+    let MyData = [];
+    let MyDataEmp = [];
+      
+        let MyDataArray = [];
+        let MyDataArray1 = [];
+        let MyDataArray2 = [];
+    
+    const resData = await fetch("https://sos2021-26.herokuapp.com/api/v2/culturaBASE");
+    MyData = await resData.json();
+
+    if(MyData.length == 0){
+            console.log("Array vacío");
         
-      datos.forEach(stat => {
-        gCountry.push(stat.country);
-        gYear.push(stat.year);
-        gObesitymale.push(stat.man_percent);
-        gObesityfemale.push(stat.woman_percent);
-        gObesitytotal.push(stat.total_population);
-      });
-    }
+        }else{
+            MyData.forEach( (e) => {
+                MyDataArray.push({name: e.district + " " + e.year, value: e.fundraising});
+                MyDataArray1.push({name: e.district + " " + e.year, value: e.spectator});
+                MyDataArray2.push({name: e.district + " " + e.year, value: e.spending_per_view});
+        
+            });
+            MyDataEmp.push({name: 'Recaudación total (contada por millones)', data: MyDataArray});
+            MyDataEmp.push({name: 'Espectadores (contados por millones)', data: MyDataArray1});  
+            MyDataEmp.push({name: 'Gasto por espectador', data: MyDataArray2});  
+        }
 
     Highcharts.chart('container', {
     chart: {
@@ -36,16 +47,16 @@ async function loadGraph(){
         height: '100%'
     },
     title: {
-        text: 'Obesidad en el mundo'
+        text: 'Datos cinematográficos en España'
     },
     tooltip: {
         useHTML: true,
-        pointFormat: '<b>{point.name}:</b> {point.value} habitantes'
+        pointFormat: '<b>{point.name} :</b> {point.value}'
     },
     plotOptions: {
         packedbubble: {
-            minSize: '30%',
-            maxSize: '120%',
+            minSize: '60%',
+            maxSize: '160%',
             zMin: 0,
             zMax: 1000,
             layoutAlgorithm: {
@@ -68,29 +79,18 @@ async function loadGraph(){
             }
         }
     },
-    series: [{
-                name: gCountry,
-                data: gObesitymale
-            },
-            {
-                name: 'Porcentaje de Mujeres con Obesidad',
-                data: gObesityfemale
-            },
-            {
-                name: 'Población Total',
-                data: gObesitytotal
-            }]
+    series: MyDataEmp
         });
   }
 
 </script>
 
 <main>
+    <p class="highcharts-description"></p>
     <figure class="highcharts-figure">
+    
     <div id="container"></div>
-    <p class="highcharts-description">
-     
-    </p>
+    
     </figure> 
 </main>
 

@@ -12,9 +12,11 @@
 	import IntegrationGraph4 from "./GUI Television/integrations/IntegrationGraph4.svelte";
 	import OnlineMediaApi from "./GUI OnlineMedia/OnlineMedia.svelte";
 	import OnlineMediaGraph from "./GUI OnlineMedia/OnlineMediaGraph.svelte";
-	import OnlineMediaGraphObesity from "./GUI OnlineMedia/OnlineMediaGraphObesity2.svelte";
+	import OnlineMediaGraphObesity from "./GUI OnlineMedia/OnlineMediaGraphObesity.svelte";
+	import OnlineMediaGraphCB from "./GUI OnlineMedia/OnlineMediaGraphCB.svelte";
 	import OnlineMediaCanvas from "./GUI OnlineMedia/OnlineMediaCanvas.svelte";
 	import OnlineMediaRGraph from "./GUI OnlineMedia/OnlineMediaGraphRgraph.svelte";
+	import OnlineMediaExt1 from "./GUI OnlineMedia/Externa1.svelte";
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
 	import StreamGraph from "./GUI Streaming/StreamGraphBar.svelte";
@@ -41,8 +43,10 @@
 		"/onlinemedia-stats": OnlineMediaApi,
 		"/onlinemedia-stats/graph":OnlineMediaGraph,
 		"/onlinemedia-stats/graphObesity":OnlineMediaGraphObesity,
+		"/onlinemedia-stats/graphCB":OnlineMediaGraphCB,
 		"/onlinemedia-stats/canvas":OnlineMediaCanvas,
 		"/onlinemedia-stats/rgraph":OnlineMediaRGraph,
+		"/onlinemedia-stats/ext1":OnlineMediaExt1,
 		"/streaming-stats": StreamingAPI,
 		"/streaming-stats/:streamPlatform/:streamYear":StreamEdit,
 		"/streaming-stats/graph":StreamGraph,

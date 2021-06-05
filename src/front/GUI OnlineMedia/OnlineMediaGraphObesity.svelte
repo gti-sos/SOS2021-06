@@ -26,10 +26,11 @@ async function loadGraph(){
       datos.forEach(stat => {
         gCountry.push(stat.country);
         gYear.push(stat.year);
-        gObesitymale.push(stat.man_percent);
+        gObesitymale.push({name:stat.country + "/" + stat.year, y:stat.man_percent});
         gObesityfemale.push(stat.woman_percent);
         gObesitytotal.push(stat.total_population);
       });
+      console.log(gCountry);
     }
 
     Highcharts.chart('container', {
@@ -56,7 +57,7 @@ async function loadGraph(){
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>Manolo</b>: {point.percentage:.1f} %'
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
             }
         }
     },

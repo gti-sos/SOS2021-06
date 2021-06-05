@@ -264,7 +264,9 @@
 
         // This drawing API Y axis is used to show the Y axis labels on the
         // right-hand-side - though the actual axis is not shown - just the labels.
-        new RGraph.Drawing.YAxis({
+        
+
+        state.yaxisObj  = new RGraph.Drawing.YAxis({
             id: "cvs",
             x: 635,
             options: {
@@ -275,7 +277,7 @@
                 yaxisScaleMax: 35,
                 yaxisPosition: "right",
             },
-        }).draw3();
+        }).draw();
     }
 </script>
 
@@ -290,9 +292,9 @@
 <main>
     <p class="rgraph-description" align = "center">Gráfico de Plataformas RGraph  </p>
     <p class="rgraph-description"  align = "center" style="color:white;">. </p>
-    <p class="rgraph-description" align = "center" style="color:blue;">Azul: Precio por subscripción mensual </p>
-    <p class="rgraph-description" align = "center" style="color:red;">Rojo: Nota en Google Play España</p>
-    <p class="rgraph-description" align = "center" style="color:green;">Verde: Audiencia (Millones) </p>
+    <p class="rgraph-description" align = "center" style="color:blue;">Precio por subscripción mensual (€) </p>
+    <p class="rgraph-description" align = "center" style="color:red;">Nota en Google Play España [0,5]</p>
+    <p class="rgraph-description" align = "center" style="color:green;">Audiencia (Millones) </p>
     <div  align = "center">
         <canvas id="cvs" width="500" height="400"> [No canvas support] </canvas>
     </div>
