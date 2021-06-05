@@ -10,7 +10,7 @@
     import {
         onMount
     } from "svelte";
-import { xlink_attr } from 'svelte/internal';
+
 
     let streamingStats = [];
     let performances = [];
