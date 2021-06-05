@@ -39,7 +39,6 @@
     "fusioncharts": "^3.17.0",
     "nedb": "^1.8.0",
     "newman": "^5.2.2",
-
     "request": "^2.88.2",
     "start": "^5.1.0",
     "svelte-fusioncharts": "^1.0.0",
