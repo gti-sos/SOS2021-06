@@ -18,6 +18,7 @@
 	import StreamGraph from "./GUI Streaming/StreamGraphBar.svelte";
 	import StreamGraphFusion from "./GUI Streaming/StreamGraphFusion.svelte";
 	import IntegrationPerf from "./GUI Streaming/IntegrationGraphPerformances.svelte";
+	import IntegrationGames from "./GUI Streaming/IntegrationGraphGames.svelte";
 	import TeamGraph from "./TeamGraph.svelte";
 	import InfoPage from "./infoPage.svelte";
 	import Integrations from "./Integrations.svelte";
@@ -44,6 +45,7 @@
 		"/streaming-stats/graph":StreamGraph,
 		"/streaming-stats/graphfusion":StreamGraphFusion,
 		"/streaming-stats/integrationPerf":IntegrationPerf,
+		"/streaming-stats/integrationGames":IntegrationGames,
 		"/analytics":TeamGraph,
 		"/info": InfoPage,
 		"/integrations": Integrations,
