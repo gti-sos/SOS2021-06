@@ -10,6 +10,10 @@
 	import TelevisionVis from "./GUI Television/TelevisionVis.svelte";
 	import IntegrationGraph3 from "./GUI Television/integrations/IntegrationGraph3.svelte";
 	import IntegrationGraph4 from "./GUI Television/integrations/IntegrationGraph4.svelte";
+	import Externa1 from "./GUI Television/integrations/Externa1.svelte";
+	import Externa2 from "./GUI Television/integrations/Externa2.svelte";
+	import Externa4 from "./GUI Television/integrations/Externa4.svelte";
+	import Externa3 from "./GUI Television/integrations/Externa3.svelte";
 	import OnlineMediaApi from "./GUI OnlineMedia/OnlineMedia.svelte";
 	import OnlineMediaGraph from "./GUI OnlineMedia/OnlineMediaGraph.svelte";
 	import OnlineMediaGraphObesity from "./GUI OnlineMedia/OnlineMediaGraphObesity.svelte";
@@ -33,6 +37,10 @@
 
 
 
+
+
+
+
 	
 	const routes = {
 		"/":Home,
@@ -43,6 +51,10 @@
 		"/television-stats/graph4":IntegrationGraph4,
 		"/television-stats/graph1":TelevisionHighChart,
 		"/television-stats/graph2":TelevisionVis,
+		"/television-stats/graph5":Externa1,
+		"/television-stats/graph6":Externa2,
+		"/television-stats/graph7":Externa3,
+		"/television-stats/graph8":Externa4,
 		"/onlinemedia-stats": OnlineMediaApi,
 		"/onlinemedia-stats/graph":OnlineMediaGraph,
 		"/onlinemedia-stats/graphObesity":OnlineMediaGraphObesity,
