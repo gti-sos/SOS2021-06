@@ -17,6 +17,8 @@
 	import OnlineMediaCanvas from "./GUI OnlineMedia/OnlineMediaCanvas.svelte";
 	import OnlineMediaRGraph from "./GUI OnlineMedia/OnlineMediaGraphRgraph.svelte";
 	import OnlineMediaExt1 from "./GUI OnlineMedia/Externa1.svelte";
+	import OnlineMediaExt2 from "./GUI OnlineMedia/Externa2.svelte";
+	import OnlineMediaExt3 from "./GUI OnlineMedia/Externa3.svelte";
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
 	import StreamGraph from "./GUI Streaming/StreamGraphBar.svelte";
@@ -48,6 +50,8 @@
 		"/onlinemedia-stats/canvas":OnlineMediaCanvas,
 		"/onlinemedia-stats/rgraph":OnlineMediaRGraph,
 		"/onlinemedia-stats/ext1":OnlineMediaExt1,
+		"/onlinemedia-stats/ext2":OnlineMediaExt2,
+		"/onlinemedia-stats/ext3":OnlineMediaExt3,
 		"/streaming-stats": StreamingAPI,
 		"/streaming-stats/:streamPlatform/:streamYear":StreamEdit,
 		"/streaming-stats/graph":StreamGraph,
