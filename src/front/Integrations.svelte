@@ -25,9 +25,11 @@
     </ul>
     <h4>Integraciones (Gonzalo Camacho Pérez de Sevilla)</h4>
     <ul>
-        <li>Uso "Rendimiento según grado"  <a href="#/streaming-stats/integrationPerf">Aquí</a>
+        <li>Integración API de Daniel Sesé Benjumea de SOS "Rendimiento según grado" sos2021-09 <a href="#/streaming-stats/integrationPerf">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
-        <li>Uso "Juegos"  <a href="#/streaming-stats/integrationGames">Aquí</a>
+        <li>Integración Api de Fernando Olmedo Delgado de SOS "Juegos" sos2021-28 <a href="#/streaming-stats/integrationGames">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso Api externa "Instagram" <a href="#/streaming-stats/integrationInstagram">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
     </ul>
 
