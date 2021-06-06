@@ -94,8 +94,8 @@
 </script>
 
 <main>
-    <p align = "center">Valor Criptomonedas($)</p>
-    <div align = "center" id="chart-container"></div>
+    <p style="padding-left: 22%;">Valor Criptomonedas($)</p>
+    <div  id="chart-container"></div>
 </main>
 
 <style>
@@ -104,9 +104,11 @@
   * that the chart is added to. There's positioning and sizing
   * information as well as two of the corners being rounded.
   */
+  main{
+      margin-top: 5%;
+      margin-left: 25%;
+  }
   div#chart-container {
-      
-      float: right;
       width: 650px;
       height: 300px;
       display: inline-block;
