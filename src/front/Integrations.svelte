@@ -3,23 +3,23 @@
 
     <h4>Integraciones/Usos (Daniel Gallardo Carrion)</h4>
     <ul>
-        <li>Uso abandono escolar (G24) --> <a href="#/television-stats/graph3">Aquí</a>
-            </li>
+        <li>Uso abandono escolar  <a href="#/television-stats/graph3">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li>
             
-        <li>Uso Inversion promoción social (G27) --> <a href="#/television-stats/graph4">Aquí</a>
-            </li>   
+        <li>Uso Inversion promoción social <a href="#/television-stats/graph4">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li>   
 
-        <li>Uso Api Externa Covid Andalucia --> <a href="#/television-stats/graph5">Aquí</a>
-           </li> 
+        <li>Uso Api Externa Covid Andalucia <a href="#/television-stats/graph5">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
 
-        <li>Uso Api Externa ingredientes hamburguesa  --> <a href="#/television-stats/graph6">Aquí</a>
-            </li> 
+        <li>Uso Api Externa ingredientes hamburguesa <a href="#/television-stats/graph6">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
 
-        <li>Uso Api Externa Radio/votos --> <a href="#/television-stats/graph7">Aquí</a>
-            </li> 
+        <li>Uso Api Externa Radio/votos <a href="#/television-stats/graph7">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
 
-        <li>Uso Api Externa juegos/usuarios --> <a href="#/television-stats/graph8">Aquí</a>
-            </li> 
+        <li>Uso Api Externa juegos/usuarios <a href="#/television-stats/graph8">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
        
     </ul>
 

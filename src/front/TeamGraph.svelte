@@ -5,6 +5,8 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 import { onMount } from "svelte";
+import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+    PaginationLink } from "sveltestrap";
 // Always set FusionCharts as the first parameter
 fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -56,11 +58,24 @@ async function getStreams() {
         console.log(platformyearStats)
         loadGraph()
     }
+
+    async function loadInitialData() {
+    console.log("Loading data...");
+
+    const res = await fetch(
+     "/api/v1/streaming-stats/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+         getStreams(); 
+      }
+    });
+    
+  }
 onMount(getStreams);
 async function loadGraph(){
     const dataSource = {
   "chart": {
-    "caption": "Audience Distribution for our platforms",
+    "caption": "Distribucion de Audiencias de las diferentes plataformas",
     "subcaption": "",
     "showpercentvalues": "1",
     "defaultcenterlabel": "Audience Distribution",
@@ -83,13 +98,34 @@ chartConfigs = {
 };
 }
 
+const BotonCargar = () => {
+    loadInitialData();
+  };
+
 </script>
 
-<SvelteFC {...chartConfigs} />
+
 
     
     
 <main>
+<Nav>
+    <NavItem id="Boton">
+      
+        <NavLink
+          href="#"
+          on:click={BotonCargar}
+          id="Boton"
+          type="button"
+          class="btn btn-success btn-sm"
+          style="margin: 1em"
+        >
+          Cargar datos en su totalidad</NavLink
+        >
+     
+    </NavItem>
+</Nav>
+<div><SvelteFC {...chartConfigs} /></div>
 
 </main>
 

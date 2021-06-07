@@ -19,7 +19,7 @@ let gObesitytotal = [];
 
 async function loadGraph(){
     console.log("Fetching data...");
-    const res = await fetch("http://sos2021-10.herokuapp.com/api/integration/obesity-stats");
+    const res = await fetch("/ProxyObesity/api/integration/obesity-stats");
     datos = await res.json();
     if (res.ok) {
         

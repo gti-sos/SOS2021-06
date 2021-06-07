@@ -25,6 +25,7 @@
             console.log("Ok.");
             const json = await res.json();
             streamingStats = json;
+            console.log(streamingStats);
             console.log(`We have received ${streamingStats.length} streaming platforms.`);
             let i = 0;
             while(i<streamingStats.length){
