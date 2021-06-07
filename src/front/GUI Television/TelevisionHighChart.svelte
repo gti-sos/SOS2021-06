@@ -32,7 +32,7 @@ async function loadGraph(){
     type: 'column'
   },
   title: {
-    text: 'Column chart with negative values'
+    text: 'Grafica de audiendias de grupos TV'
   },
   xAxis: {
     categories: graphGroupTVyear
@@ -60,9 +60,7 @@ async function loadGraph(){
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-          Chart showing column comparisons with negative values.
-          Column charts are commonly used to compare values, and remains one of
-          the most popular and readable types of charts.
+          Se muestra en la grafica las medias de las audiencias por año/mes y la edad media de las personas que ven dicha cadena.
         </p>
       </figure>
 </main>
