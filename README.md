@@ -4,7 +4,7 @@
   - [Gonzalo Camacho Pérez de Sevilla](https://github.com/Goncamper)
   - [Salvador Romero Merino](https://github.com/SalvadorRomMer)
   - [Daniel Gallardo Carrión](https://github.com/dangalcar)
-- **Project description**: Proyect about platforms medias, TV and online medias comparatives.
+- **Project description**: Project about platforms medias, TV and online medias comparatives.
 - **Repository**: [gti-sos/SOS2021-06](https://github.com/gti-sos/SOS2021-06)
 - **URL**: [http://sos2021-06.herokuapp.com](http://sos2021-06.herokuapp.com)
 -  **APIs**:
