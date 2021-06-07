@@ -25,15 +25,19 @@
 
     <h4>Integraciones (Salvador Romero Merino)</h4>
     <ul>
-        <li>Enlace a la API: <a
-                href="/api/v1/television-stats">/television-stats</a>
-            (Realizado por: Daniel Gallardo Carrion) </li>
-        <li>Enlace a la API: <a
-                href="/api/v1/onlinemedia-stats">/onlinemedia-stats</a>
-            (Realizado por: Salvador Romero Merino</li>
-        <li>Enlace a la API: <a
-                href="/api/v1/streaming-stats">/streaming-stats</a>
-            (Realizado por: Gonzalo Camacho Perez de Sevilla</li>
+        <li>Uso de API Obesidad G10: <a href="#/onlinemedia-stats/graphObesity">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+        <li>Uso de API culturaBASE G26: <a href="#/onlinemedia-stats/graphCB">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+        <li>Uso de API Externa sobre el consumo de Palomitas: <a href="#/onlinemedia-stats/ext1">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+        <li>Uso de API Externa sobre el número de habitaciones de lo hoteles de Singapur: <a href="#/onlinemedia-stats/ext2">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+        <li>Uso de API Externa sobre el valor de Cryptomonedas: <a href="#/onlinemedia-stats/ext3">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+        <li>Uso de API Externa sobre las voloraciones de Animes: <a href="#/onlinemedia-stats/ext4">Aquí</a>
+            (Realizado por: Salvador Romero Merino)</li>
+                                
     </ul>
     <h4>Integraciones (Gonzalo Camacho Pérez de Sevilla)</h4>
     <ul>

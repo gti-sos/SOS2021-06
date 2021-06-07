@@ -293,7 +293,7 @@
     <p class="rgraph-description" align = "center">Gráfico de Plataformas RGraph  </p>
     <p class="rgraph-description"  align = "center" style="color:white;">. </p>
     <p class="rgraph-description" align = "center" style="color:blue;">Precio por subscripción mensual (€) </p>
-    <p class="rgraph-description" align = "center" style="color:red;">Nota en Google Play España [0,5]</p>
+    <p class="rgraph-description" align = "center" style="color:red;">Nota en Google Play España ★★★☆☆</p>
     <p class="rgraph-description" align = "center" style="color:green;">Audiencia (Millones) </p>
     <div  align = "center">
         <canvas id="cvs" width="500" height="400"> [No canvas support] </canvas>
