@@ -29,7 +29,9 @@
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
         <li>Integración Api de Fernando Olmedo Delgado de SOS "Juegos" sos2021-28 <a href="#/streaming-stats/integrationGames">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
-        <li>Uso Api externa "Instagram" <a href="#/streaming-stats/integrationInstagram">Aquí</a>
+        <li>Uso Api externa "Hearthstone" <a href="#/streaming-stats/integrationHS">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso Api externa "REST Countries" <a href="#/streaming-stats/integrationPaises">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
     </ul>
 
