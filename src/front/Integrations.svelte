@@ -7,7 +7,19 @@
             (Realizado por: Daniel Gallardo Carrion)</li>
             
         <li>Uso Inversion promoción social <a href="#/television-stats/graph4">Aquí</a>
-            (Realizado por: Daniel Gallardo Carrion)</li>    
+            (Realizado por: Daniel Gallardo Carrion)</li>   
+
+        <li>Uso Api Externa Covid Andalucia <a href="#/television-stats/graph5">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa ingredientes hamburguesa <a href="#/television-stats/graph6">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa Radio/votos <a href="#/television-stats/graph7">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa juegos/usuarios <a href="#/television-stats/graph8">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
        
     </ul>
 
