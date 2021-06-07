@@ -62,7 +62,7 @@
         margin-top: auto;
     }
     h1{
-        font-size: 250%;
+        font-size: 240%;
         text-align: center;
         margin-top: 2%;
         text-decoration: underline;
