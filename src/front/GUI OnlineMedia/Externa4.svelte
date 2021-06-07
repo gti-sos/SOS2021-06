@@ -60,10 +60,12 @@
             labels: newLabels,
             labelsBold: true,
             labelsItalic: true,
-            tooltips:                        'Result: %{key}',
+            tooltips:                        'Result: %{value}',
              tooltipsCss:                       {
-                fontSize: '50pt',
-                textAlign: 'left'
+                position: "none",
+                display: "inline-block",
+                fontSize: '10pt',
+                textAlign: 'Bottom '
              },
             tooltipsFormattedKeyLabels:      ["8.51","9.17","7.22","8.54","8.04","7.80","7.93","9.07"],
             ends: 'straight',
@@ -77,9 +79,13 @@
 
 <main>
     <p align = "center">Nota animes</p>
-    <canvas id="cvs" width="400" height="400">
-        [No canvas support]
-    </canvas>
+    <div align = "center">
+        <canvas align = "center" id="cvs" width="400" height="400">
+            [No canvas support]
+        </canvas>
+
+    </div>
+    
 </main>
 
 <style>

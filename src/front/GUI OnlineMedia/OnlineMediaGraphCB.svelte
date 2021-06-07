@@ -3,9 +3,13 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
+    
 </svelte:head>
 
 <script>
+
+import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+    PaginationLink } from "sveltestrap";
 
 let datos = [];
 let array = [];
@@ -83,10 +87,42 @@ async function loadGraph(){
         });
   }
 
+  async function loadInitialData() {
+    console.log("Loading data...");
+
+    const res = await fetch(
+     "https://sos2021-26.herokuapp.com/api/v2/culturaBASE/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+        loadGraph(); 
+      }
+    });
+    
+  }
+
+  const BotonCargar = () => {
+    loadInitialData();
+  };
+
 </script>
 
 <main>
-    
+    <Nav>
+        <NavItem id="Boton">
+          
+            <NavLink
+              href="#"
+              on:click={BotonCargar}
+              id="Boton"
+              type="button"
+              class="btn btn-success btn-sm"
+              style="margin: 1em"
+            >
+              Cargar datos en su totalidad</NavLink
+            >
+         
+        </NavItem>
+    </Nav>
     <figure class="highcharts-figure">
     <p class="highcharts-description"></p>
     <div id="container"></div>

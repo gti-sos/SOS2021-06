@@ -78,12 +78,12 @@ async function loadGraph(){
     "caption": "Distribucion de Audiencias de las diferentes plataformas",
     "subcaption": "",
     "showpercentvalues": "1",
-    "defaultcenterlabel": "Audience Distribution",
+    "defaultcenterlabel": "Distribución de Audiencia",
     "aligncaptionwithcanvas": "0",
     "captionpadding": "0",
     "decimals": "1",
-    "plottooltext": "<b>$percentValue</b> of total audience users were on <b>$label</b>",
-    "centerlabel": "# Users: $value",
+    "plottooltext": "<b>$percentValue</b> de la audiencia total está en<b>$label</b>",
+    "centerlabel": "Audiencia: $value",
     "theme": "fusion"
   },
   "data": platformyearStats
