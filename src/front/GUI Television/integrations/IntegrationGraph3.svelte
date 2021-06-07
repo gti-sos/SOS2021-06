@@ -4,7 +4,7 @@
   <script src="https://code.highcharts.com/modules/cylinder.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraph}></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadInitialData}></script>
 </svelte:head>
 
 
@@ -70,6 +70,21 @@ async function loadGraph(){
   }]
 });
 }
+
+
+
+async function loadInitialData() {
+    console.log("Loading data...");
+
+    const res = await fetch(
+     "https://sos2021-24.herokuapp.com/api/v2/children-out-school/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+        loadGraph(); 
+      }
+    });
+    
+  }
 </script>
 
 <main>

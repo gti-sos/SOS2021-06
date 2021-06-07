@@ -4,7 +4,7 @@
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"on:load={loadGraph}></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"on:load={loadInitialData}></script>
 </svelte:head>
 
 <script>
@@ -78,6 +78,21 @@ Highcharts.chart('container', {
   }]
 });
 }
+
+
+
+async function loadInitialData() {
+    console.log("Loading data...");
+
+    const res = await fetch(
+     "https://sos2021-27.herokuapp.com/api/v2/province-budget-and-investment-in-social-promotion/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+        loadGraph(); 
+      }
+    });
+    
+  }
 </script>
 
 <main>
