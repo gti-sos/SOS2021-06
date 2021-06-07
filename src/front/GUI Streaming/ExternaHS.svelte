@@ -84,13 +84,13 @@
     async function loadGraph(){
       const dataSource = {
       "chart": {
-        "caption": "Legendary Hearthstone cards by class",
+        "caption": "Nº Cartas legendarias de hearthstone por clase",
         "subcaption": "",
-        "pyaxisname": "No. of cards",
+        "pyaxisname": "No. de cartas",
         "theme": "fusion",
         "showsecondarylimits": "0",
         "showdivlinesecondaryvalue": "0",
-        "plottooltext": "$label, legendary count is : <b>$dataValue</b> of the total <b>$sum</b> cards",
+        "plottooltext": "$label, tiene : <b>$dataValue</b> cartas legensarias del total: <b>$sum</b>",
         "drawcrossline": "1"
       },
       "data": cartas

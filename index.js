@@ -5,7 +5,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 
 var app= express();
-
+var cors= require("cors");
 app.use(cors());
 
 var port = (process.env.PORT || 10000);
@@ -15,9 +15,9 @@ var path = require("path");
 var BASE_API_PATH = "/api/v1";
 var BASE_API_PATH2 = "/api/v2";
 
-var cors= require("cors");
 
-app.use(cors())
+
+
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

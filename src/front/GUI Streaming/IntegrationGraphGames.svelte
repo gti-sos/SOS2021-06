@@ -10,7 +10,8 @@
     import {
         onMount
     } from "svelte";
-
+    import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+    PaginationLink } from "sveltestrap";
     let streamingStats = [];
     let hourStats = [];
 
@@ -106,11 +107,43 @@ chartConfigs = {
 };
     };
 
+    const BotonCargar = () => {
+      loadInitialData();
+    };
+
+    async function loadInitialData() {
+    console.log("Loading data...");
+
+    const res = await fetch(
+     "https://sos2021-28.herokuapp.com/api/v1/games/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+         getStreams(); 
+      }
+    });
+    
+  }
 
 </script>
 
 <main>
- <SvelteFC {...chartConfigs} />
+  <Nav>
+    <NavItem id="Boton">
+      
+        <NavLink
+          href="#"
+          on:click={BotonCargar}
+          id="Boton"
+          type="button"
+          class="btn btn-success btn-sm"
+          style="margin: 1em"
+        >
+          Cargar Datos externos</NavLink
+        >
+     
+    </NavItem>
+</Nav>
+<div><SvelteFC {...chartConfigs} /></div>
 </main>
 
 <style>

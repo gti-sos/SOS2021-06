@@ -10,7 +10,8 @@
     import {
         onMount
     } from "svelte";
-
+    import { Nav, NavItem, NavLink, Table, Button, Alert,  Pagination, PaginationItem,
+    PaginationLink } from "sveltestrap";
 
     let streamingStats = [];
     let performances = [];
@@ -118,11 +119,40 @@
         };
     }
 
+    async function loadInitialData() {
+    console.log("Loading data...");
 
+    const res = await fetch(
+     "/proxyGoncamper/api/v2/performances-by-degrees-us/loadInitialData"
+    ).then(function (res) {
+      if(res.ok){
+         getStreams(); 
+      }
+    });  
+  }
+  const BotonCargar = () => {
+    loadInitialData();
+  };
 </script>
 
 <main>
-    <SvelteFC {...chartConfigs} />
+    <Nav>
+        <NavItem id="Boton">
+          
+            <NavLink
+              href="#"
+              on:click={BotonCargar}
+              id="Boton"
+              type="button"
+              class="btn btn-success btn-sm"
+              style="margin: 1em"
+            >
+            Cargar Datos externos</NavLink
+            >
+         
+        </NavItem>
+    </Nav>
+    <div><SvelteFC {...chartConfigs} /></div>
 </main>
 
 <style>

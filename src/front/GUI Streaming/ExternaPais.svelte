@@ -49,11 +49,11 @@
     async function loadGraph(){
         const dataSource = {
       "chart": {
-        "caption": "Top 20 Countries in the World by Population",
+        "caption": "Top 20 Paises en el Mundo por Poblacion",
         "subcaption": "",
-        "plottooltext": "$dataValue Total population",
-        "yaxisname": "Population",
-        "xaxisname": "Countries",
+        "plottooltext": "Poblacion Total: $dataValue",
+        "yaxisname": "Poblacion",
+        "xaxisname": "Paises",
         "theme": "fusion"
       },
       "categories": [
