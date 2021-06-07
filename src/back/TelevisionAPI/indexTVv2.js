@@ -19,7 +19,7 @@ var televisionInitial = [
 		"year" : 2020,
 		"cable_tv_broadcast_avg_audience_year" : 18200000,
 		"avg_age" : 58,
-		"avg_audience_month" : 2164000
+		"avg_audience_month" : 11640000
 	},
 	{
 		"groupTV" : "Antena3",
@@ -27,39 +27,39 @@ var televisionInitial = [
 		"year" : 2020,
 		"cable_tv_broadcast_avg_audience_year" :  19800000,
 		"avg_age" : 57,
-		"avg_audience_month" : 2330000
+		"avg_audience_month" : 13300000
 	},
 	{
 		"groupTV" : "La1",
 		"country" : "Spain",
 		"year" : 2020,
-		"cable_tv_broadcast_avg_audience_year" : 10500000,
+		"cable_tv_broadcast_avg_audience_year" : 17500000,
 		"avg_age" : 60,
-		"avg_audience_month" : 1725000
+		"avg_audience_month" : 10250000
 	},
 	{
 		"groupTV" : "Telecinco",
 		"country" : "Spain",
 		"year" : 2019,
-		"cable_tv_broadcast_avg_audience_year" : 13400000,
+		"cable_tv_broadcast_avg_audience_year" : 19400000,
 		"avg_age" : 55,
-		"avg_audience_month" : 1923000
+		"avg_audience_month" : 13230000
 	},
 	{
 		"groupTV" : "Antena3",
 		"country" : "Spain",
 		"year" : 2019,
-		"cable_tv_broadcast_avg_audience_year" :  1926000,
+		"cable_tv_broadcast_avg_audience_year" :  19260000,
 		"avg_age" : 52,
-		"avg_audience_month" : 2330000
+		"avg_audience_month" : 13300000
 	},
 	{
 		"groupTV" : "La1",
 		"country" : "Spain",
 		"year" : 2019,
-		"cable_tv_broadcast_avg_audience_year" : 1573000,
+		"cable_tv_broadcast_avg_audience_year" : 17730000,
 		"avg_age" : 59,
-		"avg_audience_month" : 1725000
+		"avg_audience_month" : 11250000
 	}
 	
 ];

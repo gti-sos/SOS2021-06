@@ -2,8 +2,8 @@
   async function loadGraph() {
       let HostelryData = [];
       let aux = ["x"];
-      let aux_1 = ["Turistas durante 2020"];
-      let aux_2 = ["Turistas durante 2019"];        
+      let aux_1 = ["Media Audiencia anual"];
+      let aux_2 = ["Media Audiencia mesual"];        
       const resData = await fetch("/api/v2/television-stats");
       HostelryData = await resData.json(); 
       HostelryData.forEach((f) =>{

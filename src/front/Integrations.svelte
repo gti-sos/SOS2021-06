@@ -4,17 +4,26 @@
 
     <h4>Integraciones/Usos (Daniel Gallardo Carrion)</h4>
     <ul>
-        <li>
-            Uso abandono escolar <a href="#/television-stats/graph3">Aquí</a>
-            (Realizado por: Daniel Gallardo Carrion)
-        </li>
 
-        <li>
-            Uso Inversion promoción social <a href="#/television-stats/graph4"
-                >Aquí</a
-            >
-            (Realizado por: Daniel Gallardo Carrion)
-        </li>
+        <li>Uso abandono escolar  <a href="#/television-stats/graph3">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li>
+            
+        <li>Uso Inversion promoción social <a href="#/television-stats/graph4">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li>   
+
+        <li>Uso Api Externa Covid Andalucia <a href="#/television-stats/graph5">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa ingredientes hamburguesa <a href="#/television-stats/graph6">Aquí</a>
+            (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa Radio/votos <a href="#/television-stats/graph7">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
+
+        <li>Uso Api Externa juegos/usuarios <a href="#/television-stats/graph8">Aquí</a>
+                (Realizado por: Daniel Gallardo Carrion)</li> 
+       
+
     </ul>
 
     <h4>Integraciones (Salvador Romero Merino)</h4>
@@ -61,16 +70,15 @@
     </ul>
     <h4>Integraciones (Gonzalo Camacho Pérez de Sevilla)</h4>
     <ul>
-        <li>
-            Uso "Rendimiento según grado" <a
-                href="#/streaming-stats/integrationPerf">Aquí</a
-            >
-            (Realizado por: Gonzalo Camacho Pérez de Sevilla)
-        </li>
-        <li>
-            Uso "Juegos" <a href="#/streaming-stats/integrationGames">Aquí</a>
-            (Realizado por: Gonzalo Camacho Pérez de Sevilla)
-        </li>
+
+        <li>Integración API de Daniel Sesé Benjumea de SOS "Rendimiento según grado" sos2021-09 <a href="#/streaming-stats/integrationPerf">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Integración Api de Fernando Olmedo Delgado de SOS "Juegos" sos2021-28 <a href="#/streaming-stats/integrationGames">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso Api externa "Hearthstone" <a href="#/streaming-stats/integrationHS">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso Api externa "REST Countries" <a href="#/streaming-stats/integrationPaises">Aquí</a>
+            (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
     </ul>
 </div>
 
