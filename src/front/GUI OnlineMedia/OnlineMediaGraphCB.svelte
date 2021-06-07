@@ -86,9 +86,9 @@ async function loadGraph(){
 </script>
 
 <main>
-    <p class="highcharts-description"></p>
-    <figure class="highcharts-figure">
     
+    <figure class="highcharts-figure">
+    <p class="highcharts-description"></p>
     <div id="container"></div>
     
     </figure> 

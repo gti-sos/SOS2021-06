@@ -19,6 +19,7 @@
 	import OnlineMediaExt1 from "./GUI OnlineMedia/Externa1.svelte";
 	import OnlineMediaExt2 from "./GUI OnlineMedia/Externa2.svelte";
 	import OnlineMediaExt3 from "./GUI OnlineMedia/Externa3.svelte";
+	import OnlineMediaExt4 from "./GUI OnlineMedia/Externa4.svelte";
 	import StreamingAPI from "./GUI Streaming/Streaming.svelte";
 	import StreamEdit from "./GUI Streaming/StreamEdit.svelte";
 	import StreamGraph from "./GUI Streaming/StreamGraphBar.svelte";
@@ -28,6 +29,7 @@
 	import TeamGraph from "./TeamGraph.svelte";
 	import InfoPage from "./infoPage.svelte";
 	import Integrations from "./Integrations.svelte";
+	import Videos from "./Videos.svelte";
 
 
 
@@ -52,6 +54,7 @@
 		"/onlinemedia-stats/ext1":OnlineMediaExt1,
 		"/onlinemedia-stats/ext2":OnlineMediaExt2,
 		"/onlinemedia-stats/ext3":OnlineMediaExt3,
+		"/onlinemedia-stats/ext4":OnlineMediaExt4,
 		"/streaming-stats": StreamingAPI,
 		"/streaming-stats/:streamPlatform/:streamYear":StreamEdit,
 		"/streaming-stats/graph":StreamGraph,
@@ -59,6 +62,7 @@
 		"/streaming-stats/integrationPerf":IntegrationPerf,
 		"/streaming-stats/integrationGames":IntegrationGames,
 		"/analytics":TeamGraph,
+		"/about" : Videos,
 		"/info": InfoPage,
 		"/integrations": Integrations,
 		'*': NotFound
