@@ -37,10 +37,14 @@
     </ul>
     <h4>Integraciones (Gonzalo Camacho Pérez de Sevilla)</h4>
     <ul>
-        <li>Uso "Rendimiento según grado"  <a href="#/streaming-stats/integrationPerf">Aquí</a>
+        <li>Integración "Rendimiento según grado" de Daniel Sesé Benjumea del Grupo 09 de SOS  <a href="#/streaming-stats/integrationPerf">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
-        <li>Uso "Juegos"  <a href="#/streaming-stats/integrationGames">Aquí</a>
+        <li>Integración "Juegos" de Fernando Olmedo Delgado del Grupo 28 de SOS <a href="#/streaming-stats/integrationGames">Aquí</a>
             (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso "Hearthstone" externa <a href="#/streaming-stats/integrationHS">Aquí</a>
+                (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
+        <li>Uso "REST Countries" externa <a href="#/streaming-stats/integrationPaises">Aquí</a>
+                (Realizado por: Gonzalo Camacho Pérez de Sevilla)</li>
     </ul>
 
 </div>
